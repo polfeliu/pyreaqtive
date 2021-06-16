@@ -1,2 +1,2 @@
-from .rqmodel import RQModel
-from .rqlabel import RQLabel
+from .rqmodel import *
+from .rqlabel import *
