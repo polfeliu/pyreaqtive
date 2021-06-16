@@ -20,16 +20,16 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.main_widget)
         self.main_layout = QVBoxLayout(self.main_widget)
 
-        self.counter_add_push_button = QPushButton("add")
-        self.counter_add_push_button.clicked.connect(self.add_to_counter)
-        self.main_layout.addWidget(self.counter_add_push_button)
+        self.counter_increment_button = QPushButton("+")
+        self.counter_increment_button.clicked.connect(lambda: self.mycounter.increment())
+        self.main_layout.addWidget(self.counter_increment_button)
+        self.counter_decrement_button = QPushButton("-")
+        self.counter_decrement_button.clicked.connect(lambda: self.mycounter.decrement())
+        self.main_layout.addWidget(self.counter_decrement_button)
         self.counter_display_label = RQLabel(self.mycounter)
         self.main_layout.addWidget(self.counter_display_label)
 
         self.show()
-
-    def add_to_counter(self):
-        self.mycounter.set(self.mycounter.get() + 1)
 
 app = QApplication(sys.argv)
 mainWindow = MainWindow()
