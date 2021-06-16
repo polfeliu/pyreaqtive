@@ -1,3 +1,2 @@
-from .rqmodel import *
-from .rqlabel import *
-from .rqspinbox import *
+from .models import *
+from .widgets import *

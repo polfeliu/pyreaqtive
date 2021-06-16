@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QLabel
-from .rqmodel import *
+from ..models import RQModel
 
 class RQLabel(QLabel):
 
-    model = None
+    model: RQModel = None
 
     def __init__(self, model, *args):
         self.model = model

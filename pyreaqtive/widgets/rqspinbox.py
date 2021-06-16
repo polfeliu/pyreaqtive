@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QSpinBox
-from .rqmodel import *
+from ..models import RQModel
 
 class RQSpinBox(QSpinBox):
 
-    model = None
+    model: RQModel = None
 
     def __init__(self, model, *args):
         self.model = model
