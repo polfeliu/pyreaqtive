@@ -1,11 +1,8 @@
+from encodings.punycode import selective_find
+
 from PyQt5.QtWidgets import *
 from pyreaqtive import *
 import sys
-
-"""class MyCounter(RQModel):
-
-    count = RQInt(1)"""
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -26,6 +23,10 @@ class MainWindow(QMainWindow):
         self.counter_decrement_button = QPushButton("-")
         self.counter_decrement_button.clicked.connect(lambda: self.mycounter.decrement())
         self.main_layout.addWidget(self.counter_decrement_button)
+
+        self.counter_spin_box = RQSpinBox(self.mycounter)
+        self.main_layout.addWidget(self.counter_spin_box)
+
         self.counter_display_label = RQLabel(self.mycounter)
         self.main_layout.addWidget(self.counter_display_label)
 
