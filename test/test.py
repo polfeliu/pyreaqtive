@@ -10,6 +10,8 @@ class MainWindow(QMainWindow):
 
         self.mycounter = RQInt(1)
 
+        self.bool_state = RQBool(True)
+
         self.init_ui()
 
     def init_ui(self):
@@ -29,6 +31,11 @@ class MainWindow(QMainWindow):
 
         self.counter_display_label = RQLabel(self.mycounter)
         self.main_layout.addWidget(self.counter_display_label)
+
+        self.checkbox_1 = RQCheckbox(self.bool_state, "Checkbox 1")
+        self.main_layout.addWidget(self.checkbox_1)
+        self.checkbox_2 = RQCheckbox(self.bool_state, "Checkbox 2")
+        self.main_layout.addWidget(self.checkbox_2)
 
         self.show()
 

@@ -1,4 +1,3 @@
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 from .rqmodel import RQModel
 
 class RQInt(RQModel):
@@ -13,8 +12,8 @@ class RQInt(RQModel):
         return self._int
 
     def set(self, value):
-        self._rq_data_changed.emit()
         self._int = value
+        self._rq_data_changed.emit()
 
     def increment(self, delta=1):
         self.set(self._int + delta)
