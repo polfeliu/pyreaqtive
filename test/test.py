@@ -5,7 +5,7 @@ import random
 
 from typing import Type
 
-class Counter(QWidget):
+class Counter(RQModel):
 
     mycounter: RQInt
 
