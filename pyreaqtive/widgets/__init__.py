@@ -1,4 +1,4 @@
-from .rqwidget import RQWidget
+from .rqwidget import *
 from .rqlabel import *
 from .rqspinbox import *
 from .rqcheckbox import *

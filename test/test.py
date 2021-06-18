@@ -1,8 +1,7 @@
-from encodings.punycode import selective_find
-
 from PyQt5.QtWidgets import *
 from pyreaqtive import *
 import sys
+import random
 
 from typing import Type
 
@@ -44,18 +43,29 @@ class CounterWidget(RQWidget):
     def decrement(self):
         self.model.mycounter.decrement()
 
+class AlternateCounterWidget(RQWidget):
+
+    def __init__(self, model: Counter):
+        super().__init__()
+        self.main_layout = QVBoxLayout(self)
+        self.main_layout.addWidget(
+            QPushButton("Alternate Counter Widget")
+        )
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.counters = RQList([Counter()])
-
         self.bool_state = RQBool(True)
-
         self.init_ui()
 
     def counter_widget_callback(self, model: Type[RQModel]) -> Type[QWidget]:
-        return CounterWidget(model)
+        if random.choice([True, False]):
+            return CounterWidget(model)
+        else:
+            return AlternateCounterWidget(model)
 
     def init_ui(self):
         self.main_widget = QWidget()
