@@ -9,3 +9,6 @@ class RQModel(QObject):
         raise NotImplementedError
 
     _rq_data_changed = pyqtSignal()
+
+    def _rq_initialize(self):
+        raise NotImplementedError

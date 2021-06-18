@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import QSpinBox
+from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
+
 from ..models import RQModel
 
 class RQSpinBox(QSpinBox):
@@ -10,11 +12,15 @@ class RQSpinBox(QSpinBox):
         super().__init__(*args)
         self.setValue(self.model)
         self.setRange(-2 ** 30, 2 ** 30)
-        self.model._rq_data_changed.connect(
-            lambda: self.setValue(int(self.model))
-        )
+        self.model._rq_data_changed.connect(self._rq_data_changed)
 
-        self.valueChanged.connect(
-            lambda: self.model.set(self.value())
-        )
+        self.valueChanged.connect(self._valueChanged)
+
+    @pyqtSlot()
+    def _rq_data_changed(self):
+        self.setValue(int(self.model))
+
+    @pyqtSlot()
+    def _valueChanged(self):
+        self.model.set(self.value())
 
