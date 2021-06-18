@@ -8,8 +8,8 @@ class RQCheckbox(QCheckBox):
     model: RQModel = None
 
     def __init__(self, model, *args):
-        self.model = model
         super().__init__(*args)
+        self.model = model
         self.toggled.connect(self._toggled)
         self.model._rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()

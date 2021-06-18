@@ -12,7 +12,7 @@ class Counter(RQModel):
     def __init__(self):
         super().__init__()
 
-        self.mycounter = RQInt(1)
+        self.mycounter = RQInt(100)
 
 class CounterWidget(RQWidget):
 
@@ -36,6 +36,16 @@ class CounterWidget(RQWidget):
 
         self.counter_display_label = RQLabel(self.model.mycounter)
         self.main_layout.addWidget(self.counter_display_label)
+
+        self.model.mycounter._rq_data_changed.connect(self.update_counter_text_size)
+
+        self.update_counter_text_size()
+
+    # example of a custom function binding
+    def update_counter_text_size(self):
+        f = self.counter_display_label.font()
+        f.setPointSize(self.model.mycounter)
+        self.counter_display_label.setFont(f)
 
     def increment(self):
         self.model.mycounter.increment()

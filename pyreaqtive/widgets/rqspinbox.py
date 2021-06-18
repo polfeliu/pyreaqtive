@@ -8,13 +8,13 @@ class RQSpinBox(QSpinBox):
     model: RQModel = None
 
     def __init__(self, model, *args):
-        self.model = model
         super().__init__(*args)
+        self.model = model
         self.setValue(self.model)
         self.setRange(-2 ** 30, 2 ** 30)
         self.model._rq_data_changed.connect(self._rq_data_changed)
-
         self.valueChanged.connect(self._valueChanged)
+        self._rq_data_changed()
 
     @pyqtSlot()
     def _rq_data_changed(self):
