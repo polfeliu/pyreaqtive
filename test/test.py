@@ -13,6 +13,14 @@ class Counter(QWidget):
 
         self.mycounter = RQInt(1)
 
+class CounterWidget(RQWidget):
+
+    model: Counter
+
+    def __init__(self, model: Counter):
+        self.model = model
+        super().__init__()
+
         self.main_layout = QVBoxLayout(self)
 
         self.counter_increment_button = QPushButton("+")
@@ -22,17 +30,17 @@ class Counter(QWidget):
         self.counter_decrement_button.clicked.connect(self.decrement)
         self.main_layout.addWidget(self.counter_decrement_button)
 
-        self.counter_spin_box = RQSpinBox(self.mycounter)
+        self.counter_spin_box = RQSpinBox(self.model.mycounter)
         self.main_layout.addWidget(self.counter_spin_box)
 
-        self.counter_display_label = RQLabel(self.mycounter)
+        self.counter_display_label = RQLabel(self.model.mycounter)
         self.main_layout.addWidget(self.counter_display_label)
 
     def increment(self):
-        self.mycounter.increment()
+        self.model.mycounter.increment()
 
     def decrement(self):
-        self.mycounter.decrement()
+        self.model.mycounter.decrement()
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -44,12 +52,15 @@ class MainWindow(QMainWindow):
 
         self.init_ui()
 
+    def counter_widget_callback(self, model: Counter):
+        return CounterWidget(model)
+
     def init_ui(self):
         self.main_widget = QWidget()
         self.setCentralWidget(self.main_widget)
         self.main_layout = QVBoxLayout(self.main_widget)
 
-        self.counters_layout = RQVBoxLayout(model=self.counters, widget=Counter)
+        self.counters_layout = RQVBoxLayout(model=self.counters, widget_callback=self.counter_widget_callback)
         self.main_layout.addLayout(self.counters_layout)
 
         self.add_counter = QPushButton("Add Counter")

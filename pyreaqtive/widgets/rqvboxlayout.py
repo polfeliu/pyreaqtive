@@ -3,17 +3,17 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQModel, RQList
 
-from typing import List
+from typing import List, Dict, Callable
 
 class RQVBoxLayout(QVBoxLayout):
 
     model: RQModel
-    widget: QWidget
+    widget_callback: Callable[[RQModel], QWidget]
 
-    def __init__(self, model, widget, *args):
+    def __init__(self, model: RQModel, widget_callback: Callable[[RQModel], QWidget], *args):
         super().__init__(*args)
         self.model = model
-        self.widget = widget
+        self.widget_callback = widget_callback
 
         if not isinstance(model, RQList):
             raise TypeError
@@ -27,7 +27,8 @@ class RQVBoxLayout(QVBoxLayout):
 
     @pyqtSlot(int)
     def _rq_insert_widget(self, index):
-        self.widgets.insert(index, self.widget())
+        model = self.model.get_item(index)
+        self.widgets.insert(index,self.widget_callback(model))
         self.addWidget(self.widgets[index])
 
     @pyqtSlot(int)

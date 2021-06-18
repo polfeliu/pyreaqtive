@@ -21,6 +21,9 @@ class RQList(RQModel):
             self._list.pop()
             self._rq_list_remove.emit(len(self._list))
 
+    def get_item(self, index):
+        return self._list[index]
+
     def _rq_initialize(self):
         for index, item in enumerate(self._list):
             self._rq_list_insert.emit(index)
