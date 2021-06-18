@@ -2,15 +2,16 @@ from PyQt5.QtWidgets import QVBoxLayout, QWidget, QPushButton
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQModel, RQList
+from .rqwidget import RQWidget
 
-from typing import List, Dict, Callable
+from typing import List, Dict, Callable, Type
 
 class RQVBoxLayout(QVBoxLayout):
 
     model: RQModel
-    widget_callback: Callable[[RQModel], QWidget]
+    widget_callback: Callable[[Type[RQModel]], Type[QWidget]]
 
-    def __init__(self, model: RQModel, widget_callback: Callable[[RQModel], QWidget], *args):
+    def __init__(self, model: RQModel, widget_callback: Callable[[Type[RQModel]], Type[QWidget]], *args):
         super().__init__(*args)
         self.model = model
         self.widget_callback = widget_callback

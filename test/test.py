@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import *
 from pyreaqtive import *
 import sys
 
+from typing import Type
+
 class Counter(QWidget):
 
     mycounter: RQInt
@@ -52,7 +54,7 @@ class MainWindow(QMainWindow):
 
         self.init_ui()
 
-    def counter_widget_callback(self, model: Counter):
+    def counter_widget_callback(self, model: Type[RQModel]) -> Type[QWidget]:
         return CounterWidget(model)
 
     def init_ui(self):
