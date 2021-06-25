@@ -118,7 +118,7 @@ class MainWindow(QMainWindow):
 
         self.line_edit = RQLineEdit(self.text_1)
         self.main_layout.addWidget(self.line_edit)
-        self.label_text_1 = RQLabel(self.text_1)
+        self.label_text_1 = RQLabel(RQFormatter("text {text_1}", text_1=self.text_1))
         self.main_layout.addWidget(self.label_text_1)
 
         self.show()
