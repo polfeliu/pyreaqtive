@@ -16,8 +16,12 @@ class RQLineEdit(QLineEdit):
 
     @pyqtSlot()
     def _rq_data_changed(self):
-        self.setText(str(self.model))
+        if not self._rq_self_changing:
+            self.setText(str(self.model))
 
+    _rq_self_changing = False
     @pyqtSlot(str)
     def _valueChanged(self, text):
+        self._rq_self_changing = True
         self.model.set(text)
+        self._rq_self_changing = False
