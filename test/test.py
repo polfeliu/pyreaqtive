@@ -8,11 +8,13 @@ from typing import Type
 class Counter(RQModel):
 
     mycounter: RQInt
+    rq_list_index: RQInt
 
     def __init__(self):
         super().__init__()
 
-        self.mycounter = RQInt(100)
+        self.mycounter = RQInt(10)
+        self.rq_list_index = RQInt(0)
 
 class CounterWidget(RQWidget):
 
@@ -60,6 +62,11 @@ class AlternateCounterWidget(RQWidget):
         self.main_layout = QVBoxLayout(self)
         self.main_layout.addWidget(
             QPushButton("Alternate Counter Widget")
+        )
+
+
+        self.main_layout.addWidget(
+            RQLabel(model.rq_list_index)
         )
 
 
