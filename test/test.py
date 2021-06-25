@@ -67,7 +67,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.counters = RQList([Counter()])
+        self.counters = RQList([Counter])
         self.bool_state = RQBool(True)
         self.init_ui()
 
@@ -86,7 +86,7 @@ class MainWindow(QMainWindow):
         self.main_layout.addLayout(self.counters_layout)
 
         self.add_counter = QPushButton("Add Counter")
-        self.add_counter.clicked.connect(lambda: self.counters.append(Counter()))
+        self.add_counter.clicked.connect(lambda: self.counters.append(Counter))
         self.main_layout.addWidget(self.add_counter)
         self.remove_counter = QPushButton("Remove Counter")
         self.remove_counter.clicked.connect(lambda: self.counters.pop())

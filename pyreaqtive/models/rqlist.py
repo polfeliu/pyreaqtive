@@ -1,19 +1,24 @@
 from .rqmodel import RQModel
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
+from typing import List
+
 class RQList(RQModel):
 
-    _list: list
+    _list: list = []
 
-    def __init__(self, initial=[]):
+    def __init__(self, initial_models: List[RQModel]=[]):
         super().__init__()
-        self._list = initial
+        for model in initial_models:
+            instance = model()
+            self._list.append(instance)
 
     _rq_list_insert = pyqtSignal(int)
     _rq_list_remove = pyqtSignal(int)
 
     def append(self, model):
-        self._list.append(model)
+        instance = model()
+        self._list.append(instance)
         self._rq_list_insert.emit(len(self._list) - 1)
 
     def pop(self):
