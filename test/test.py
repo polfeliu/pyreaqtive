@@ -38,8 +38,9 @@ class CounterWidget(RQWidget):
 
         self.counter_display_label = RQLabel(
             RQFormatter(
-                "count {count}",
-                count=self.model.mycounter
+                "count {count}, index: {index}",
+                count=self.model.mycounter,
+                index=self.model.rq_list_index
             )
         )
         self.main_layout.addWidget(self.counter_display_label)
