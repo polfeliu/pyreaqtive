@@ -8,10 +8,11 @@ class RQList(RQModel):
     _list: list = []
 
     def __init__(self, initial_models: List[RQModel]=[]):
-        super().__init__()
         for model in initial_models:
             instance = model()
             self._list.append(instance)
+        super().__init__()
+
 
     _rq_list_insert = pyqtSignal(int)
     _rq_list_remove = pyqtSignal(int)
@@ -32,3 +33,8 @@ class RQList(RQModel):
     def _rq_initialize(self):
         for index, item in enumerate(self._list):
             self._rq_list_insert.emit(index)
+
+    def _update_child_indexes(self):
+        for item in self._list:
+            if hasattr(item, "rq_list_index"):
+                pass
