@@ -87,6 +87,7 @@ class MainWindow(QMainWindow):
 
         self.counters = RQList([Counter])
         self.bool_state = RQBool(True)
+        self.text_1 = RQText("hello!")
         self.init_ui()
 
     def counter_widget_callback(self, model: Type[RQModel]) -> Type[QWidget]:
@@ -114,6 +115,11 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.checkbox_1)
         self.checkbox_2 = RQCheckbox(self.bool_state, "Checkbox 2")
         self.main_layout.addWidget(self.checkbox_2)
+
+        self.line_edit = RQLineEdit(self.text_1)
+        self.main_layout.addWidget(self.line_edit)
+        self.label_text_1 = RQLabel(self.text_1)
+        self.main_layout.addWidget(self.label_text_1)
 
         self.show()
 
