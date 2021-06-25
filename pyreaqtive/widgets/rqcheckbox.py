@@ -16,8 +16,13 @@ class RQCheckbox(QCheckBox):
 
     @pyqtSlot()
     def _rq_data_changed(self):
-        self.setChecked(bool(self.model))
+        if not self._rq_self_changing:
+            self.setChecked(bool(self.model))
+
+    _rq_self_changing = False
 
     @pyqtSlot()
     def _toggled(self):
+        self._rq_self_changing = True
         self.model.set(bool(self.checkState()))
+        self._rq_self_changing = False

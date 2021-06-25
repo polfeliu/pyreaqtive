@@ -18,9 +18,14 @@ class RQSpinBox(QSpinBox):
 
     @pyqtSlot()
     def _rq_data_changed(self):
-        self.setValue(int(self.model))
+        if not self._rq_self_changing:
+            self.setValue(int(self.model))
+
+    _rq_self_changing = False
 
     @pyqtSlot()
     def _valueChanged(self):
+        self._rq_self_changing = True
         self.model.set(self.value())
+        self._rq_self_changing = False
 
