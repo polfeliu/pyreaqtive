@@ -5,8 +5,8 @@ import random
 
 from typing import Type
 
-class Counter(RQModel):
 
+class Counter(RQModel):
     mycounter: RQInt
     rq_list_index: RQInt
 
@@ -16,8 +16,8 @@ class Counter(RQModel):
         self.mycounter = RQInt(10)
         self.rq_list_index = RQInt(0)
 
-class CounterWidget(RQWidget):
 
+class CounterWidget(RQWidget):
     model: Counter
 
     def __init__(self, model: Counter):
@@ -36,7 +36,12 @@ class CounterWidget(RQWidget):
         self.counter_spin_box = RQSpinBox(self.model.mycounter)
         self.main_layout.addWidget(self.counter_spin_box)
 
-        self.counter_display_label = RQLabel(self.model.mycounter)
+        self.counter_display_label = RQLabel(
+            RQFormatter(
+                "count {count}",
+                count=self.model.mycounter
+            )
+        )
         self.main_layout.addWidget(self.counter_display_label)
 
         self.model.mycounter._rq_data_changed.connect(self.update_counter_text_size)
@@ -55,6 +60,7 @@ class CounterWidget(RQWidget):
     def decrement(self):
         self.model.mycounter.decrement()
 
+
 class AlternateCounterWidget(RQWidget):
 
     def __init__(self, model: Counter):
@@ -64,9 +70,13 @@ class AlternateCounterWidget(RQWidget):
             QPushButton("Alternate Counter Widget")
         )
 
-
         self.main_layout.addWidget(
-            RQLabel(model.rq_list_index)
+            RQLabel(
+                RQFormatter(
+                    "index is {index}",
+                    index=model.rq_list_index
+                )
+            )
         )
 
 
@@ -105,6 +115,7 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.checkbox_2)
 
         self.show()
+
 
 app = QApplication(sys.argv)
 mainWindow = MainWindow()
