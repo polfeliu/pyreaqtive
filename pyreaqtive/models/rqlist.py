@@ -14,6 +14,7 @@ class RQList(RQModel):
         for model in initial_models:
             instance = model()
             self._list.append(instance)
+        self._update_child_indexes()
         super().__init__()
 
 
@@ -38,12 +39,6 @@ class RQList(RQModel):
 
     def get_index(self, item):
         return self._list.index(item)
-
-    def _rq_initialize(self):
-        # TODO If this list is used by several widgets the initialize is called multiple times and they are injected multiple times!!
-        self._update_child_indexes()
-        for index, item in enumerate(self._list):
-            self._rq_list_insert.emit(index)
 
     def _update_child_indexes(self):
         for index, item in enumerate(self._list):

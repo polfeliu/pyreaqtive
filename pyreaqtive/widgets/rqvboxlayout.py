@@ -8,10 +8,10 @@ from typing import List, Dict, Callable, Type
 
 class RQVBoxLayout(QVBoxLayout):
 
-    model: RQModel
+    model: RQList
     widget_callback: Callable[[Type[RQModel]], Type[QWidget]]
 
-    def __init__(self, model: RQModel, widget_callback: Callable[[Type[RQModel]], Type[QWidget]], *args):
+    def __init__(self, model: RQList, widget_callback: Callable[[Type[RQModel]], Type[QWidget]], *args):
         super().__init__(*args)
         self.model = model
         self.widget_callback = widget_callback
@@ -22,7 +22,8 @@ class RQVBoxLayout(QVBoxLayout):
             self.model._rq_list_insert.connect(self._rq_insert_widget)
             self.model._rq_list_remove.connect(self._rq_remove_widget)
 
-        self.model._rq_initialize()
+        for index, item in enumerate(self.model._list):
+            self._rq_insert_widget(index)
 
     widgets: List[QWidget] = []
 
