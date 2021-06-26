@@ -83,6 +83,14 @@ class AlternateCounterWidget(RQWidget):
             )
         )
 
+class ChoiceOption(RQModel):
+
+    name: str
+
+    def __str__(self):
+        return self.name
+
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -91,6 +99,12 @@ class MainWindow(QMainWindow):
         self.counters = RQList([Counter])
         self.bool_state = RQBool(True)
         self.text_1 = RQText("hello!")
+
+        self.choice_list = RQList()
+        self.choice_list.append(ChoiceOption).name = "option 1"
+        self.choice_list.append(ChoiceOption).name = "option 2"
+        self.choice_list.append(ChoiceOption).name = "option 3"
+        self.choice = RQChoice(self.choice_list)
         self.init_ui()
 
     def counter_widget_callback(self, model: Type[RQModel]) -> Type[QWidget]:
@@ -123,6 +137,9 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.line_edit)
         self.label_text_1 = RQLabel(RQFormatter("text {text_1}", text_1=self.text_1))
         self.main_layout.addWidget(self.label_text_1)
+
+        self.combobox_1 = RQCombobox(self.choice)
+        self.main_layout.addWidget(self.combobox_1)
 
         self.show()
 

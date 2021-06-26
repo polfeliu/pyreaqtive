@@ -20,11 +20,12 @@ class RQList(RQModel):
     _rq_list_insert = pyqtSignal(int)
     _rq_list_remove = pyqtSignal(int)
 
-    def append(self, model):
+    def append(self, model: Type[RQModel]) -> RQModel:
         instance = model()
         self._list.append(instance)
         self._update_child_indexes()
         self._rq_list_insert.emit(len(self._list) - 1)
+        return instance
 
     def pop(self):
         if len(self._list) > 0:
@@ -36,6 +37,7 @@ class RQList(RQModel):
         return self._list[index]
 
     def _rq_initialize(self):
+        # TODO If this list is used by several widgets the initialize is called multiple times and they are injected multiple times!!
         self._update_child_indexes()
         for index, item in enumerate(self._list):
             self._rq_list_insert.emit(index)
@@ -45,3 +47,7 @@ class RQList(RQModel):
             if hasattr(item, "rq_list_index"):
                 if isinstance(item.rq_list_index, RQInt):
                     item.rq_list_index.set(index)
+
+    def __iter__(self):
+        for item in self._list:
+            yield item
