@@ -36,6 +36,9 @@ class RQList(RQModel):
     def get_item(self, index):
         return self._list[index]
 
+    def get_index(self, item):
+        return self._list.index(item)
+
     def _rq_initialize(self):
         # TODO If this list is used by several widgets the initialize is called multiple times and they are injected multiple times!!
         self._update_child_indexes()

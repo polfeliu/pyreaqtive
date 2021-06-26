@@ -140,6 +140,8 @@ class MainWindow(QMainWindow):
 
         self.combobox_1 = RQCombobox(self.choice)
         self.main_layout.addWidget(self.combobox_1)
+        self.combobox_2 = RQCombobox(self.choice)
+        self.main_layout.addWidget(self.combobox_2)
 
         self.show()
 

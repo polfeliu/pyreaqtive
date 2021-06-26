@@ -13,10 +13,11 @@ class RQCombobox(QComboBox):
         self.model._rq_data_changed.connect(self._rq_data_changed)
         self.model._choices._rq_list_insert.connect(self._rq_choice_insert)
         self.model._choices._rq_list_remove.connect(self._rq_choice_remove)
-        self._rq_data_changed()
 
         for index, choice in enumerate(self.model._choices):
             self._rq_choice_insert(index)
+
+        self.currentIndexChanged.connect(self._currentIndexChanged)
 
     @pyqtSlot(int)
     def _rq_choice_insert(self, index):
@@ -32,13 +33,19 @@ class RQCombobox(QComboBox):
     @pyqtSlot()
     def _rq_data_changed(self):
         if not self._rq_self_changing:
-            # TODO
-            pass#self.model._choices
+            self.setCurrentIndex(
+                self.model._choices.get_index(
+                    self.model._selected
+                )
+            )
+            pass
 
     _rq_self_changing = False
 
-    @pyqtSlot()
-    def _valueChanged(self):
+    @pyqtSlot(int)
+    def _currentIndexChanged(self, index):
         self._rq_self_changing = True
-        self.model.set(self.value())
+        self.model.set(
+            self.model._choices.get_item(index)
+        )
         self._rq_self_changing = False
