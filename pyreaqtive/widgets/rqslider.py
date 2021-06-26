@@ -14,6 +14,13 @@ class RQSlider(QSlider):
         self.model._rq_data_changed.connect(self._rq_data_changed)
         self.valueChanged.connect(self._valueChanged)
 
+    def _asdf(self):
+        """
+        aasdf
+        :return:
+        """
+        pass
+
     @pyqtSlot()
     def _rq_data_changed(self):
         if not self._rq_self_changing:
