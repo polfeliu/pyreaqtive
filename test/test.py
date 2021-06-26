@@ -38,8 +38,11 @@ class CounterWidget(RQWidget):
 
         self.counter_display_label = RQLabel(
             RQFormatter(
-                "count {count}, index: {index}",
-                count=self.model.mycounter,
+                "count x2 {countx2}, index: {index}",
+                countx2=RQFunction(
+                    lambda count: count * 2,
+                    count=self.model.mycounter
+                ),
                 index=self.model.rq_list_index
             )
         )

@@ -26,3 +26,6 @@ class RQInt(RQModel):
 
     def __int__(self):
         return self._int
+
+    def __float__(self):
+        return float(self._int)

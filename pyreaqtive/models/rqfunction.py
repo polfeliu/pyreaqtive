@@ -1,9 +1,9 @@
 from .rqmodel import RQModel
 
-class RQFormatter(RQModel):
-    def __init__(self, format_string, **kwargs):
+class RQFunction(RQModel):
+    def __init__(self, function, **kwargs):
         super().__init__()
-        self.format_string = format_string
+        self.function = function
         self.variables = kwargs
         for name, model in self.variables.items():
             if isinstance(model, RQModel) or issubclass(type(model), RQModel):
@@ -12,8 +12,11 @@ class RQFormatter(RQModel):
     def _variable_changed(self):
         self._rq_data_changed.emit()
 
-    def __str__(self):
-        return self.format_string.format(
-            **{key: str(variable) for key, variable in self.variables.items()}
+    def __float__(self):
+        return self.function(
+            **{key: float(variable) for key, variable in self.variables.items()}
         )
+
+    def __str__(self):
+        return str(self.__float__())
 
