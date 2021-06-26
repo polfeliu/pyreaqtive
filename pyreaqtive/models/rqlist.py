@@ -3,13 +3,14 @@ from .rqint import RQInt
 
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
-from typing import List
+from typing import List, Type
 
 class RQList(RQModel):
 
-    _list: list = []
+    _list: list
 
-    def __init__(self, initial_models: List[RQModel]=[]):
+    def __init__(self, initial_models: List[Type[RQModel]]=[]):
+        self._list = []
         for model in initial_models:
             instance = model()
             self._list.append(instance)
