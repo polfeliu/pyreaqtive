@@ -105,6 +105,9 @@ class MainWindow(QMainWindow):
         self.choice_list.append(ChoiceOption).name = "option 2"
         self.choice_list.append(ChoiceOption).name = "option 3"
         self.choice = RQChoice(self.choice_list)
+
+        self.progress = RQInt(0)
+
         self.init_ui()
 
     def counter_widget_callback(self, model: Type[RQModel]) -> Type[QWidget]:
@@ -142,6 +145,11 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.combobox_1)
         self.combobox_2 = RQCombobox(self.choice)
         self.main_layout.addWidget(self.combobox_2)
+
+        self.progress_spin = RQSpinBox(self.progress)
+        self.main_layout.addWidget(self.progress_spin)
+        self.progress_bar = RQProgressBar(self.progress)
+        self.main_layout.addWidget(self.progress_bar)
 
         self.show()
 

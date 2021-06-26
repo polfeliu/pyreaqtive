@@ -5,3 +5,4 @@ from .rqcheckbox import *
 from .rqvboxlayout import *
 from .rqlineedit import *
 from .rqcombobox import *
+from .rqprogressbar import *
