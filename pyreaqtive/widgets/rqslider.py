@@ -1,13 +1,13 @@
-from PyQt5.QtWidgets import QSpinBox
+from PyQt5.QtWidgets import QSlider
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQInt
 
-class RQSpinBox(QSpinBox):
+class RQSlider(QSlider):
 
-    model: RQInt = None
+    model: RQInt
 
-    def __init__(self, model, *args):
+    def __init__(self, model: RQInt, *args):
         super().__init__(*args)
         self.model = model
         self._rq_data_changed()

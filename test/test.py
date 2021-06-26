@@ -150,6 +150,8 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.progress_spin)
         self.progress_bar = RQProgressBar(self.progress)
         self.main_layout.addWidget(self.progress_bar)
+        self.progress_slider = RQSlider(self.progress)
+        self.main_layout.addWidget(self.progress_slider)
 
         self.show()
 
