@@ -83,13 +83,12 @@ class AlternateCounterWidget(RQWidget):
             )
         )
 
-class ChoiceOption(RQModel):
 
+class ChoiceOption(RQModel):
     name: str
 
     def __str__(self):
         return self.name
-
 
 
 class MainWindow(QMainWindow):
@@ -161,7 +160,6 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.some_float_spinbox)
         self.some_float_display = RQLabel(self.some_float)
         self.main_layout.addWidget(self.some_float_display)
-
 
         self.show()
 
