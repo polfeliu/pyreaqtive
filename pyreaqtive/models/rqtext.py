@@ -1,7 +1,7 @@
 from .rqmodel import RQModel
 
-class RQText(RQModel):
 
+class RQText(RQModel):
     _text: str
 
     def __init__(self, text):

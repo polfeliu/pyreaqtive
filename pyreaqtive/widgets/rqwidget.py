@@ -5,8 +5,8 @@ from ..models import RQModel, RQList
 
 from typing import List
 
-class RQWidget(QWidget):
 
+class RQWidget(QWidget):
     """model: RQModel
 
     def _rq_widget_init(self):

@@ -1,7 +1,7 @@
 from .rqmodel import RQModel
 
-class RQBool(RQModel):
 
+class RQBool(RQModel):
     _bool: bool
 
     def __init__(self, state):

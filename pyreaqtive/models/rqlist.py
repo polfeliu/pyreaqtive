@@ -5,18 +5,17 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from typing import List, Type
 
-class RQList(RQModel):
 
+class RQList(RQModel):
     _list: list
 
-    def __init__(self, initial_models: List[Type[RQModel]]=[]):
+    def __init__(self, initial_models: List[Type[RQModel]] = []):
         self._list = []
         for model in initial_models:
             instance = model()
             self._list.append(instance)
         self._update_child_indexes()
         super().__init__()
-
 
     _rq_list_insert = pyqtSignal(int)
     _rq_list_remove = pyqtSignal(int)

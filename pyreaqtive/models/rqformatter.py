@@ -1,5 +1,6 @@
 from .rqmodel import RQModel
 
+
 class RQFormatter(RQModel):
     def __init__(self, format_string, **kwargs):
         super().__init__()
@@ -16,4 +17,3 @@ class RQFormatter(RQModel):
         return self.format_string.format(
             **{key: str(variable) for key, variable in self.variables.items()}
         )
-

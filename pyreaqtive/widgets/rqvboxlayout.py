@@ -6,8 +6,8 @@ from .rqwidget import RQWidget
 
 from typing import List, Dict, Callable, Type
 
-class RQVBoxLayout(QVBoxLayout):
 
+class RQVBoxLayout(QVBoxLayout):
     model: RQList
     widget_callback: Callable[[Type[RQModel]], Type[QWidget]]
 
@@ -30,7 +30,7 @@ class RQVBoxLayout(QVBoxLayout):
     @pyqtSlot(int)
     def _rq_insert_widget(self, index):
         model = self.model.get_item(index)
-        self.widgets.insert(index,self.widget_callback(model))
+        self.widgets.insert(index, self.widget_callback(model))
         self.addWidget(self.widgets[index])
 
     @pyqtSlot(int)

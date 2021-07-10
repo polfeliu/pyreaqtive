@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import QProgressBar
 
 from ..models import RQInt
 
-class RQProgressBar(QProgressBar):
 
+class RQProgressBar(QProgressBar):
     model: RQInt
 
     def __init__(self, model: RQInt, *args):

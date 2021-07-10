@@ -3,12 +3,12 @@ from .rqlist import RQList
 
 from typing import List, Union
 
-class RQChoice(RQModel):
 
+class RQChoice(RQModel):
     _choices: RQList
     _selected: Union[RQModel, None]
 
-    def __init__(self, choices: RQList, selected:RQModel= None):
+    def __init__(self, choices: RQList, selected: RQModel = None):
         super().__init__()
         self._choices = choices
         self._selected = selected

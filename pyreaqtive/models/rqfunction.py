@@ -1,5 +1,6 @@
 from .rqmodel import RQModel
 
+
 class RQFunction(RQModel):
     def __init__(self, function, **kwargs):
         super().__init__()
@@ -19,4 +20,3 @@ class RQFunction(RQModel):
 
     def __str__(self):
         return str(self.__float__())
-

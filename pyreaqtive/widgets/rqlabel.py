@@ -13,6 +13,5 @@ class RQLabel(QLabel):
         self.model._rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()
 
-
     def _rq_data_changed(self):
         self.setText(str(self.model))

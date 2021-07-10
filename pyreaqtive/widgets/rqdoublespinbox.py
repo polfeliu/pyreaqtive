@@ -3,8 +3,8 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQFloat
 
-class RQDoubleSpinBox(QDoubleSpinBox):
 
+class RQDoubleSpinBox(QDoubleSpinBox):
     model: RQFloat
 
     def __init__(self, model, *args):
@@ -26,4 +26,3 @@ class RQDoubleSpinBox(QDoubleSpinBox):
         self._rq_self_changing = True
         self.model.set(self.value())
         self._rq_self_changing = False
-

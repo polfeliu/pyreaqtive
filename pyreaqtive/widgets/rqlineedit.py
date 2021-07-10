@@ -3,8 +3,8 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQModel
 
-class RQLineEdit(QLineEdit):
 
+class RQLineEdit(QLineEdit):
     model: RQModel
 
     def __init__(self, model, *args):
@@ -20,6 +20,7 @@ class RQLineEdit(QLineEdit):
             self.setText(str(self.model))
 
     _rq_self_changing = False
+
     @pyqtSlot(str)
     def _valueChanged(self, text):
         self._rq_self_changing = True

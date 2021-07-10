@@ -3,8 +3,8 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQInt
 
-class RQSlider(QSlider):
 
+class RQSlider(QSlider):
     model: RQInt
 
     def __init__(self, model: RQInt, *args):
@@ -33,4 +33,3 @@ class RQSlider(QSlider):
         self._rq_self_changing = True
         self.model.set(self.value())
         self._rq_self_changing = False
-

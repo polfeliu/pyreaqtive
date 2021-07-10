@@ -1,7 +1,7 @@
 from .rqmodel import RQModel
 
-class RQFloat(RQModel):
 
+class RQFloat(RQModel):
     _float: float
 
     def __init__(self, initial_float: float):

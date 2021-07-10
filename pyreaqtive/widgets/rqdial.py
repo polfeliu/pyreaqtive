@@ -3,8 +3,8 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQInt
 
-class RQDial(QDial):
 
+class RQDial(QDial):
     model: RQInt
 
     def __init__(self, model: RQInt, *args):
@@ -26,4 +26,3 @@ class RQDial(QDial):
         self._rq_self_changing = True
         self.model.set(self.value())
         self._rq_self_changing = False
-

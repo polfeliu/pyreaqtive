@@ -3,8 +3,8 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQModel
 
-class RQCheckbox(QCheckBox):
 
+class RQCheckbox(QCheckBox):
     model: RQModel = None
 
     def __init__(self, model, *args):

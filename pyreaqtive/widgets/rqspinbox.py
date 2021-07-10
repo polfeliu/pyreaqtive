@@ -3,8 +3,8 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQInt
 
-class RQSpinBox(QSpinBox):
 
+class RQSpinBox(QSpinBox):
     model: RQInt = None
 
     def __init__(self, model, *args):
@@ -26,4 +26,3 @@ class RQSpinBox(QSpinBox):
         self._rq_self_changing = True
         self.model.set(self.value())
         self._rq_self_changing = False
-
