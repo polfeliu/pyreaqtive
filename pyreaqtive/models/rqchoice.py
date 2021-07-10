@@ -12,7 +12,7 @@ class RQChoice(RQModel):
         super().__init__()
         self._choices = choices
         self._selected = selected
-        # TODO Validate selected
+        self.validate_selected()
 
     def get(self):
         return self._selected
@@ -20,9 +20,15 @@ class RQChoice(RQModel):
     def get_choices(self):
         return self._choices
 
+    def validate_selected(self):
+        if self._selected is None:
+            return
+        if self._selected not in self._choices:
+            raise KeyError
+
     def set(self, value):
         self._selected = value
-        #self.validate_selected()
+        self.validate_selected()
         self._rq_data_changed.emit()
 
     def __str__(self):
