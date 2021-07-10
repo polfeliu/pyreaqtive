@@ -1,1 +1,4 @@
 **.pyc
+/dist
+/build
+/pyreaqtive.egg-info
