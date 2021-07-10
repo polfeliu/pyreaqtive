@@ -152,6 +152,8 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.progress_bar)
         self.progress_slider = RQSlider(self.progress)
         self.main_layout.addWidget(self.progress_slider)
+        self.progress_dial = RQDial(self.progress)
+        self.main_layout.addWidget(self.progress_dial)
 
         self.show()
 
