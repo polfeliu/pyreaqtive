@@ -6,3 +6,4 @@ from .rqlist import *
 from .rqchoice import *
 from .rqformatter import *
 from .rqfunction import *
+from .rqfloat import *

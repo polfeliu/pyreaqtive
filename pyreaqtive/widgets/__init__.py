@@ -8,3 +8,4 @@ from .rqcombobox import *
 from .rqprogressbar import *
 from .rqslider import *
 from .rqdial import *
+from .rqdoublespinbox import *

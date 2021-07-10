@@ -108,6 +108,8 @@ class MainWindow(QMainWindow):
 
         self.progress = RQInt(0)
 
+        self.some_float = RQFloat(12.7)
+
         self.init_ui()
 
     def counter_widget_callback(self, model: Type[RQModel]) -> Type[QWidget]:
@@ -154,6 +156,12 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.progress_slider)
         self.progress_dial = RQDial(self.progress)
         self.main_layout.addWidget(self.progress_dial)
+
+        self.some_float_spinbox = RQDoubleSpinBox(self.some_float)
+        self.main_layout.addWidget(self.some_float_spinbox)
+        self.some_float_display = RQLabel(self.some_float)
+        self.main_layout.addWidget(self.some_float_display)
+
 
         self.show()
 
