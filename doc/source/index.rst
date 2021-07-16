@@ -10,7 +10,8 @@ Welcome to pyreaqtive's documentation!
    :maxdepth: 6
    :caption: Contents:
 
-   api/pyreaqtive
+   api/models
+   api/widgets
 
 Indices and tables
 ==================
