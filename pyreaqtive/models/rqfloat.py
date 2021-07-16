@@ -6,7 +6,7 @@ class RQFloat(RQModel):
 
     def __init__(self, initial_float: float):
         super().__init__()
-        self._float = initial_float
+        self._float = float(initial_float)
 
     def get(self):
         return self._float
