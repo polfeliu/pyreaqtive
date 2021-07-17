@@ -55,7 +55,7 @@ class CounterWidget(RQWidget):
     # example of a custom function binding
     def update_counter_text_size(self):
         f = self.counter_display_label.font()
-        f.setPointSize(self.model.mycounter)
+        f.setPointSize(int(self.model.mycounter))
         self.counter_display_label.setFont(f)
 
     def increment(self):
