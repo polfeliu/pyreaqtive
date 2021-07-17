@@ -43,7 +43,7 @@ class RQFloat(RQModel):
 
     def __str__(self) -> str:
         """
-        Get the value of the model in string format
+        Get value of the model in string format
 
         Returns:
             str: value of the model converted to string
@@ -52,7 +52,7 @@ class RQFloat(RQModel):
 
     def __int__(self) -> int:
         """
-        Get the value of the model in integer format
+        Get value of the model in integer format
 
         Returns:
             str: value of the model converted to integer
@@ -61,7 +61,7 @@ class RQFloat(RQModel):
 
     def __float__(self) -> float:
         """
-        Get the value of the model in float format
+        Get value of the model in float format
 
         Returns:
             str: value of the model

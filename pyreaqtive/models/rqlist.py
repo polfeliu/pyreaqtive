@@ -7,7 +7,18 @@ from typing import List, Type
 
 
 class RQList(RQModel):
+    """
+    Reactive List Model
+
+    Represents a list of models
+    """
+
     _list: list
+    """
+    Model store variable
+    
+    Stores instances of models
+    """
 
     def __init__(self, initial_models: List[Type[RQModel]] = []):
         self._list = []
