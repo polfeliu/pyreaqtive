@@ -2,7 +2,14 @@ from .rqmodel import RQModel
 
 
 class RQBool(RQModel):
+    """
+    Reactive Boolean Model
+    """
+
     _bool: bool
+    """
+    Model Store Variable
+    """
 
     def __init__(self, state):
         """
