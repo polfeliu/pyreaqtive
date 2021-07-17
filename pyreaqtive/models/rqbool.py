@@ -6,37 +6,44 @@ class RQBool(RQModel):
 
     def __init__(self, state):
         """
-        :param state:
+        Args:
+            state: Initial state of the model
         """
         super().__init__()
         self._bool = state
 
-    def get(self):
+    def get(self) -> bool:
         """
-        get method
-        :return:
+        Get value of the model
+
+        Returns:
+            bool: value of the model
+
         """
         return self._bool
 
-    def set(self, value):
+    def set(self, value) -> None:
         """
-        set method
-        :param value:
-        :return:
+        Will propagate the change to the widgets linked to the model
+
+        Args:
+            value: new value of the model
         """
         self._bool = value
         self._rq_data_changed.emit()
 
     def toggle(self):
         """
-        toggle method
-        :return:
+        Toggle the value of the model
         """
         self.set(not self.get())
 
     def __bool__(self):
         """
-        bool value of rqbool
-        :return:
+        Get the value of the model in bool format
+
+        Returns:
+            bool: value of the model
+
         """
         return self._bool
