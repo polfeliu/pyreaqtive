@@ -2,7 +2,19 @@ from .rqmodel import RQModel
 
 
 class RQFormatter(RQModel):
-    def __init__(self, format_string, **kwargs):
+    """
+    Reactive text formatter
+
+    Links to models and creates a string that is reactive to changes of models
+    """
+
+    def __init__(self, format_string: str, **kwargs):
+        """
+        Args:
+            format_string: python formatting string
+            **kwargs: list of variables or reactive models in the format
+                Changes in this list of models will trigger the rendering of the output string
+        """
         super().__init__()
         self.format_string = format_string
         self.variables = kwargs
