@@ -7,3 +7,6 @@ RQCheckbox
    :show-inheritance:
    :special-members:
    :private-members:
+
+.. literalinclude:: ../../../examples/rqbool_rqcheckbox.py
+   :caption: RQCheckbox with RQBool Example
