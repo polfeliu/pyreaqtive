@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from pyreaqtive.models import RQBool
 from pyreaqtive.widgets import RQCheckbox
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -22,6 +23,7 @@ class MainWindow(QMainWindow):
         # Add the widgets to the layout
         layout.addWidget(checkbox_1)
         layout.addWidget(checkbox_2)
+
 
 app = QApplication(sys.argv)
 window = MainWindow()
