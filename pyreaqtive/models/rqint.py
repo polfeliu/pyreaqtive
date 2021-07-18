@@ -58,7 +58,7 @@ class RQInt(RQModel):
         """
         self.increment(delta=-delta)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Get value of the model in string format
 
@@ -67,7 +67,7 @@ class RQInt(RQModel):
         """
         return str(self._int)
 
-    def __int__(self):
+    def __int__(self) -> int:
         """
         Get value of the model in integer format
 
@@ -76,7 +76,7 @@ class RQInt(RQModel):
         """
         return self._int
 
-    def __float__(self):
+    def __float__(self) -> float:
         """
         Get value of the model in float format
 
