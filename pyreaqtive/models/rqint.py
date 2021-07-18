@@ -1,7 +1,7 @@
 from .rqmodel import RQModel
 
 
-class RQInt(RQModel)
+class RQInt(RQModel):
     """
     Reactive Integer Model
     
