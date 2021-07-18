@@ -7,10 +7,13 @@ Models
    models.rqmodel
 
    models.rqbool
-   models.rqchoice
+   models.rqint
    models.rqfloat
+   models.rqtext
+
+   models.rqlist
+   models.rqchoice
+
    models.rqformatter
    models.rqfunction
-   models.rqint
-   models.rqlist
-   models.rqtext
+

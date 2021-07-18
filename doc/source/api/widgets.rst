@@ -7,12 +7,16 @@ Widgets
    widgets.rqwidget
 
    widgets.rqcheckbox
-   widgets.rqcombobox
-   widgets.rqdial
-   widgets.rqdoublespinbox
+
    widgets.rqlabel
    widgets.rqlineedit
+
+   widgets.rqspinbox
+   widgets.rqdoublespinbox
    widgets.rqprogressbar
    widgets.rqslider
-   widgets.rqspinbox
+   widgets.rqdial
+
+   widgets.rqcombobox
+
    widgets.rqvboxlayout
