@@ -7,8 +7,10 @@ Welcome to pyreaqtive's documentation!
 ======================================
 
 .. toctree::
-   :maxdepth: 6
+   :maxdepth: 1
    :caption: Contents:
+
+   examples/examples
 
    api/models
    api/widgets
