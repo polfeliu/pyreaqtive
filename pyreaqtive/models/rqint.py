@@ -40,7 +40,7 @@ class RQInt(RQModel):
         self._int = int(value)
         self._rq_data_changed.emit()
 
-    def increment(self, delta=1) -> None:
+    def increment(self, delta: int = 1) -> None:
         """
         Increment integer method
 
@@ -49,7 +49,7 @@ class RQInt(RQModel):
         """
         self.set(self._int + delta)
 
-    def decrement(self, delta=1):
+    def decrement(self, delta: int = 1):
         """
         Decrement integer method
 
