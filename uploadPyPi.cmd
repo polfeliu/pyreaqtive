@@ -9,3 +9,6 @@ pipenv run python setup.py sdist bdist_wheel
 python -m pip install --upgrade twine
 python -m twine check dist/*
 python -m twine upload --repository pypi dist/*
+
+rmdir /s /q "dist"
+rmdir /s /q "build"
