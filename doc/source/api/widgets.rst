@@ -8,8 +8,8 @@ Widgets
 
    widgets.rqcheckbox
 
-   widgets.rqlabel
    widgets.rqlineedit
+   widgets.rqlabel
 
    widgets.rqspinbox
    widgets.rqdoublespinbox
