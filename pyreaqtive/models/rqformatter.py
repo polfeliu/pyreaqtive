@@ -13,7 +13,7 @@ class RQFormatter(RQModel):
         Args:
             format_string: python formatting string
 
-            kwargs: variables or reactive models in the format.
+            \**kwargs: variables or reactive models in the format.
             Changes in these models will trigger rendering of the output string
 
         """

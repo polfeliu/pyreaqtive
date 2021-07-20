@@ -18,7 +18,7 @@ class RQLabel(QLabel):
         Args:
             model: Model to link the widget to
 
-            *args: arguments to pass to the native pyqt label widget
+            \*args: arguments to pass to the native pyqt label widget
         """
         super().__init__(str(self.model), *args)
         self.model = model

@@ -19,7 +19,7 @@ class RQDoubleSpinBox(QDoubleSpinBox):
         Args:
             model: Model to link the widget to
 
-            args: arguments to pass to the native pyqt doublespinbox widget
+            \*args: arguments to pass to the native pyqt doublespinbox widget
         """
         super().__init__(*args)
         self.model = model

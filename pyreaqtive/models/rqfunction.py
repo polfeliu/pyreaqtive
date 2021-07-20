@@ -12,7 +12,7 @@ class RQFunction(RQModel):
         Args:
             function: mathematical function
 
-            kwargs: variables or reactive models in the function
+            \**kwargs: variables or reactive models in the function
             Changes in these models will trigger recalculation of the function
         """
         super().__init__()

@@ -7,3 +7,4 @@ RQText with RQLineEdit and RQLabel
 .. image:: ../_static/rqtext_rqlineedit_rqlabel.gif
    :width: 200
    :align: center
+ 
