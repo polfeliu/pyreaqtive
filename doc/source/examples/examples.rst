@@ -8,3 +8,4 @@ Examples
    examples.rqtext_rqlineedit_rqlabel
    examples.rqint_rqspinbox_rqslider_rqdial_rqprogressbar
    examples.rqformatter
+   examples.rqfunction
