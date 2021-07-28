@@ -1,4 +1,4 @@
-RQChoice and RQCombobox<
+RQChoice and RQCombobox
 ==================================
 
 .. literalinclude:: ../../../examples/rqchoice_rqcombobox.py
