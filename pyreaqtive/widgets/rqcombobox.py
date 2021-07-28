@@ -30,7 +30,13 @@ class RQCombobox(QComboBox):
         for index, choice in enumerate(self.model._choices):
             self._rq_choice_insert(index)
 
+        if self.model.allow_none:
+            self.addItem("None")
+
         self.currentIndexChanged.connect(self._currentIndexChanged)
+
+        self._rq_data_changed()
+
 
     @pyqtSlot(int)
     def _rq_choice_insert(self, index: int) -> None:
@@ -64,12 +70,17 @@ class RQCombobox(QComboBox):
         Updates the combobox selection
         """
         if not self._rq_self_changing:
-            self.setCurrentIndex(
-                self.model._choices.get_index(
-                    self.model._selected
+
+            if self.model._selected is not None:
+                self.setCurrentIndex(
+                    self.model._choices.get_index(
+                        self.model._selected
+                    )
                 )
-            )
-            pass
+            else:
+                self.setCurrentIndex(
+                    self.count()-1
+                )
 
     _rq_self_changing = False
     """
@@ -85,7 +96,12 @@ class RQCombobox(QComboBox):
             index: selected item index
         """
         self._rq_self_changing = True
-        self.model.set(
-            self.model._choices.get_item(index)
-        )
+
+        if self.model.allow_none and self.currentIndex() == self.count() - 1:
+            choice = None
+        else:
+            choice = self.model._choices.get_item(index)
+
+        self.model.set(choice)
+
         self._rq_self_changing = False

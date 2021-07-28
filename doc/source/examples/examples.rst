@@ -9,3 +9,4 @@ Examples
    examples.rqint_rqspinbox_rqslider_rqdial_rqprogressbar
    examples.rqformatter
    examples.rqfunction
+   examples.rqchoice_rqcombobox

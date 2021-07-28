@@ -21,7 +21,12 @@ class RQChoice(RQModel):
     Reactive selected item
     """
 
-    def __init__(self, choices: RQList, selected: RQModel = None):
+    allow_none: bool
+    """
+    Indicates if model accepts choice none appart from the list of choices
+    """
+
+    def __init__(self, choices: RQList, selected: RQModel = None, allow_none=False):
         """
         Args:
             choices: Initial list of choices
@@ -31,6 +36,7 @@ class RQChoice(RQModel):
         super().__init__()
         self._choices = choices
         self._selected = selected
+        self.allow_none = allow_none
         self.validate_selected()
 
     def get(self) -> RQModel:
@@ -58,11 +64,15 @@ class RQChoice(RQModel):
         Raises an exception if the current selection is not valid
         """
         if self._selected is None:
-            return
+            if self.allow_none:
+                return
+            else:
+                raise KeyError
+
         if self._selected not in self._choices:
             raise KeyError
 
-    def set(self, value: RQModel) -> None:
+    def set(self, value: Union[RQModel, None]) -> None:
         """
         Set selected option
 
