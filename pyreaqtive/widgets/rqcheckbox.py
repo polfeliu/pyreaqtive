@@ -34,11 +34,18 @@ class RQCheckbox(QCheckBox):
         Updates the state of the checkbox
         """
         if not self._rq_self_changing:
+            self._rq_being_changed = True
             self.setChecked(bool(self.model))
+            self._rq_being_changed = False
 
     _rq_self_changing = False
     """
     Flag to signal that this widget is triggering the update
+    """
+
+    _rq_being_changed = False
+    """
+    Flag to indicate if the widget is being changed from the model
     """
 
     @pyqtSlot()
@@ -47,6 +54,8 @@ class RQCheckbox(QCheckBox):
         Slot triggered when the user changes state of this checkbox.
         Propagates changes to the model
         """
+        if self._rq_being_changed:
+            return
         self._rq_self_changing = True
         self.model.set(bool(self.checkState()))
         self._rq_self_changing = False
