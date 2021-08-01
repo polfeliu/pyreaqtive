@@ -54,8 +54,7 @@ class RQCheckbox(QCheckBox):
         Slot triggered when the user changes state of this checkbox.
         Propagates changes to the model
         """
-        if self._rq_being_changed:
-            return
-        self._rq_self_changing = True
-        self.model.set(bool(self.checkState()))
-        self._rq_self_changing = False
+        if not self._rq_being_changed:
+            self._rq_self_changing = True
+            self.model.set(bool(self.checkState()))
+            self._rq_self_changing = False
