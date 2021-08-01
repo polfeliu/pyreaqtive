@@ -103,7 +103,7 @@ class MainWindow(QMainWindow):
         self.choice_list.append(ChoiceOption).name = "option 1"
         self.choice_list.append(ChoiceOption).name = "option 2"
         self.choice_list.append(ChoiceOption).name = "option 3"
-        self.choice = RQChoice(self.choice_list)
+        self.choice = RQChoice(self.choice_list, allow_none=True)
 
         self.progress = RQInt(0)
 

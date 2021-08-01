@@ -33,12 +33,19 @@ class RQSpinBox(QSpinBox):
         Slot triggered when the model changes value.
         Updates value of the spinbox
         """
-        if not self._rq_self_changing:
+        if not self._rq_writing:
+            self._rq_reading = True
             self.setValue(int(self.model))
+            self._rq_reading = False
 
-    _rq_self_changing = False
+    _rq_writing = False
     """
-    Flag to signal that this widget is triggering the update
+    Flag to signal that this widget is triggering the update and is writing to the model
+    """
+
+    _rq_reading = False
+    """
+    Flag to indicate that the model changed and the widget is reading the model
     """
 
     @pyqtSlot()
@@ -47,6 +54,7 @@ class RQSpinBox(QSpinBox):
         Slot triggered when the user changes value of the spinbox.
         Propagates changes to the model
         """
-        self._rq_self_changing = True
-        self.model.set(self.value())
-        self._rq_self_changing = False
+        if not self._rq_reading:
+            self._rq_writing = True
+            self.model.set(self.value())
+            self._rq_writing = False
