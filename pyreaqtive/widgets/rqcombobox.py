@@ -69,8 +69,8 @@ class RQCombobox(QComboBox):
         Slot triggered when the selection of the choice model changed.
         Updates the combobox selection
         """
-        if not self._rq_self_changing:
-
+        if not self._rq_writing:
+            self._rq_reading = True
             if self.model._selected is not None:
                 self.setCurrentIndex(
                     self.model._choices.get_index(
@@ -81,10 +81,16 @@ class RQCombobox(QComboBox):
                 self.setCurrentIndex(
                     self.count()-1
                 )
+            self._rq_reading = False
 
-    _rq_self_changing = False
+    _rq_writing = False
     """
-    Flag to signal that this widget is triggering the update
+    Flag to signal that this widget is triggering the update and is writing to the model
+    """
+
+    _rq_reading = False
+    """
+    Flag to indicate that the model changed and the widget is reading the model
     """
 
     @pyqtSlot(int)
@@ -95,13 +101,14 @@ class RQCombobox(QComboBox):
         Args:
             index: selected item index
         """
-        self._rq_self_changing = True
+        if not self._rq_reading:
+            self._rq_writing = True
 
-        if self.model.allow_none and self.currentIndex() == self.count() - 1:
-            choice = None
-        else:
-            choice = self.model._choices.get_item(index)
+            if self.model.allow_none and self.currentIndex() == self.count() - 1:
+                choice = None
+            else:
+                choice = self.model._choices.get_item(index)
 
-        self.model.set(choice)
+            self.model.set(choice)
 
-        self._rq_self_changing = False
+            self._rq_writing = False
