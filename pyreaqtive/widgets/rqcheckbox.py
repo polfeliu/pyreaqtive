@@ -33,19 +33,19 @@ class RQCheckbox(QCheckBox):
         Slot triggered when the model changes state.
         Updates the state of the checkbox
         """
-        if not self._rq_self_changing:
-            self._rq_being_changed = True
+        if not self._rq_writing:
+            self._rq_reading = True
             self.setChecked(bool(self.model))
-            self._rq_being_changed = False
+            self._rq_reading = False
 
-    _rq_self_changing = False
+    _rq_writing = False
     """
-    Flag to signal that this widget is triggering the update
+    Flag to signal that this widget is triggering the update and is writing to the model
     """
 
-    _rq_being_changed = False
+    _rq_reading = False
     """
-    Flag to indicate if the widget is being changed from the model
+    Flag to indicate that the model changed and the widget is reading the model
     """
 
     @pyqtSlot()
@@ -54,7 +54,7 @@ class RQCheckbox(QCheckBox):
         Slot triggered when the user changes state of this checkbox.
         Propagates changes to the model
         """
-        if not self._rq_being_changed:
-            self._rq_self_changing = True
+        if not self._rq_reading:
+            self._rq_writing = True
             self.model.set(bool(self.checkState()))
-            self._rq_self_changing = False
+            self._rq_writing = False
