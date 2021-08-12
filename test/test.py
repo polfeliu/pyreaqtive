@@ -111,7 +111,7 @@ class MainWindow(QMainWindow):
 
         self.init_ui()
 
-    def counter_widget_callback(self, model: Type[RQModel]) -> Type[QWidget]:
+    def counter_widget_callback(self, model: Type[RQModel]) -> QWidget:
         if random.choice([True, False]):
             return CounterWidget(model)
         else:

@@ -11,7 +11,7 @@ class RQVBoxLayout(QVBoxLayout):
     model: RQList
     widget_callback: Callable[[Type[RQModel]], Type[QWidget]]
 
-    def __init__(self, model: RQList, widget_callback: Callable[[Type[RQModel]], Type[QWidget]], *args):
+    def __init__(self, model: RQList, widget_callback: Callable[[Type[RQModel]], QWidget], *args):
         super().__init__(*args)
         self.model = model
         self.widget_callback = widget_callback
