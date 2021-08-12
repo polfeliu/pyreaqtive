@@ -49,7 +49,7 @@ class RQList(RQModel):
     List remove signal. Indicates that there's been an deletion in the position indicated by the int
     """
 
-    def append(self, model: Type[RQModel], *args, **kwargs) -> RQModel:
+    def append(self, model: Type[RQModel], *args, **kwargs) -> model:
         """
         Appends a model instance to the end of the list
 
