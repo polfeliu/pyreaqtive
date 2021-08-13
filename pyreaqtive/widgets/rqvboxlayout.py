@@ -4,17 +4,22 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 from ..models import RQModel, RQList
 from .rqwidget import RQWidget
 
-from typing import List, Dict, Callable, Type
+from typing import List, Dict, Callable, Type, Union
 
 
 class RQVBoxLayout(QVBoxLayout):
     model: RQList
-    widget_callback: Callable[[Type[RQModel]], Type[QWidget]]
+    widget_callback: Callable[[Type[RQModel], RQList], Type[QWidget]]
 
-    def __init__(self, model: RQList, widget_callback: Callable[[Type[RQModel]], QWidget], *args):
-        super().__init__(*args)
+    def __init__(self, model: RQList,
+                 widget: Union[Type[QWidget], Callable[[Type[RQModel], RQList], Type[QWidget]]], *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.model = model
-        self.widget_callback = widget_callback
+
+        if isinstance(widget, QWidget):
+            self.widget_callback = lambda item_model: widget
+        else:
+            self.widget_callback = widget
 
         if not isinstance(model, RQList):
             raise TypeError
@@ -29,8 +34,8 @@ class RQVBoxLayout(QVBoxLayout):
 
     @pyqtSlot(int)
     def _rq_insert_widget(self, index):
-        model = self.model.get_item(index)
-        self.widgets.insert(index, self.widget_callback(model))
+        item_model = self.model.get_item(index)
+        self.widgets.insert(index, self.widget_callback(item_model, self.model))
         self.addWidget(self.widgets[index])
 
     @pyqtSlot(int)
