@@ -2,6 +2,7 @@ from .rqmodel import RQModel
 from .rqlist import RQList
 
 from typing import Union
+from PyQt5.QtCore import pyqtSlot
 
 
 class RQChoice(RQModel):
@@ -35,6 +36,7 @@ class RQChoice(RQModel):
         self._selected = selected
         self.allow_none = allow_none
         self.validate_selected()
+        self._choices._rq_list_remove.connect(lambda: self.validate_selected(auto_reset=True))
 
     def get(self) -> RQModel:
         """Get current selection
@@ -52,19 +54,25 @@ class RQChoice(RQModel):
         """
         return self._choices
 
-    def validate_selected(self) -> None:
+    def validate_selected(self, auto_reset=False) -> None:
         """Validate that the current selection is none or is a valid choice from the choices list
 
-        Raises an exception if the current selection is not valid
+        Args:
+            auto_reset:
+                if True, when selected is not valid resets the selection
+                if False, raises KeyError Exception
         """
         if self._selected is None:
             if self.allow_none:
                 return
             else:
-                raise KeyError
+                raise ValueError
 
         if self._selected not in self._choices:
-            raise KeyError
+            if auto_reset:
+                self.reset()
+            else:
+                raise KeyError
 
     def set(self, value: Union[RQModel, None]) -> None:
         """Set selected option
@@ -78,6 +86,16 @@ class RQChoice(RQModel):
         self._selected = value
         self.validate_selected()
         self._rq_data_changed.emit()
+
+    def reset(self) -> None:
+        """Reset selection to default value
+
+        If allow_none is True default is None, else is the first element
+        """
+        if self.allow_none:
+            self.set(None)
+        else:
+            self.set(self.get_item(0))
 
     def __str__(self) -> str:
         """Get current choice in string format

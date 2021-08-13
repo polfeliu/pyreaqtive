@@ -14,6 +14,10 @@ class Fruit(RQModel):
         super(Fruit, self).__init__()
         self.name = name
 
+    def __str__(self) -> str:
+        # Return name for label and qcombobox
+        return self.name
+
 
 # Declare the widget that represents the fruit model
 class FruitWidget(QWidget):
@@ -29,7 +33,7 @@ class FruitWidget(QWidget):
 
         self.main_layout = QHBoxLayout(self)
         self.main_layout.addWidget(
-            QLabel(model.name)  # Simple widget to display the name of the fruit. Could also be reactive!
+            QLabel(str(model))  # Simple widget to display the name of the fruit. Could also be reactive!
         )
 
         # Button to remove itself from the list
