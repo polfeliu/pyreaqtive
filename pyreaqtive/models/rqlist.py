@@ -102,7 +102,7 @@ class RQList(RQModel):
         Args:
             item: model item
         """
-        index = self.get_index(item)
+        index = self.index(item)
         self.__delitem__(index)
 
     def clear(self) -> None:

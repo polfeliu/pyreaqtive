@@ -70,7 +70,7 @@ class RQCombobox(QComboBox):
             self._rq_reading = True
             if self.model._selected is not None:
                 self.setCurrentIndex(
-                    self.model._choices.get_index(
+                    self.model._choices.index(
                         self.model._selected
                     )
                 )

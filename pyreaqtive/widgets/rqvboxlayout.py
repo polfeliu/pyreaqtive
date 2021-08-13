@@ -34,6 +34,8 @@ class RQVBoxLayout(QVBoxLayout):
         super().__init__(*args, **kwargs)
         self.model = model
 
+        self.widgets: List[QWidget] = []
+
         if isinstance(widget, QWidget):
             self._rq_widget_callback = lambda item_model, list_model: widget(item_model, list_model)
         elif callable(widget):
@@ -49,9 +51,6 @@ class RQVBoxLayout(QVBoxLayout):
 
         for index, item in enumerate(self.model._list):
             self._rq_insert_widget(index)
-
-    widgets: List[QWidget] = []
-    """List of widgets"""
 
     @pyqtSlot(int)
     def _rq_insert_widget(self, index) -> None:
@@ -71,6 +70,8 @@ class RQVBoxLayout(QVBoxLayout):
         Args:
             index: index in the list of the item removal
         """
+        print(self.name)
+        print(self.widgets)
         self.removeWidget(self.widgets[index])
         self.widgets[index].deleteLater()
         self.widgets.pop(index)
