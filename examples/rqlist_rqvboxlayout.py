@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
 
         self.clear_all_button = QPushButton("Clear")
         self.clear_all_button.clicked.connect(
-            lambda : self.fruits_list.clear()
+            lambda: self.fruits_list.clear()
         )
         layout.addWidget(self.clear_all_button)
 
@@ -71,6 +71,7 @@ class MainWindow(QMainWindow):
 
         fruit_choice_combobox = RQCombobox(fruit_choice)
         layout.addWidget(fruit_choice_combobox)
+
 
     @pyqtSlot()
     def add_fruit(self):
