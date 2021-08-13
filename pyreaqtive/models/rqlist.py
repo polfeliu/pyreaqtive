@@ -55,17 +55,32 @@ class RQList(RQModel):
         """
         return self._list
 
+    def insert(self, index, model: RQModel) -> None:
+        """Inserts a model instance to the specified index on the list
+
+        Args:
+            index: positional index on the list
+            model: Model to be inserted
+
+        Returns:
+
+        """
+        self._list.insert(index, model)
+        self._update_child_indexes()
+        self._rq_list_insert.emit(index)
+
     def append(self, model: RQModel) -> None:
         """Appends a model instance to the end of the list
 
         Args:
-            model: Model to be instantiated
+            model: Model to be appended
 
         Returns: Instance of the model
         """
-        self._list.append(model)
-        self._update_child_indexes()
-        self._rq_list_insert.emit(len(self._list) - 1)
+        self.insert(
+            index=len(self._list),
+            model=model
+        )
 
     def pop(self) -> None:
         """Delete last instance of the list"""
@@ -99,7 +114,7 @@ class RQList(RQModel):
         while len(self) > 0:
             self.pop()
 
-    def get_item(self, index) -> RQModel:
+    def get_item(self, index: int) -> RQModel:
         """Returns the indicated item of the list
 
         Args:
@@ -110,7 +125,7 @@ class RQList(RQModel):
         """
         return self._list[index]
 
-    def get_index(self, item) -> int:
+    def get_index(self, item: RQModel) -> int:
         """Returns the index where a item is located
 
         Raises an ValueError if is not in the list
@@ -144,3 +159,12 @@ class RQList(RQModel):
     def __len__(self):
         """Length of the list"""
         return len(self._list)
+
+    def count(self, value):
+        """Same as python list method"""
+        self._list.count(value)
+
+    def extend(self, iterable: List[RQModel]):
+        """Same as python list method"""
+        for model in iterable:
+            self.append(model)
