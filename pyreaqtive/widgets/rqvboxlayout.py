@@ -18,7 +18,7 @@ class RQVBoxLayout(QVBoxLayout):
     """
 
     def __init__(self, model: RQList,
-                 widget: Union[Type[QWidget], Callable[[RQModel, RQList], Type[QWidget]]], *args, **kwargs):
+                 widget: Union[Type[QWidget], Callable[[RQModel, RQList], QWidget]], *args, **kwargs):
         """Constructor
 
         Args:
