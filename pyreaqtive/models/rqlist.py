@@ -13,7 +13,7 @@ class RQList(RQModel):
     Represents a list of model instances
 
     Both the constructor and append functions take the class and
-    create the instance internally.
+    create the instance internally. TODO
 
     This model is quite different from the others and doesn't use data_changed signal.
     Instead it uses insert and remove signals that indicate the index of the list where this event is happening.
@@ -27,15 +27,12 @@ class RQList(RQModel):
     Stores instances of models
     """
 
-    def __init__(self, initial_models: List[Type[RQModel]] = []):
+    def __init__(self, initial_models: List[RQModel] = []): # TODO Change for non mutable
         """
         Args:
             initial_models: List of models to be instantiated
         """
-        self._list = []
-        for model in initial_models:
-            instance = model()
-            self._list.append(instance)
+        self._list = initial_models
         self._update_child_indexes()
         super().__init__()
 
@@ -49,7 +46,7 @@ class RQList(RQModel):
     List remove signal. Indicates that there's been an deletion in the position indicated by the int
     """
 
-    def append(self, model: Type[RQModel]) -> RQModel:
+    def append(self, model: RQModel):
         """
         Appends a model instance to the end of the list
 
@@ -58,11 +55,9 @@ class RQList(RQModel):
 
         Returns: Instance of the model
         """
-        instance = model()
-        self._list.append(instance)
+        self._list.append(model)
         self._update_child_indexes()
         self._rq_list_insert.emit(len(self._list) - 1)
-        return instance
 
     def pop(self) -> None:
         """
