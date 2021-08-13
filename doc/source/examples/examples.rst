@@ -10,3 +10,4 @@ Examples
    examples.rqformatter
    examples.rqfunction
    examples.rqchoice_rqcombobox
+   examples.rqlist_rqvboxlayout

@@ -4,6 +4,7 @@ from pyreaqtive.models import RQInt
 from pyreaqtive.widgets import RQSpinBox, RQSlider, RQDial, RQProgressBar
 from PyQt5.QtCore import Qt
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()

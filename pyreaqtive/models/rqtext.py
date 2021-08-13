@@ -2,19 +2,17 @@ from .rqmodel import RQModel
 
 
 class RQText(RQModel):
-    """
-    Reactive Text Model
+    """Reactive Text Model
 
     Represents a string of text
     """
 
     _text: str
-    """
-    Model store variable
-    """
+    """Model store variable"""
 
     def __init__(self, text: str):
-        """
+        """Constructor
+
         Args:
             text: Initial value of the model
         """
@@ -22,8 +20,7 @@ class RQText(RQModel):
         self._text = text
 
     def get(self) -> str:
-        """
-        Get value of the model
+        """Get value of the model
 
         Returns:
             str: value of the model
@@ -31,8 +28,7 @@ class RQText(RQModel):
         return self._text
 
     def set(self, value: str) -> None:
-        """
-        Will propagate the change to the widgets linked to the model
+        """Will propagate the change to the widgets linked to the model
 
         Args:
             value: new value of the model
@@ -41,8 +37,7 @@ class RQText(RQModel):
         self._rq_data_changed.emit()
 
     def __str__(self) -> str:
-        """
-        Get value of the model in string format
+        """Get value of the model in string format
 
         Returns:
             str: value of the model

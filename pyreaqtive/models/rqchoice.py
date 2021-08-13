@@ -1,33 +1,30 @@
 from .rqmodel import RQModel
 from .rqlist import RQList
 
-from typing import List, Union
+from typing import Union
 
 
 class RQChoice(RQModel):
-    """
-    Reactive Choice Model
+    """Reactive Choice Model
 
     Represents a choice from a list of choices
     """
 
     _choices: RQList
-    """
-    Reactive list of available choices
-    """
+    """Reactive list of available choices"""
 
     _selected: Union[RQModel, None]
-    """
-    Reactive selected item
+    """Reactive selected item
+    
+    Can be None if allow_none is True
     """
 
     allow_none: bool
-    """
-    Indicates if model accepts choice none appart from the list of choices
-    """
+    """Indicates if model accepts choice none appart from the list of choices"""
 
     def __init__(self, choices: RQList, selected: RQModel = None, allow_none=False):
-        """
+        """Constructor
+
         Args:
             choices: Initial list of choices
 
@@ -40,8 +37,7 @@ class RQChoice(RQModel):
         self.validate_selected()
 
     def get(self) -> RQModel:
-        """
-        Get current selection
+        """Get current selection
 
         Returns:
             RQModel: Selected Model
@@ -49,8 +45,7 @@ class RQChoice(RQModel):
         return self._selected
 
     def get_choices(self) -> RQList:
-        """
-        Get list of choices
+        """Get list of choices
 
         Returns:
             RQList: List of choices
@@ -58,8 +53,7 @@ class RQChoice(RQModel):
         return self._choices
 
     def validate_selected(self) -> None:
-        """
-        Validate that the current selection is none or is a valid choice from the choices list
+        """Validate that the current selection is none or is a valid choice from the choices list
 
         Raises an exception if the current selection is not valid
         """
@@ -73,8 +67,7 @@ class RQChoice(RQModel):
             raise KeyError
 
     def set(self, value: Union[RQModel, None]) -> None:
-        """
-        Set selected option
+        """Set selected option
 
         Args:
             value: New selected choice
@@ -87,8 +80,7 @@ class RQChoice(RQModel):
         self._rq_data_changed.emit()
 
     def __str__(self) -> str:
-        """
-        Get current choice in string format
+        """Get current choice in string format
 
         Returns:
             str: value in string of the current choice model

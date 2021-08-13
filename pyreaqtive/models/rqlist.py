@@ -1,14 +1,13 @@
 from .rqmodel import RQModel
 from .rqint import RQInt
 
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtCore import pyqtSignal
 
-from typing import List, Type, Iterator
+from typing import List, Iterator
 
 
 class RQList(RQModel):
-    """
-    Reactive List Model
+    """Reactive List Model
 
     Represents a list of model instances
 
@@ -18,14 +17,14 @@ class RQList(RQModel):
     """
 
     _list: list
-    """
-    Model store variable
+    """Model store variable
     
     Stores instances of models
     """
 
-    def __init__(self, initial_models: List[RQModel] = None):  # TODO Change for non mutable
-        """
+    def __init__(self, initial_models: List[RQModel] = None):
+        """Constructor
+
         Args:
             initial_models: List of model instances
         """
@@ -34,24 +33,30 @@ class RQList(RQModel):
         super().__init__()
 
     _rq_list_insert = pyqtSignal(int)
-    """
-    List insert signal. Indicates that there's been an insertion to the position indicated by the int
+    """List insert signal. 
+    
+    Indicates that there's been an insertion to the position indicated by the int
     """
 
     _rq_list_remove = pyqtSignal(int)
-    """
-    List remove signal. Indicates that there's been an deletion in the position indicated by the int
+    """List remove signal. 
+    
+    Indicates that there's been an deletion in the position indicated by the int
     """
 
-    def set(self, value):
+    def set(self, value) -> None:
         raise NotImplementedError("Cannot set whole list, insert items one by one")
 
-    def get(self):
+    def get(self) -> list:
+        """Get value of the model
+
+        Returns:
+            list: value of the model
+        """
         return self._list
 
-    def append(self, model: RQModel):
-        """
-        Appends a model instance to the end of the list
+    def append(self, model: RQModel) -> None:
+        """Appends a model instance to the end of the list
 
         Args:
             model: Model to be instantiated
@@ -63,44 +68,50 @@ class RQList(RQModel):
         self._rq_list_insert.emit(len(self._list) - 1)
 
     def pop(self) -> None:
-        """
-        Delete last instance of the list
-        """
+        """Delete last instance of the list"""
         if len(self._list) > 0:
             self._list.pop()
             self._update_child_indexes()
             self._rq_list_remove.emit(len(self._list))
 
-    def remove_index(self, index):
+    def remove_index(self, index: int) -> None:
+        """Remove item in the index of the list
+
+        Args:
+            index: index of the list
+        """
         if len(self._list) > index:
             del self._list[index]
             self._update_child_indexes()
             self._rq_list_remove.emit(index)
 
-    def remove_item(self, item):
+    def remove_item(self, item: RQModel) -> None:
+        """Remove item in the list
+
+        Args:
+            item: model item
+        """
         index = self.get_index(item)
         self.remove_index(index)
 
-    def clear(self):
+    def clear(self) -> None:
+        """Clear all items of the list"""
         while len(self) > 0:
             self.pop()
 
     def get_item(self, index) -> RQModel:
-        """
-        Returns the indicated item of the list
+        """Returns the indicated item of the list
 
         Args:
             index: element of the list
 
         Returns:
             RQModel: item in the list indicated by index
-
         """
         return self._list[index]
 
     def get_index(self, item) -> int:
-        """
-        Returns the index where a item is located
+        """Returns the index where a item is located
 
         Raises an ValueError if is not in the list
 
@@ -109,13 +120,11 @@ class RQList(RQModel):
 
         Returns:
             int: index of the item in the list
-
         """
         return self._list.index(item)
 
     def _update_child_indexes(self) -> None:
-        """
-        Injects the index of the list to all childs,
+        """Injects the index of the list to all children,
         if they have an attribute rq_list_index that is a RQInt
         """
         for index, item in enumerate(self._list):
@@ -124,8 +133,7 @@ class RQList(RQModel):
                     item.rq_list_index.set(index)
 
     def __iter__(self) -> Iterator[RQModel]:
-        """
-        Iterator of the elements of the list
+        """Iterator of the elements of the list
 
         Returns:
             Iterator of RQModels
@@ -134,4 +142,5 @@ class RQList(RQModel):
             yield item
 
     def __len__(self):
+        """Length of the list"""
         return len(self._list)

@@ -7,33 +7,39 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 import random
 
 
+# Declare a Custom Model
 class Fruit(RQModel):
 
     def __init__(self, name: str):
         super(Fruit, self).__init__()
         self.name = name
 
-    def __str__(self) -> str:
-        return self.name
 
-
+# Declare the widget that represents the fruit model
 class FruitWidget(QWidget):
 
     def __init__(self, model: Fruit, list_model: RQList):
         super().__init__()
+
+        # Store the model of the fruit
         self.model = model
+
+        # And the list is present on
         self.list_model = list_model
+
         self.main_layout = QHBoxLayout(self)
         self.main_layout.addWidget(
-            QLabel(str(model))
+            QLabel(model.name)  # Simple widget to display the name of the fruit. Could also be reactive!
         )
 
+        # Button to remove itself from the list
         self.remove_button = QPushButton("remove")
         self.remove_button.clicked.connect(self.remove)
         self.main_layout.addWidget(self.remove_button)
 
     @pyqtSlot()
-    def remove(self):
+    def remove(self) -> None:
+        # Request that the list removes the model this widget is representing
         self.list_model.remove_item(self.model)
 
 
@@ -45,6 +51,7 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
+        # Declare the list model of fruits
         self.fruits_list = RQList()
 
         self.add_button = QPushButton("Add")
@@ -57,24 +64,24 @@ class MainWindow(QMainWindow):
         )
         layout.addWidget(self.clear_all_button)
 
+        # Display all the fruits in the model in as layout
         fruits_display = RQVBoxLayout(
             model=self.fruits_list,
-            widget=FruitWidget
+            widget=FruitWidget  # The widget that represents fruits is the FruitWidget
         )
 
         layout.addLayout(fruits_display)
 
-        fruit_choice = RQChoice(
+        fruit_choice = RQChoice(  # From the same list we can also create a reactive choice
             self.fruits_list,
             allow_none=True
         )
-
         fruit_choice_combobox = RQCombobox(fruit_choice)
         layout.addWidget(fruit_choice_combobox)
 
-
     @pyqtSlot()
     def add_fruit(self):
+        # When clicking the button add a random fruit
         possible_fruits = [
             'apple',
             'pear',

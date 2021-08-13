@@ -28,8 +28,8 @@ class MainWindow(QMainWindow):
         # Function can also be declared inplace on the widget
         area = RQFunction(
             lambda b, h: b * h / 2,
-            b = base,
-            h = height
+            b=base,
+            h=height
         )
 
         layout.addWidget(QLabel("Area"))

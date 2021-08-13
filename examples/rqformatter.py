@@ -26,7 +26,6 @@ class MainWindow(QMainWindow):
         layout.addWidget(label)
 
 
-
 app = QApplication(sys.argv)
 window = MainWindow()
 window.show()

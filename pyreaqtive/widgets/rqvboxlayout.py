@@ -1,25 +1,45 @@
-from PyQt5.QtWidgets import QVBoxLayout, QWidget, QPushButton
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtWidgets import QVBoxLayout, QWidget
+from PyQt5.QtCore import pyqtSlot
 
 from ..models import RQModel, RQList
-from .rqwidget import RQWidget
 
-from typing import List, Dict, Callable, Type, Union
+from typing import List, Callable, Type, Union
 
 
 class RQVBoxLayout(QVBoxLayout):
+    """Reactive QVBoxLayout"""
+
     model: RQList
-    widget_callback: Callable[[Type[RQModel], RQList], Type[QWidget]]
+    """Model linked to the layout"""
+
+    _rq_widget_callback: Callable[[RQModel, RQList], QWidget]
+    """
+    Widget callback. For a new model that is insert on the list, must return the new and appropriate widget
+    """
 
     def __init__(self, model: RQList,
-                 widget: Union[Type[QWidget], Callable[[Type[RQModel], RQList], Type[QWidget]]], *args, **kwargs):
+                 widget: Union[Type[QWidget], Callable[[RQModel, RQList], Type[QWidget]]], *args, **kwargs):
+        """Constructor
+
+        Args:
+            model: RQList representing all the items in the layout
+
+            widget: QWidget type that represents each item.
+                Can also be a function that accepts the item model and list model as arguments,
+                and returns the widget instance
+
+            args: arguments to pass to the native pyqt label widget
+            kwargs: arguments to pass to the native pyqt label widget
+        """
         super().__init__(*args, **kwargs)
         self.model = model
 
         if isinstance(widget, QWidget):
-            self.widget_callback = lambda item_model: widget
+            self._rq_widget_callback = lambda item_model, list_model: widget(item_model, list_model)
+        elif callable(widget):
+            self._rq_widget_callback = widget
         else:
-            self.widget_callback = widget
+            raise TypeError
 
         if not isinstance(model, RQList):
             raise TypeError
@@ -31,15 +51,26 @@ class RQVBoxLayout(QVBoxLayout):
             self._rq_insert_widget(index)
 
     widgets: List[QWidget] = []
+    """List of widgets"""
 
     @pyqtSlot(int)
-    def _rq_insert_widget(self, index):
+    def _rq_insert_widget(self, index) -> None:
+        """Slot triggered when the model inserts a new item
+
+        Args:
+            index: index in the list of the new instance
+        """
         item_model = self.model.get_item(index)
-        self.widgets.insert(index, self.widget_callback(item_model, self.model))
+        self.widgets.insert(index, self._rq_widget_callback(item_model, self.model))
         self.addWidget(self.widgets[index])
 
     @pyqtSlot(int)
-    def _rq_remove_widget(self, index):
+    def _rq_remove_widget(self, index) -> None:
+        """Slot triggered when the model removes a new item
+
+        Args:
+            index: index in the list of the item removal
+        """
         self.removeWidget(self.widgets[index])
         self.widgets[index].deleteLater()
         self.widgets.pop(index)

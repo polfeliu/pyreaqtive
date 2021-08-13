@@ -2,19 +2,17 @@ from .rqmodel import RQModel
 
 
 class RQFloat(RQModel):
-    """
-    Reactive Float Model
+    """Reactive Float Model
 
     Represents a floating point number
     """
 
     _float: float
-    """
-    Model store variable
-    """
+    """Model store variable"""
 
     def __init__(self, initial_float: float):
-        """
+        """Constructor
+
         Args:
             initial_float: Initial value of the model
         """
@@ -22,17 +20,16 @@ class RQFloat(RQModel):
         self._float = float(initial_float)
 
     def get(self) -> float:
-        """
-        Get value of the model
+        """Get value of the model
 
         Returns:
             float: value of the model
-
         """
         return self._float
 
     def set(self, value: float) -> None:
-        """
+        """Set value of model
+
         Will propagate the change to the widgets linked to the model
 
         Args:
@@ -42,8 +39,7 @@ class RQFloat(RQModel):
         self._rq_data_changed.emit()
 
     def __str__(self) -> str:
-        """
-        Get value of the model in string format
+        """Get value of the model in string format
 
         Returns:
             str: value of the model converted to string
@@ -51,8 +47,7 @@ class RQFloat(RQModel):
         return str(self._float)
 
     def __int__(self) -> int:
-        """
-        Get value of the model in integer format
+        """Get value of the model in integer format
 
         Returns:
             str: value of the model converted to integer

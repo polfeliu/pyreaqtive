@@ -2,19 +2,17 @@ from .rqmodel import RQModel
 
 
 class RQBool(RQModel):
-    """
-    Reactive Boolean Model
+    """Reactive Boolean Model
 
     Represents a Boolean
     """
 
     _bool: bool
-    """
-    Model store variable
-    """
+    """Model store variable"""
 
     def __init__(self, state: bool):
-        """
+        """Constructor
+
         Args:
             state: Initial state of the model
         """
@@ -22,8 +20,7 @@ class RQBool(RQModel):
         self._bool = bool(state)
 
     def get(self) -> bool:
-        """
-        Get value of the model
+        """Get value of the model
 
         Returns:
             bool: value of the model
@@ -32,7 +29,8 @@ class RQBool(RQModel):
         return self._bool
 
     def set(self, value: bool) -> None:
-        """
+        """Set value of model
+
         Will propagate the change to the widgets linked to the model
 
         Args:
@@ -42,14 +40,11 @@ class RQBool(RQModel):
         self._rq_data_changed.emit()
 
     def toggle(self) -> None:
-        """
-        Toggle the value of the model
-        """
+        """Toggle the value of the model"""
         self.set(not self.get())
 
     def __bool__(self) -> bool:
-        """
-        Get value of the model in bool format
+        """Get value of the model in bool format
 
         Returns:
             bool: value of the model
@@ -58,8 +53,7 @@ class RQBool(RQModel):
         return self._bool
 
     def __str__(self) -> str:
-        """
-        Get value of the model in string format
+        """Get value of the model in string format
 
         Returns:
             str: value of the model converted to string
