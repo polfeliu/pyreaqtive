@@ -1,11 +1,10 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout, \
     QInputDialog
-from pyreaqtive.models import RQList, RQModel, RQChoice
-from pyreaqtive.widgets import RQVBoxLayout, RQCombobox
+from pyreaqtive.models import RQList, RQModel
+from pyreaqtive.widgets import RQVBoxLayout
 
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
-import random
+from PyQt5.QtCore import pyqtSlot
 
 
 # Declare a model for each type
@@ -32,7 +31,7 @@ class Grain(RQModel):
 # Declare a widget for each type
 class FruitWidget(QWidget):
 
-    def __init__(self, model: Fruit, list_model: RQList):
+    def __init__(self, model: Fruit, list_model: RQList, shopping_list: RQList):
         super().__init__()
 
         # Store the model of the fruit
@@ -41,47 +40,68 @@ class FruitWidget(QWidget):
         # And the list is present on
         self.list_model = list_model
 
-        self.main_layout = QHBoxLayout(self)
-        self.main_layout.addWidget(
-            QLabel(str(model))  # Simple widget to display the name of the fruit. Could also be reactive!
-        )
+        # And the shopping list for the button
+        self.shopping_list = shopping_list
 
-        # Button to remove itself from the list
+        self.main_layout = QHBoxLayout(self)
+        text = str(model)
+        if list_model == shopping_list:
+            text = "Fruit " + text
+        self.main_layout.addWidget(QLabel(text))
+
         self.remove_button = QPushButton("remove")
         self.remove_button.clicked.connect(self.remove)
         self.main_layout.addWidget(self.remove_button)
 
+        if list_model != shopping_list:
+            # If the widget is in the shopping list do not show button
+            self.add_shopping_button = QPushButton("add to shopping list")
+            self.add_shopping_button.clicked.connect(self.add_to_shopping_list)
+            self.main_layout.addWidget(self.add_shopping_button)
+
     @pyqtSlot()
     def remove(self) -> None:
-        # Request that the list removes the model this widget is representing
+        # Request that the list removes the model on the list it's representing.
+        # If it's on the fruits list, remove it from there
+        # If it's on the shopping list, remove it from there
         self.list_model.remove(self.model)
+
+    @pyqtSlot()
+    def add_to_shopping_list(self):
+        self.shopping_list.append(self.model)
 
 
 class GrainWidget(QWidget):
 
-    def __init__(self, model: Fruit, list_model: RQList):
+    def __init__(self, model: Grain, list_model: RQList, shopping_list: RQList):
         super().__init__()
 
-        # Store the model of the fruit
         self.model = model
-
-        # And the list is present on
         self.list_model = list_model
+        self.shopping_list = shopping_list
 
         self.main_layout = QHBoxLayout(self)
-        self.main_layout.addWidget(
-            QLabel(str(model))  # Simple widget to display the name of the fruit. Could also be reactive!
-        )
+        text = str(model)
+        if list_model == shopping_list:
+            text = "Grain " + text
+        self.main_layout.addWidget(QLabel(text))
 
-        # Button to remove itself from the list
         self.remove_button = QPushButton("remove")
         self.remove_button.clicked.connect(self.remove)
         self.main_layout.addWidget(self.remove_button)
 
+        if list_model != shopping_list:
+            self.add_shopping_button = QPushButton("add to shopping list")
+            self.add_shopping_button.clicked.connect(self.add_to_shopping_list)
+            self.main_layout.addWidget(self.add_shopping_button)
+
     @pyqtSlot()
     def remove(self) -> None:
-        # Request that the list removes the model this widget is representing
         self.list_model.remove(self.model)
+
+    @pyqtSlot()
+    def add_to_shopping_list(self):
+        self.shopping_list.append(self.model)
 
 
 class MainWindow(QMainWindow):
@@ -96,7 +116,7 @@ class MainWindow(QMainWindow):
         self.fruits_list = RQList()
         self.grains_list = RQList()
 
-        self.my_shopping_list = RQList()
+        self.shopping_list = RQList()
 
         self.add_fruit_button = QPushButton("Add Fruit")
         self.add_fruit_button.clicked.connect(self.add_fruit)
@@ -116,7 +136,9 @@ class MainWindow(QMainWindow):
         layout.addWidget(QLabel("Fruits"))
         fruits_display = RQVBoxLayout(
             model=self.fruits_list,
-            widget=FruitWidget
+
+            # To pass additional parameters to new widget, place a function that controls the instantiation
+            widget=lambda item_model, list_model: FruitWidget(item_model, list_model, self.shopping_list)
         )
         layout.addLayout(fruits_display)
 
@@ -124,17 +146,25 @@ class MainWindow(QMainWindow):
         layout.addWidget(QLabel("Grains"))
         grains_display = RQVBoxLayout(
             model=self.grains_list,
-            widget=GrainWidget
+            widget=lambda item_model, list_model: GrainWidget(item_model, list_model, self.shopping_list)
         )
         layout.addLayout(grains_display)
 
         # Shopping List
         layout.addWidget(QLabel("Shopping list"))
-        grains_display = RQVBoxLayout(
-            model=self.grains_list,
-            widget=GrainWidget
+        shopping_display = RQVBoxLayout(
+            model=self.shopping_list,
+            widget=self.new_shopping_item
         )
-        layout.addLayout(grains_display)
+        layout.addLayout(shopping_display)
+
+    def new_shopping_item(self, item_model: RQModel, list_model: RQList) -> QWidget:
+        if isinstance(item_model, Fruit):
+            return FruitWidget(item_model, list_model, self.shopping_list)
+        elif isinstance(item_model, Grain):
+            return GrainWidget(item_model, list_model, self.shopping_list)
+        else:
+            raise TypeError
 
     @pyqtSlot()
     def add_fruit(self):
