@@ -46,7 +46,7 @@ class RQCombobox(QComboBox):
         """
         self.insertItem(
             index,
-            str(self.model._choices.get_item(index))
+            str(self.model._choices[index])
         )
 
     @pyqtSlot(int)
@@ -99,7 +99,7 @@ class RQCombobox(QComboBox):
             if self.model.allow_none and self.currentIndex() == self.count() - 1:
                 choice = None
             else:
-                choice = self.model._choices.get_item(index)
+                choice = self.model._choices[index]
 
             self.model.set(choice)
 

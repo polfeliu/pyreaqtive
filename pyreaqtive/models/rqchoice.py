@@ -95,7 +95,7 @@ class RQChoice(RQModel):
         if self.allow_none:
             self.set(None)
         else:
-            self.set(self.get_item(0))
+            self.set(self[0])
 
     def __str__(self) -> str:
         """Get current choice in string format

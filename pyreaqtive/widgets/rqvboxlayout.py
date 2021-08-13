@@ -60,7 +60,7 @@ class RQVBoxLayout(QVBoxLayout):
         Args:
             index: index in the list of the new instance
         """
-        item_model = self.model.get_item(index)
+        item_model = self.model[index]
         self.widgets.insert(index, self._rq_widget_callback(item_model, self.model))
         self.addWidget(self.widgets[index])
 
