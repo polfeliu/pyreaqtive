@@ -5,6 +5,7 @@ from pyreaqtive.widgets import RQLabel, RQVBoxLayout
 
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
+
 class Fruit(RQModel):
 
     def __init__(self, name: str):
@@ -37,7 +38,7 @@ class MainWindow(QMainWindow):
 
         fruits_display = RQVBoxLayout(
             model=self.fruits_list,
-            widget_callback=lambda fruit: FruitWidget(fruit)
+            widget=FruitWidget
         )
 
         layout.addLayout(fruits_display)
