@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout
-from pyreaqtive.models import RQList, RQModel
-from pyreaqtive.widgets import RQLabel, RQVBoxLayout
+from pyreaqtive.models import RQList, RQModel, RQChoice
+from pyreaqtive.widgets import RQVBoxLayout, RQCombobox
 
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 import random
@@ -63,6 +63,14 @@ class MainWindow(QMainWindow):
         )
 
         layout.addLayout(fruits_display)
+
+        fruit_choice = RQChoice(
+            self.fruits_list,
+            allow_none=True
+        )
+
+        fruit_choice_combobox = RQCombobox(fruit_choice)
+        layout.addWidget(fruit_choice_combobox)
 
     @pyqtSlot()
     def add_fruit(self):
