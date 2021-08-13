@@ -56,7 +56,7 @@ class RQList(RQModel):
         return self._list
 
     def insert(self, index, model: RQModel) -> None:
-        """Inserts a model instance to the specified index on the list
+        """Insert a model instance to the specified index on the list
 
         Args:
             index: positional index on the list
@@ -70,7 +70,7 @@ class RQList(RQModel):
         self._rq_list_insert.emit(index)
 
     def append(self, model: RQModel) -> None:
-        """Appends a model instance to the end of the list
+        """Append a model instance to the end of the list
 
         Args:
             model: Model to be appended
@@ -82,13 +82,20 @@ class RQList(RQModel):
             model=model
         )
 
+    def __delitem__(self, index) -> None:
+        """Delete the item in the list in the specified index
+
+        Args:
+            index: positional index on the list
+        """
+        self._list.__delitem__(index)
+        self._update_child_indexes()
+        self._rq_list_remove.emit(index)
+
     def pop(self) -> None:
         """Delete last instance of the list"""
-        if len(self._list) > 0:
-            self._list.pop()
-            self._update_child_indexes()
-            self._rq_list_remove.emit(len(self._list))
-
+        self.__delitem__(len(self._list))
+        
     def remove_index(self, index: int) -> None:
         """Remove item in the index of the list
 
