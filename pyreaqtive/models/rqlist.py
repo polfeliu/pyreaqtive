@@ -81,6 +81,10 @@ class RQList(RQModel):
         index = self.get_index(item)
         self.remove_index(index)
 
+    def clear(self):
+        while len(self) > 0:
+            self.pop()
+
     def get_item(self, index) -> RQModel:
         """
         Returns the indicated item of the list
@@ -128,3 +132,6 @@ class RQList(RQModel):
         """
         for item in self._list:
             yield item
+
+    def __len__(self):
+        return len(self._list)

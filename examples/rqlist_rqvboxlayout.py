@@ -6,6 +6,7 @@ from pyreaqtive.widgets import RQLabel, RQVBoxLayout
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 import random
 
+
 class Fruit(RQModel):
 
     def __init__(self, name: str):
@@ -46,16 +47,22 @@ class MainWindow(QMainWindow):
 
         self.fruits_list = RQList()
 
+        self.add_button = QPushButton("Add")
+        self.add_button.clicked.connect(self.add_fruit)
+        layout.addWidget(self.add_button)
+
+        self.clear_all_button = QPushButton("Clear")
+        self.clear_all_button.clicked.connect(
+            lambda : self.fruits_list.clear()
+        )
+        layout.addWidget(self.clear_all_button)
+
         fruits_display = RQVBoxLayout(
             model=self.fruits_list,
             widget=FruitWidget
         )
 
         layout.addLayout(fruits_display)
-
-        self.add_button = QPushButton("Add")
-        self.add_button.clicked.connect(self.add_fruit)
-        layout.addWidget(self.add_button)
 
     @pyqtSlot()
     def add_fruit(self):
