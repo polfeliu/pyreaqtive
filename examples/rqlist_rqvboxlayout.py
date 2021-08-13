@@ -44,7 +44,7 @@ class FruitWidget(QWidget):
     @pyqtSlot()
     def remove(self) -> None:
         # Request that the list removes the model this widget is representing
-        self.list_model.remove_item(self.model)
+        self.list_model.remove(self.model)
 
 
 class MainWindow(QMainWindow):

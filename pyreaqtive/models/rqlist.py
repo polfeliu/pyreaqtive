@@ -94,34 +94,23 @@ class RQList(RQModel):
 
     def pop(self) -> None:
         """Delete last instance of the list"""
-        self.__delitem__(len(self._list))
-        
-    def remove_index(self, index: int) -> None:
-        """Remove item in the index of the list
+        self.__delitem__(len(self._list) - 1)
 
-        Args:
-            index: index of the list
-        """
-        if len(self._list) > index:
-            del self._list[index]
-            self._update_child_indexes()
-            self._rq_list_remove.emit(index)
-
-    def remove_item(self, item: RQModel) -> None:
-        """Remove item in the list
+    def remove(self, item: RQModel) -> None:
+        """Remove first occurrence of value
 
         Args:
             item: model item
         """
         index = self.get_index(item)
-        self.remove_index(index)
+        self.__delitem__(index)
 
     def clear(self) -> None:
         """Clear all items of the list"""
         while len(self) > 0:
             self.pop()
 
-    def get_item(self, index: int) -> RQModel:
+    def __getitem__(self, index: int) -> RQModel:
         """Returns the indicated item of the list
 
         Args:
@@ -132,7 +121,7 @@ class RQList(RQModel):
         """
         return self._list[index]
 
-    def get_index(self, item: RQModel) -> int:
+    def index(self, item: RQModel) -> int:
         """Returns the index where a item is located
 
         Raises an ValueError if is not in the list
