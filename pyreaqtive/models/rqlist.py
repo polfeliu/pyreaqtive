@@ -12,9 +12,6 @@ class RQList(RQModel):
 
     Represents a list of model instances
 
-    Both the constructor and append functions take the class and
-    create the instance internally. TODO
-
     This model is quite different from the others and doesn't use data_changed signal.
     Instead it uses insert and remove signals that indicate the index of the list where this event is happening.
     This can greatly improve the efficiency of widgets that use this model.
@@ -27,12 +24,12 @@ class RQList(RQModel):
     Stores instances of models
     """
 
-    def __init__(self, initial_models: List[RQModel] = []): # TODO Change for non mutable
+    def __init__(self, initial_models: List[RQModel] = None):  # TODO Change for non mutable
         """
         Args:
-            initial_models: List of models to be instantiated
+            initial_models: List of model instances
         """
-        self._list = initial_models
+        self._list = initial_models if initial_models is not None else []
         self._update_child_indexes()
         super().__init__()
 
@@ -45,6 +42,12 @@ class RQList(RQModel):
     """
     List remove signal. Indicates that there's been an deletion in the position indicated by the int
     """
+
+    def set(self, value):
+        raise NotImplementedError("Cannot set whole list, insert items one by one")
+
+    def get(self):
+        return self._list
 
     def append(self, model: RQModel):
         """
@@ -67,6 +70,16 @@ class RQList(RQModel):
             self._list.pop()
             self._update_child_indexes()
             self._rq_list_remove.emit(len(self._list))
+
+    def remove_index(self, index):
+        if len(self._list) > index:
+            del self._list[index]
+            self._update_child_indexes()
+            self._rq_list_remove.emit(index)
+
+    def remove_item(self, item):
+        index = self.get_index(item)
+        self.remove_index(index)
 
     def get_item(self, index) -> RQModel:
         """

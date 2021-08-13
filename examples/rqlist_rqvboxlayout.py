@@ -1,10 +1,10 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout
 from pyreaqtive.models import RQList, RQModel
 from pyreaqtive.widgets import RQLabel, RQVBoxLayout
 
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
-
+import random
 
 class Fruit(RQModel):
 
@@ -18,12 +18,22 @@ class Fruit(RQModel):
 
 class FruitWidget(QWidget):
 
-    def __init__(self, model: Fruit):
+    def __init__(self, model: Fruit, list_model: RQList):
         super().__init__()
-        self.main_layout = QVBoxLayout(self)
+        self.model = model
+        self.list_model = list_model
+        self.main_layout = QHBoxLayout(self)
         self.main_layout.addWidget(
             QLabel(str(model))
         )
+
+        self.remove_button = QPushButton("remove")
+        self.remove_button.clicked.connect(self.remove)
+        self.main_layout.addWidget(self.remove_button)
+
+    @pyqtSlot()
+    def remove(self):
+        self.list_model.remove_item(self.model)
 
 
 class MainWindow(QMainWindow):
@@ -49,8 +59,20 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def add_fruit(self):
+        possible_fruits = [
+            'apple',
+            'pear',
+            'apricot',
+            'banana',
+            'mango',
+            'watermelon',
+            'kumquat',
+            'pineapple'
+        ]
         self.fruits_list.append(
-            Fruit("asdf")
+            Fruit(
+                random.choice(possible_fruits)
+            )
         )
 
 

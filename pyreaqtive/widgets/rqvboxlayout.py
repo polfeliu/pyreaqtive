@@ -9,15 +9,15 @@ from typing import List, Dict, Callable, Type, Union
 
 class RQVBoxLayout(QVBoxLayout):
     model: RQList
-    widget_callback: Callable[[Type[RQModel]], Type[QWidget]]
+    widget_callback: Callable[[Type[RQModel], RQList], Type[QWidget]]
 
     def __init__(self, model: RQList,
-                 widget: Union[Type[QWidget], Callable[[Type[RQModel]], Type[QWidget]]], *args):
-        super().__init__(*args)
+                 widget: Union[Type[QWidget], Callable[[Type[RQModel], RQList], Type[QWidget]]], *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.model = model
 
         if isinstance(widget, QWidget):
-            self.widget_callback = lambda item_model: widget(item_model)
+            self.widget_callback = lambda item_model: widget
         else:
             self.widget_callback = widget
 
@@ -34,8 +34,8 @@ class RQVBoxLayout(QVBoxLayout):
 
     @pyqtSlot(int)
     def _rq_insert_widget(self, index):
-        model = self.model.get_item(index)
-        self.widgets.insert(index, self.widget_callback(model))
+        item_model = self.model.get_item(index)
+        self.widgets.insert(index, self.widget_callback(item_model, self.model))
         self.addWidget(self.widgets[index])
 
     @pyqtSlot(int)
