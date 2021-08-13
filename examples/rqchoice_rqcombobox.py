@@ -7,7 +7,9 @@ from pyreaqtive.widgets import RQCombobox, RQLabel
 class Food(RQModel):
     # Declare a model to use with the choice
 
-    name: str # Food have a name!
+    def __init__(self, name: str):
+        super(Food, self).__init__()
+        self.name = name
 
     def __str__(self):
         # When rendering the object, return it's name by default
@@ -23,22 +25,17 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
 
         # Declare a list of available choices
-        choices = RQList()
-
-        food_1: Food = choices.append(Food)
-        food_1.name = "tomato"
-
-        food_2: Food = choices.append(Food)
-        food_2.name = "apple"
-
-        food_3: Food = choices.append(Food)
-        food_3.name = "banana"
+        choices = RQList([
+            Food("tomato"),
+            Food("apple"),
+            Food("banana")
+        ])
 
         # Declare a Choices model
         choice = RQChoice(
             choices=choices,
-            selected=None, # Start as none choice
-            allow_none=True # Allow none choice
+            selected=None,  # Start as none choice
+            allow_none=True  # Allow none choice
         )
 
         # Display current choice
