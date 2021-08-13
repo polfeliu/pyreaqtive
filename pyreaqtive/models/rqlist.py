@@ -152,15 +152,19 @@ class RQList(RQModel):
         for item in self._list:
             yield item
 
-    def __len__(self):
+    def __len__(self) -> int:
         """Length of the list"""
         return len(self._list)
 
-    def count(self, value):
+    def count(self, value) -> int:
         """Same as python list method"""
-        self._list.count(value)
+        return self._list.count(value)
 
     def extend(self, iterable: List[RQModel]):
         """Same as python list method"""
         for model in iterable:
             self.append(model)
+
+    def __contains__(self, item: RQModel) -> bool:
+        """Same as python list method"""
+        return self._list.__contains__(item)
