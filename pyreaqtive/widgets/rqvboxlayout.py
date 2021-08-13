@@ -61,7 +61,7 @@ class RQVBoxLayout(QVBoxLayout):
         """
         item_model = self.model[index]
         self.widgets.insert(index, self._rq_widget_callback(item_model, self.model))
-        self.addWidget(self.widgets[index])
+        self.insertWidget(index, self.widgets[index])
 
     @pyqtSlot(int)
     def _rq_remove_widget(self, index) -> None:
