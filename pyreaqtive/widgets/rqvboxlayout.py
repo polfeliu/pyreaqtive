@@ -70,8 +70,6 @@ class RQVBoxLayout(QVBoxLayout):
         Args:
             index: index in the list of the item removal
         """
-        print(self.name)
-        print(self.widgets)
         self.removeWidget(self.widgets[index])
         self.widgets[index].deleteLater()
         self.widgets.pop(index)
