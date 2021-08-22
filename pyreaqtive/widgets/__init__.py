@@ -2,7 +2,6 @@ from .rqwidget import RQWidget
 from .rqlabel import RQLabel
 from .rqspinbox import RQSpinBox
 from .rqcheckbox import RQCheckbox
-from .rqvboxlayout import RQVBoxLayout
 from .rqlineedit import RQLineEdit
 from .rqcombobox import RQCombobox
 from .rqprogressbar import RQProgressBar

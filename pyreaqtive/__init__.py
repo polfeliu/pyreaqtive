@@ -16,10 +16,12 @@ from .widgets import \
     RQLabel, \
     RQSpinBox, \
     RQCheckbox, \
-    RQVBoxLayout, \
     RQLineEdit, \
     RQCombobox, \
     RQProgressBar, \
     RQSlider, \
     RQDial, \
     RQDoubleSpinBox
+
+from .layouts import \
+    RQVBoxLayout
