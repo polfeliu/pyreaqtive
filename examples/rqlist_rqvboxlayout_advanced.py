@@ -126,12 +126,6 @@ class MainWindow(QMainWindow):
         self.add_grain_button.clicked.connect(self.add_grain)
         layout.addWidget(self.add_grain_button)
 
-        self.clear_all_button = QPushButton("Clear")
-        self.clear_all_button.clicked.connect(
-            lambda: self.fruits_list.clear()
-        )
-        layout.addWidget(self.clear_all_button)
-
         # Fruits
         layout.addWidget(QLabel("Fruits"))
         fruits_display = RQVBoxLayout(
