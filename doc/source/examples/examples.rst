@@ -11,3 +11,4 @@ Examples
    examples.rqfunction
    examples.rqchoice_rqcombobox
    examples.rqlist_rqvboxlayout
+   examples.rqlist_rqvboxlayout_advanced
