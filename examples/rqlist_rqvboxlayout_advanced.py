@@ -49,21 +49,28 @@ class FruitWidget(QWidget):
             text = "Fruit " + text
         self.main_layout.addWidget(QLabel(text))
 
-        self.remove_button = QPushButton("remove")
-        self.remove_button.clicked.connect(self.remove)
-        self.main_layout.addWidget(self.remove_button)
+        if list_model == shopping_list:
+            self.remove_button = QPushButton("remove")
+            self.remove_button.clicked.connect(self.remove_from_shopping_list)
+            self.main_layout.addWidget(self.remove_button)
 
         if list_model != shopping_list:
-            # If the widget is in the shopping list do not show button
+            self.delete_button = QPushButton("delete")
+            self.delete_button.clicked.connect(self.delete_model)
+            self.main_layout.addWidget(self.delete_button)
+
             self.add_shopping_button = QPushButton("add to shopping list")
             self.add_shopping_button.clicked.connect(self.add_to_shopping_list)
             self.main_layout.addWidget(self.add_shopping_button)
 
     @pyqtSlot()
-    def remove(self) -> None:
-        # Request that the list removes the model on the list it's representing.
-        # If it's on the fruits list, remove it from there
-        # If it's on the shopping list, remove it from there
+    def delete_model(self) -> None:
+        # Delete the model, is removed from all lists
+        self.model.__delete__()
+
+    @pyqtSlot()
+    def remove_from_shopping_list(self) -> None:
+        # Remove model from the shopping list
         self.list_model.remove(self.model)
 
     @pyqtSlot()

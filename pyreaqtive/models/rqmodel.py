@@ -35,3 +35,12 @@ class RQModel(QObject):
     Widgets that are connected to models can connect slots to this signal.
     The model must emit to this when the state of it changes, to notify the widgets.
     """
+
+    _rq_delete = pyqtSignal()
+    """pyqtSignal delete signal
+    
+    Signals that the model instance is about to be deleted
+    """
+
+    def __delete__(self):
+        self._rq_delete.emit()

@@ -65,6 +65,9 @@ class RQList(RQModel):
         Returns:
 
         """
+        model._rq_delete.connect(
+            lambda: self.remove_all(model)
+        )
         self._list.insert(index, model)
         self._update_child_indexes()
         self._rq_list_insert.emit(index)
@@ -104,6 +107,18 @@ class RQList(RQModel):
         """
         index = self.index(item)
         self.__delitem__(index)
+
+    def remove_all(self, item: RQModel) -> None:
+        """Remove all instances in the list
+
+        Args:
+            item: model item
+        """
+        while True:
+            try:
+                self.remove(item)
+            except ValueError:
+                break
 
     def clear(self) -> None:
         """Clear all items of the list"""
