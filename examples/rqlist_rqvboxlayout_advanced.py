@@ -93,17 +93,26 @@ class GrainWidget(QWidget):
             text = "Grain " + text
         self.main_layout.addWidget(QLabel(text))
 
-        self.remove_button = QPushButton("remove")
-        self.remove_button.clicked.connect(self.remove)
-        self.main_layout.addWidget(self.remove_button)
+        if list_model == shopping_list:
+            self.remove_button = QPushButton("remove")
+            self.remove_button.clicked.connect(self.remove_from_shopping_list)
+            self.main_layout.addWidget(self.remove_button)
 
         if list_model != shopping_list:
+            self.delete_button = QPushButton("delete")
+            self.delete_button.clicked.connect(self.delete_model)
+            self.main_layout.addWidget(self.delete_button)
+
             self.add_shopping_button = QPushButton("add to shopping list")
             self.add_shopping_button.clicked.connect(self.add_to_shopping_list)
             self.main_layout.addWidget(self.add_shopping_button)
 
     @pyqtSlot()
-    def remove(self) -> None:
+    def delete_model(self) -> None:
+        self.model.__delete__()
+
+    @pyqtSlot()
+    def remove_from_shopping_list(self) -> None:
         self.list_model.remove(self.model)
 
     @pyqtSlot()
