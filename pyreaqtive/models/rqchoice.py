@@ -28,7 +28,6 @@ class RQChoice(RQModel):
 
         Args:
             choices: Initial list of choices
-
             selected: Initial choice selected
         """
         super().__init__()
@@ -79,9 +78,6 @@ class RQChoice(RQModel):
 
         Args:
             value: New selected choice
-
-        Returns:
-
         """
         self._selected = value
         self.validate_selected()
@@ -102,6 +98,5 @@ class RQChoice(RQModel):
 
         Returns:
             str: value in string of the current choice model
-
         """
         return str(self._selected)
