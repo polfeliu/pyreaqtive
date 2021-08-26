@@ -16,7 +16,7 @@ class RQList(RQModel):
     This can greatly improve the efficiency of widgets that use this model.
     """
 
-    _list: list
+    _list: List[RQModel]
     """Model store variable
     
     Stores instances of models
