@@ -5,8 +5,8 @@ from ..models import RQModel, RQList
 from typing import List, Callable, Type, Union
 
 
-class RQVBoxLayout(RQBoxLayout):
-    """Reactive QVBoxLayout"""
+class RQHBoxLayout(RQBoxLayout):
+    """Reactive QHBoxLayout"""
 
     def __init__(self, model: RQList,
                  widget: Union[Type[QWidget], Callable[[RQModel, RQList], QWidget]], *args, **kwargs):
@@ -22,4 +22,4 @@ class RQVBoxLayout(RQBoxLayout):
             args: arguments to pass to the native pyqt layout
             kwargs: arguments to pass to the native pyqt layout
         """
-        super().__init__(model, widget, QBoxLayout.Direction.Down, *args, **kwargs)
+        super().__init__(model, widget, QBoxLayout.Direction.LeftToRight, *args, **kwargs)

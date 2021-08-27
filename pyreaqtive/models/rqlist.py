@@ -6,6 +6,35 @@ from PyQt5.QtCore import pyqtSignal
 from typing import List, Iterator
 
 
+class RQListIndex(RQInt):
+    """Reactive Index of a Item in a List"""
+
+    INVALID_INDEX_VALUE = -1
+    """Value if item is not present in list"""
+
+    def __init__(self, item: RQModel, list: 'RQList'):
+        """Constructor
+
+        Args:
+            item: item that presumably is on the list
+            list: list where to search the item
+        """
+        self.item = item
+        self.list = list
+        super(RQListIndex, self).__init__(self._get_index_int())
+        self.list._rq_data_changed.connect(
+            lambda: self.set(self._get_index_int())
+        )
+
+    def _get_index_int(self) -> int:
+        try:
+            index = self.list.index(self.item)
+        except ValueError:
+            index = self.INVALID_INDEX_VALUE
+
+        return index
+
+
 class RQList(RQModel):
     """Reactive List Model
 
@@ -29,8 +58,13 @@ class RQList(RQModel):
             initial_models: List of model instances
         """
         self._list = initial_models if initial_models is not None else []
-        self._update_child_indexes()
         super().__init__()
+        self._rq_list_insert.connect(
+            lambda: self._rq_data_changed.emit()
+        )
+        self._rq_list_remove.connect(
+            lambda: self._rq_data_changed.emit()
+        )
 
     _rq_list_insert = pyqtSignal(int)
     """List insert signal. 
@@ -69,7 +103,6 @@ class RQList(RQModel):
             lambda: self.remove_all(model)
         )
         self._list.insert(index, model)
-        self._update_child_indexes()
         self._rq_list_insert.emit(index)
 
     def append(self, model: RQModel) -> None:
@@ -92,7 +125,6 @@ class RQList(RQModel):
             index: positional index on the list
         """
         self._list.__delitem__(index)
-        self._update_child_indexes()
         self._rq_list_remove.emit(index)
 
     def pop(self) -> None:
@@ -149,14 +181,16 @@ class RQList(RQModel):
         """
         return self._list.index(item)
 
-    def _update_child_indexes(self) -> None:
-        """Injects the index of the list to all children,
-        if they have an attribute rq_list_index that is a RQInt
+    def reactive_index(self, item: RQModel) -> RQListIndex:
+        """Returns a reactive index model that indicates where the item is located
+
+        Args:
+            item: instance that should be in the list
+
+        Returns:
+            RQListIndex: reactive index of the item in the list
         """
-        for index, item in enumerate(self._list):
-            if hasattr(item, "rq_list_index"):
-                if isinstance(item.rq_list_index, RQInt):
-                    item.rq_list_index.set(index)
+        return RQListIndex(item, self)
 
     def __iter__(self) -> Iterator[RQModel]:
         """Iterator of the elements of the list

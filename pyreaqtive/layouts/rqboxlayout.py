@@ -29,8 +29,8 @@ class RQBoxLayout(QBoxLayout):
                 Can also be a function that accepts the item model and list model as arguments,
                 and returns the widget instance
 
-            args: arguments to pass to the native pyqt label widget
-            kwargs: arguments to pass to the native pyqt label widget
+            args: arguments to pass to the native pyqt layout
+            kwargs: arguments to pass to the native pyqt layout
         """
         super().__init__(*args, **kwargs)
         self.model = model
