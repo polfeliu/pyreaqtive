@@ -26,10 +26,12 @@ class RQBoxLayout(QBoxLayout):
             model: RQList representing all the items in the layout
 
             widget: QWidget type that represents each item.
+                The constructor of the widget must take as arguments: model (RQModel) and list (RQList).
                 Can also be a function that accepts the item model and list model as arguments,
                 and returns the widget instance
 
             args: arguments to pass to the native pyqt layout
+
             kwargs: arguments to pass to the native pyqt layout
         """
         super().__init__(*args, **kwargs)

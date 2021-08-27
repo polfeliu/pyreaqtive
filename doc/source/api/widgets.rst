@@ -18,5 +18,3 @@ Widgets
    widgets.rqdial
 
    widgets.rqcombobox
-
-   widgets.rqvboxlayout

@@ -17,6 +17,7 @@ class RQCombobox(QComboBox):
             model: Model to link the widget to
 
             args: arguments to pass to the native pyqt combobox widget
+
             kwargs: arguments to pass to the native pyqt combobox widget
         """
         super().__init__(*args, **kwargs)

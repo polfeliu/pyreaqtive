@@ -1,5 +1,5 @@
 RQList and RQVBoxLayout Advanced
-=========================
+=================================
 
 .. literalinclude:: ../../../examples/rqlist_rqvboxlayout_advanced.py
    :caption: example code

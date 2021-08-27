@@ -18,6 +18,7 @@ class RQDial(QDial):
             model: Model to link the widget to
 
             args: arguments to pass to the native pyqt dial widget
+
             kwargs: arguments to pass to the native pyqt dial widget
         """
         super().__init__(*args, **kwargs)

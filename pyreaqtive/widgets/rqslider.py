@@ -18,6 +18,7 @@ class RQSlider(QSlider):
             model: Model to link the widget to
 
             args: arguments to pass to the native pyqt slider widget
+
             kwargs: arguments to pass to the native pyqt slider widget
         """
         super().__init__(*args)

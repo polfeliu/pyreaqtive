@@ -20,6 +20,7 @@ class RQHBoxLayout(RQBoxLayout):
                 and returns the widget instance
 
             args: arguments to pass to the native pyqt layout
+
             kwargs: arguments to pass to the native pyqt layout
         """
         super().__init__(model, widget, QBoxLayout.Direction.LeftToRight, *args, **kwargs)

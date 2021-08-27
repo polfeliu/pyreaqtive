@@ -1,7 +1,7 @@
-RQVBoxLayout
+RQBoxLayout
 ======================================
 
-.. automodule:: pyreaqtive.widgets.rqvboxlayout
+.. automodule:: pyreaqtive.layouts.rqboxlayout
    :members:
    :undoc-members:
    :show-inheritance:

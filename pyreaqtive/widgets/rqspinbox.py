@@ -17,6 +17,7 @@ class RQSpinBox(QSpinBox):
             model: Model to link the widget to
 
             args: arguments to pass to the native pyqt spinbox widget
+
             kwargs: arguments to pass to the native pyqt spinbox widget
         """
         super().__init__(*args)

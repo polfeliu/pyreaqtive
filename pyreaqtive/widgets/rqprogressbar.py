@@ -18,6 +18,7 @@ class RQProgressBar(QProgressBar):
             model: Model to link the widget to
 
             args: arguments to pass to the native pyqt progressbar widget
+
             kwargs: arguments to pass to the native pyqt progressbar widget
         """
         self.model = model

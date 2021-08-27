@@ -17,6 +17,7 @@ class RQCheckbox(QCheckBox):
             model: Model to link the widget to
 
             args: arguments to pass to the native pyqt checkbox widget
+
             kwargs: arguments to pass to the native pyqt checkbox widget
         """
         super().__init__(*args, **kwargs)

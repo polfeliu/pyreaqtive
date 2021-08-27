@@ -17,6 +17,7 @@ class RQLineEdit(QLineEdit):
             model: Model to link the widget to
 
             args: arguments to pass to the native pyqt LineEdit widget
+
             kwargs: arguments to pass to the native pyqt LineEdit widget
         """
         self.model = model
