@@ -2,14 +2,12 @@ __version__ = "0.1.1"
 
 from .models import \
     RQModel, \
-    RQInt, \
-    RQBool, \
-    RQText, \
-    RQList, \
+    RQInt, RQComputedInt,\
+    RQBool, RQComputedBool,\
+    RQText, RQComputedText,\
+    RQList, RQComputedList,\
     RQChoice, \
-    RQFormatter, \
-    RQFunction, \
-    RQFloat
+    RQFloat, RQComputedFloat
 
 from .widgets import \
     RQWidget, \

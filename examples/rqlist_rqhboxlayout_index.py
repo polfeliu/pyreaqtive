@@ -5,7 +5,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton
 
 from pyreaqtive.layouts import RQHBoxLayout
-from pyreaqtive.models import RQList, RQModel, RQFormatter
+from pyreaqtive.models import RQList, RQModel, RQComputedText
 from pyreaqtive.widgets import RQLabel
 
 
@@ -45,7 +45,7 @@ class ItemWidget(QWidget):
         # Get a reactive index of the item in the list
         self.index = list_model.reactive_index(model)
         self.index_label = RQLabel(
-            RQFormatter(
+            RQComputedText(
                 "index: {index}",
                 index=self.index
             )

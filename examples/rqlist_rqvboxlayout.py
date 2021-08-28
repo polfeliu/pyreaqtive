@@ -1,11 +1,12 @@
+import random
 import sys
+
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout
+
+from pyreaqtive.layouts import RQVBoxLayout
 from pyreaqtive.models import RQList, RQModel, RQChoice
 from pyreaqtive.widgets import RQCombobox
-from pyreaqtive.layouts import RQVBoxLayout
-
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
-import random
 
 
 # Declare a Custom Model

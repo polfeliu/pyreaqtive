@@ -66,7 +66,7 @@ class RQChoice(RQModel):
             else:
                 raise ValueError
 
-        if self.selected not in self.rq_choices_list:
+        if self.selected not in self.get_choices():
             if auto_reset:
                 self.reset()
             else:
@@ -106,4 +106,4 @@ class RQChoice(RQModel):
         Returns:
             Iterator of RQModels
         """
-        return self.rq_choices_list.__iter__()
+        return self.get_choices().__iter__()

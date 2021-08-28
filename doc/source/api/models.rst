@@ -13,7 +13,3 @@ Models
 
    models.rqlist
    models.rqchoice
-
-   models.rqformatter
-   models.rqfunction
-

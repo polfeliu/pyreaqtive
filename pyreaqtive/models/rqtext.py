@@ -1,4 +1,4 @@
-from .rqmodel import RQModel
+from .rqmodel import RQModel, RQComputedModel
 
 
 class RQText(RQModel):
@@ -42,4 +42,35 @@ class RQText(RQModel):
         Returns:
             str: value of the model
         """
-        return self._text
+        return self.get()
+
+
+class RQComputedText(RQComputedModel, RQText):
+    """Reactive Computed Float Model"""
+
+    def __init__(self, format_string: str, **kwargs):
+        """Constructor
+
+        Args:
+            format_string: python formatting string
+
+            kwargs: reactive models in the function by variable name as keyword
+                Changes in these models will trigger recalculation of the function
+       """
+        self.rq_format_string = format_string
+        RQComputedModel.__init__(self, self._format_text, **kwargs)
+        RQText.__init__(self, self.get())
+
+    def _format_text(self, **kwargs) -> str:
+        """Get value of the model in string format
+
+        Returns:
+            str: formatted string with current model values
+        """
+        return self.rq_format_string.format(
+            **{key: str(variable) for key, variable in kwargs.items()}
+        )
+
+    def get(self) -> str:
+        """Get the computed text"""
+        return str(super().get())

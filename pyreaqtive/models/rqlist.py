@@ -217,3 +217,8 @@ class RQList(RQModel):
     def __contains__(self, item: RQModel) -> bool:
         """Same as python list method"""
         return self._list.__contains__(item)
+
+class RQComputedList:
+
+    def __init__(self):
+        raise NotImplementedError

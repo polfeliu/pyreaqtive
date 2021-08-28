@@ -80,4 +80,4 @@ class RQComputedBool(RQComputedModel, RQBool):
 
     def get(self) -> bool:
         """Get the computed value"""
-        return bool(super(RQComputedBool, self).get())
+        return bool(super().get())

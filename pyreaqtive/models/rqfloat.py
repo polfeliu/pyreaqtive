@@ -1,4 +1,6 @@
-from .rqmodel import RQModel
+from .rqmodel import RQModel, RQComputedModel
+
+from typing import Callable
 
 
 class RQFloat(RQModel):
@@ -44,7 +46,7 @@ class RQFloat(RQModel):
         Returns:
             str: value of the model converted to string
         """
-        return str(self._float)
+        return str(self.get())
 
     def __int__(self) -> int:
         """Get value of the model in integer format
@@ -52,7 +54,7 @@ class RQFloat(RQModel):
         Returns:
             str: value of the model converted to integer
         """
-        return int(self._float)
+        return int(self.get())
 
     def __float__(self) -> float:
         """
@@ -61,4 +63,24 @@ class RQFloat(RQModel):
         Returns:
             str: value of the model
         """
-        return self._float
+        return self.get()
+
+
+class RQComputedFloat(RQComputedModel, RQFloat):
+    """Reactive Computed Float Model"""
+
+    def __init__(self, function: Callable, **kwargs):
+        """Constructor
+
+        Args:
+            function: function to calculate the model value from input values
+
+            kwargs: reactive models in the function by variable name as keyword
+                Changes in these models will trigger recalculation of the function
+       """
+        RQComputedModel.__init__(self, function, **kwargs)
+        RQFloat.__init__(self, self.get())
+
+    def get(self) -> float:
+        """Get the computed value"""
+        return float(super().get())

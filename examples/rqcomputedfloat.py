@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel
-from pyreaqtive.models import RQFloat, RQFunction
+from pyreaqtive.models import RQFloat, RQComputedFloat
 from pyreaqtive.widgets import RQDoubleSpinBox, RQLabel
 
 
@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(height_spinbox)
 
         # Function can also be declared inplace on the widget
-        area = RQFunction(
+        area = RQComputedFloat(
             lambda b, h: b * h / 2,
             b=base,
             h=height

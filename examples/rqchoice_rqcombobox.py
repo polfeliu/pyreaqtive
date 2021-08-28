@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
-from pyreaqtive.models import RQChoice, RQList, RQModel, RQFormatter
+from pyreaqtive.models import RQChoice, RQList, RQModel, RQComputedText
 from pyreaqtive.widgets import RQCombobox, RQLabel
 
 
@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
         )
 
         # Display current choice
-        label = RQLabel(RQFormatter(
+        label = RQLabel(RQComputedText(
             "I want to eat: {food}",
             food=choice
         ))
