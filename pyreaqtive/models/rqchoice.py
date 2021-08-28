@@ -1,8 +1,7 @@
-from .rqmodel import RQModel
-from .rqlist import RQList
+from typing import Union, Iterator
 
-from typing import Union
-from PyQt5.QtCore import pyqtSlot
+from .rqlist import RQList
+from .rqmodel import RQModel
 
 
 class RQChoice(RQModel):
@@ -11,17 +10,17 @@ class RQChoice(RQModel):
     Represents a choice from a list of choices
     """
 
-    _choices: RQList
+    rq_choices_list: RQList
     """Reactive list of available choices"""
 
-    _selected: Union[RQModel, None]
-    """Reactive selected item
+    selected: Union[RQModel, None]
+    """Selected item
     
     Can be None if allow_none is True
     """
 
     allow_none: bool
-    """Indicates if model accepts choice none appart from the list of choices"""
+    """Indicates if model accepts choice none apart from the list of choices"""
 
     def __init__(self, choices: RQList, selected: RQModel = None, allow_none=False):
         """Constructor
@@ -31,11 +30,11 @@ class RQChoice(RQModel):
             selected: Initial choice selected
         """
         super().__init__()
-        self._choices = choices
-        self._selected = selected
+        self.rq_choices_list = choices
+        self.selected = selected
         self.allow_none = allow_none
         self.validate_selected()
-        self._choices._rq_list_remove.connect(lambda: self.validate_selected(auto_reset=True))
+        self.rq_choices_list.rq_list_remove.connect(lambda: self.validate_selected(auto_reset=True))
 
     def get(self) -> RQModel:
         """Get current selection
@@ -43,7 +42,7 @@ class RQChoice(RQModel):
         Returns:
             RQModel: Selected Model
         """
-        return self._selected
+        return self.selected
 
     def get_choices(self) -> RQList:
         """Get list of choices
@@ -51,7 +50,7 @@ class RQChoice(RQModel):
         Returns:
             RQList: List of choices
         """
-        return self._choices
+        return self.rq_choices_list
 
     def validate_selected(self, auto_reset=False) -> None:
         """Validate that the current selection is none or is a valid choice from the choices list
@@ -61,13 +60,13 @@ class RQChoice(RQModel):
                 if True, when selected is not valid resets the selection
                 if False, raises KeyError Exception
         """
-        if self._selected is None:
+        if self.selected is None:
             if self.allow_none:
                 return
             else:
                 raise ValueError
 
-        if self._selected not in self._choices:
+        if self.selected not in self.rq_choices_list:
             if auto_reset:
                 self.reset()
             else:
@@ -79,9 +78,9 @@ class RQChoice(RQModel):
         Args:
             value: New selected choice
         """
-        self._selected = value
+        self.selected = value
         self.validate_selected()
-        self._rq_data_changed.emit()
+        self.rq_data_changed.emit()
 
     def reset(self) -> None:
         """Reset selection to default value
@@ -99,4 +98,12 @@ class RQChoice(RQModel):
         Returns:
             str: value in string of the current choice model
         """
-        return str(self._selected)
+        return str(self.selected)
+
+    def __iter__(self) -> Iterator[RQModel]:
+        """Iterator of the choices of the list
+
+        Returns:
+            Iterator of RQModels
+        """
+        return self.rq_choices_list.__iter__()

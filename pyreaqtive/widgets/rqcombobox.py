@@ -22,11 +22,11 @@ class RQCombobox(QComboBox):
         """
         super().__init__(*args, **kwargs)
         self.model = model
-        self.model._rq_data_changed.connect(self._rq_data_changed)
-        self.model._choices._rq_list_insert.connect(self._rq_choice_insert)
-        self.model._choices._rq_list_remove.connect(self._rq_choice_remove)
+        self.model.rq_data_changed.connect(self._rq_data_changed)
+        self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)
+        self.model.rq_choices_list.rq_list_remove.connect(self._rq_choice_remove)
 
-        for index, choice in enumerate(self.model._choices):
+        for index, choice in enumerate(self.model):
             self._rq_choice_insert(index)
 
         if self.model.allow_none:
@@ -38,26 +38,26 @@ class RQCombobox(QComboBox):
 
     @pyqtSlot(int)
     def _rq_choice_insert(self, index: int) -> None:
-        """Slot triggered when the list of choices inserts a new item.
+        """Slot triggered when the initial of choices inserts a new item.
 
         Adds the option to the combobox
 
         Args:
-            index: element of the list
+            index: element of the initial
         """
         self.insertItem(
             index,
-            str(self.model._choices[index])
+            str(self.model.rq_choices_list[index])
         )
 
     @pyqtSlot(int)
     def _rq_choice_remove(self, index: int) -> None:
-        """Slot triggered when the list of choices removes a new item
+        """Slot triggered when the initial of choices removes a new item
 
         Removes the option from the combobox
 
         Args:
-            index: element of the list
+            index: element of the initial
         """
         self.removeItem(index)
 
@@ -69,10 +69,10 @@ class RQCombobox(QComboBox):
         """
         if not self._rq_writing:
             self._rq_reading = True
-            if self.model._selected is not None:
+            if self.model.selected is not None:
                 self.setCurrentIndex(
-                    self.model._choices.index(
-                        self.model._selected
+                    self.model.rq_choices_list.index(
+                        self.model.selected
                     )
                 )
             else:
@@ -100,7 +100,7 @@ class RQCombobox(QComboBox):
             if self.model.allow_none and self.currentIndex() == self.count() - 1:
                 choice = None
             else:
-                choice = self.model._choices[index]
+                choice = self.model.rq_choices_list[index]
 
             self.model.set(choice)
 

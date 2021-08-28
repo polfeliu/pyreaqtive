@@ -22,7 +22,7 @@ class RQFunction(RQModel):
         self.variables = kwargs
         for name, model in self.variables.items():
             if isinstance(model, RQModel) or issubclass(type(model), RQModel):
-                model._rq_data_changed.connect(self._variable_changed)
+                model.rq_data_changed.connect(self._variable_changed)
 
     def _variable_changed(self) -> None:
         """Variable changed slot
@@ -31,7 +31,7 @@ class RQFunction(RQModel):
         Informs connected widgets that the function model has changed.
         Widgets will ask the string again and recalculate it with the new data
         """
-        self._rq_data_changed.emit()
+        self.rq_data_changed.emit()
 
     def set(self, value) -> None:
         raise RuntimeError("RQFunction does not allow set()")

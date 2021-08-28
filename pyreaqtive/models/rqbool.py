@@ -37,7 +37,7 @@ class RQBool(RQModel):
             value: new value of the model
         """
         self._bool = bool(value)
-        self._rq_data_changed.emit()
+        self.rq_data_changed.emit()
 
     def toggle(self) -> None:
         """Toggle the value of the model"""

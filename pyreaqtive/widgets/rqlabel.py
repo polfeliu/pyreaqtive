@@ -22,7 +22,7 @@ class RQLabel(QLabel):
         """
         super().__init__(str(self.model), *args, **kwargs)
         self.model = model
-        self.model._rq_data_changed.connect(self._rq_data_changed)
+        self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()
 
     @pyqtSlot()

@@ -22,8 +22,8 @@ class RQLineEdit(QLineEdit):
         """
         self.model = model
         super().__init__(*args, **kwargs)
-        self.model._rq_data_changed.connect(self._rq_data_changed)
-        self.textChanged.connect(self._valueChanged)
+        self.model.rq_data_changed.connect(self._rq_data_changed)
+        self.textChanged.connect(self._value_changed)
         self._rq_data_changed()
 
     @pyqtSlot()
@@ -44,7 +44,7 @@ class RQLineEdit(QLineEdit):
     """Flag to indicate that the model changed and the widget is reading the model"""
 
     @pyqtSlot(str)
-    def _valueChanged(self, text: str) -> None:
+    def _value_changed(self, text: str) -> None:
         """Slot triggered when the user changes text of the LineEdit.
 
         Propagates changes to the model

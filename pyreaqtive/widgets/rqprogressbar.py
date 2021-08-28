@@ -1,8 +1,9 @@
+from typing import Union
+
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QProgressBar
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 from ..models import RQInt, RQFloat
-from typing import Union
 
 
 class RQProgressBar(QProgressBar):
@@ -24,7 +25,7 @@ class RQProgressBar(QProgressBar):
         self.model = model
         super().__init__(*args, **kwargs)
 
-        self.model._rq_data_changed.connect(self._rq_data_changed)
+        self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()
 
     @pyqtSlot()

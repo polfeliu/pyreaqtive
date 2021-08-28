@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QBoxLayout, QWidget
 from .rqboxlayout import RQBoxLayout
 
 from ..models import RQModel, RQList
-from typing import List, Callable, Type, Union
+from typing import Callable, Type, Union
 
 
 class RQHBoxLayout(RQBoxLayout):

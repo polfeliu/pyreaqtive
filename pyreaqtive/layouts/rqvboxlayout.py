@@ -1,8 +1,9 @@
-from PyQt5.QtWidgets import QBoxLayout, QWidget
-from .rqboxlayout import RQBoxLayout
+from typing import Callable, Type, Union
 
+from PyQt5.QtWidgets import QBoxLayout, QWidget
+
+from .rqboxlayout import RQBoxLayout
 from ..models import RQModel, RQList
-from typing import List, Callable, Type, Union
 
 
 class RQVBoxLayout(RQBoxLayout):

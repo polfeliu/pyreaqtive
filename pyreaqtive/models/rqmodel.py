@@ -6,7 +6,7 @@ from typing import Any
 class RQModel(QObject):
     """RQModel Base Class
 
-    All pyreactive models must inherit from this class, that provides basic get, set method and data changed signals
+    All pyreaqtive models must inherit from this class, that provides basic get, set method and data changed signals
     """
 
     def get(self) -> Any:
@@ -29,7 +29,7 @@ class RQModel(QObject):
         """
         raise NotImplementedError
 
-    _rq_data_changed = pyqtSignal()
+    rq_data_changed = pyqtSignal()
     """pyqtSignal data changed signal
     
     Widgets that are connected to models can connect slots to this signal.

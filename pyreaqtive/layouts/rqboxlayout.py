@@ -49,10 +49,10 @@ class RQBoxLayout(QBoxLayout):
         if not isinstance(model, RQList):
             raise TypeError
         else:
-            self.model._rq_list_insert.connect(self._rq_insert_widget)
-            self.model._rq_list_remove.connect(self._rq_remove_widget)
+            self.model.rq_list_insert.connect(self._rq_insert_widget)
+            self.model.rq_list_remove.connect(self._rq_remove_widget)
 
-        for index, item in enumerate(self.model._list):
+        for index, item in enumerate(self.model):
             self._rq_insert_widget(index)
 
     @pyqtSlot(int)
@@ -60,7 +60,7 @@ class RQBoxLayout(QBoxLayout):
         """Slot triggered when the model inserts a new item
 
         Args:
-            index: index in the list of the new instance
+            index: index in the initial of the new instance
         """
         item_model = self.model[index]
         self.widgets.insert(index, self._rq_widget_callback(item_model, self.model))

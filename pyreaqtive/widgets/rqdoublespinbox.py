@@ -23,7 +23,7 @@ class RQDoubleSpinBox(QDoubleSpinBox):
         super().__init__(*args, **kwargs)
         self.model = model
         self._rq_data_changed()
-        self.model._rq_data_changed.connect(self._rq_data_changed)
+        self.model.rq_data_changed.connect(self._rq_data_changed)
         self.valueChanged.connect(self._value_changed)
 
     @pyqtSlot()

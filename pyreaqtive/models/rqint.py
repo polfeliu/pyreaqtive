@@ -36,7 +36,7 @@ class RQInt(RQModel):
             value: new value of the model
         """
         self._int = int(value)
-        self._rq_data_changed.emit()
+        self.rq_data_changed.emit()
 
     def increment(self, delta: int = 1) -> None:
         """Increment integer method

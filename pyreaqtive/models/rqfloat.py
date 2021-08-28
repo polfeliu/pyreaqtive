@@ -36,7 +36,7 @@ class RQFloat(RQModel):
             value: new value of the model
         """
         self._float = float(value)
-        self._rq_data_changed.emit()
+        self.rq_data_changed.emit()
 
     def __str__(self) -> str:
         """Get value of the model in string format

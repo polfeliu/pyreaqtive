@@ -12,17 +12,17 @@ class RQListIndex(RQInt):
     INVALID_INDEX_VALUE = -1
     """Value if item is not present in list"""
 
-    def __init__(self, item: RQModel, list: 'RQList'):
+    def __init__(self, item: RQModel, initial: 'RQList'):
         """Constructor
 
         Args:
             item: item that presumably is on the list
-            list: list where to search the item
+            initial: list where to search the item
         """
         self.item = item
-        self.list = list
+        self.list = initial
         super(RQListIndex, self).__init__(self._get_index_int())
-        self.list._rq_data_changed.connect(
+        self.list.rq_data_changed.connect(
             lambda: self.set(self._get_index_int())
         )
 
@@ -59,20 +59,20 @@ class RQList(RQModel):
         """
         self._list = initial_models if initial_models is not None else []
         super().__init__()
-        self._rq_list_insert.connect(
-            lambda: self._rq_data_changed.emit()
+        self.rq_list_insert.connect(
+            lambda: self.rq_data_changed.emit()
         )
-        self._rq_list_remove.connect(
-            lambda: self._rq_data_changed.emit()
+        self.rq_list_remove.connect(
+            lambda: self.rq_data_changed.emit()
         )
 
-    _rq_list_insert = pyqtSignal(int)
+    rq_list_insert = pyqtSignal(int)
     """List insert signal. 
     
     Indicates that there's been an insertion to the position indicated by the int
     """
 
-    _rq_list_remove = pyqtSignal(int)
+    rq_list_remove = pyqtSignal(int)
     """List remove signal. 
     
     Indicates that there's been an deletion in the position indicated by the int
@@ -103,7 +103,7 @@ class RQList(RQModel):
             lambda: self.remove_all(model)
         )
         self._list.insert(index, model)
-        self._rq_list_insert.emit(index)
+        self.rq_list_insert.emit(index)
 
     def append(self, model: RQModel) -> None:
         """Append a model instance to the end of the list
@@ -125,7 +125,7 @@ class RQList(RQModel):
             index: positional index on the list
         """
         self._list.__delitem__(index)
-        self._rq_list_remove.emit(index)
+        self.rq_list_remove.emit(index)
 
     def pop(self) -> None:
         """Delete last instance of the list"""

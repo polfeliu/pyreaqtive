@@ -23,7 +23,7 @@ class RQCheckbox(QCheckBox):
         super().__init__(*args, **kwargs)
         self.model = model
         self.toggled.connect(self._toggled)
-        self.model._rq_data_changed.connect(self._rq_data_changed)
+        self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()
 
     @pyqtSlot()
