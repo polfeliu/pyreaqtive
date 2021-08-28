@@ -3,27 +3,30 @@ from typing import Union
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QProgressBar
 
-from ..models import RQInt, RQFloat
+from ..models import RQInt, RQFloat, RQBool
+from .rqwidget import RQWidget
 
 
-class RQProgressBar(QProgressBar):
+class RQProgressBar(RQWidget, QProgressBar):
     """Reactive ProgressBar Widget"""
 
     model: Union[RQInt, RQFloat]
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQInt, RQFloat], *args, **kwargs):
-        """Constructor
+    def __init__(self, model: Union[RQInt, RQFloat, int, float], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+        """Constructor.
 
         Args:
             model: Model to link the widget to
 
-            args: arguments to pass to the native pyqt progressbar widget
+            args: arguments to pass to the native pyqt widget
 
-            kwargs: arguments to pass to the native pyqt progressbar widget
+            rq_if: RQBool that controls the visibility
+
+            kwargs: arguments to pass to the native pyqt widget
         """
-        self.model = model
-        super().__init__(*args, **kwargs)
+        RQWidget.__init__(self, model, rq_if)
+        QProgressBar.__init__(self, *args, **kwargs)
 
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()

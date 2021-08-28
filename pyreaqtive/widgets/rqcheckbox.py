@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QCheckBox
 from PyQt5.QtCore import pyqtSlot
 
 from ..models import RQBool
+from .rqwidget import RQWidget
+from typing import Union
 
 
 class RQCheckbox(QCheckBox):
@@ -10,18 +12,21 @@ class RQCheckbox(QCheckBox):
     model: RQBool
     """Model linked to the widget"""
 
-    def __init__(self, model: RQBool, *args, **kwargs):
-        """Constructor
+    def __init__(self, model: Union[RQBool, bool], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+        """Constructor.
 
         Args:
             model: Model to link the widget to
 
-            args: arguments to pass to the native pyqt checkbox widget
+            args: arguments to pass to the native pyqt widget
 
-            kwargs: arguments to pass to the native pyqt checkbox widget
+            rq_if: RQBool that controls the visibility
+
+            kwargs: arguments to pass to the native pyqt widget
         """
-        super().__init__(*args, **kwargs)
-        self.model = model
+        RQWidget.__init__(self, model, rq_if)
+        QCheckBox.__init__(self, *args, **kwargs)
+
         self.toggled.connect(self._toggled)
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()

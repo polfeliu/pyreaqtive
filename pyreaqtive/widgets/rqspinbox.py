@@ -1,27 +1,32 @@
 from PyQt5.QtWidgets import QSpinBox
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQInt
+from ..models import RQInt, RQBool
+from .rqwidget import RQWidget
+from typing import Union
 
 
-class RQSpinBox(QSpinBox):
+class RQSpinBox(RQWidget, QSpinBox):
     """Reactive SpinBox Widget"""
 
     model: RQInt = None
     """Model linked to the widget"""
 
-    def __init__(self, model: RQInt, *args):
+    def __init__(self, model: Union[RQInt, int], *args, rq_if: Union[RQBool, None] = None, **kwargs):
         """Constructor.
 
         Args:
             model: Model to link the widget to
 
-            args: arguments to pass to the native pyqt spinbox widget
+            args: arguments to pass to the native pyqt widget
 
-            kwargs: arguments to pass to the native pyqt spinbox widget
+            rq_if: RQBool that controls the visibility
+
+            kwargs: arguments to pass to the native pyqt widget
         """
-        super().__init__(*args)
-        self.model = model
+        RQWidget.__init__(self, model, rq_if)
+        QSpinBox.__init__(self, *args, **kwargs)
+
         self._rq_data_changed()
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self.valueChanged.connect(self._value_changed)

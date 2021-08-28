@@ -1,28 +1,33 @@
 from PyQt5.QtWidgets import QDial
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQInt, RQFloat
+from ..models import RQInt, RQFloat, RQBool
 from typing import Union
 
+from .rqwidget import RQWidget
 
-class RQDial(QDial):
+
+class RQDial(RQWidget, QDial):
     """Reactive Dial Widget"""
 
     model: Union[RQInt, RQFloat]
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQInt, RQFloat], *args, **kwargs):
+    def __init__(self, model: Union[RQInt, RQFloat, int, float], *args, rq_if: Union[RQBool, None] = None, **kwargs):
         """Constructor.
 
         Args:
             model: Model to link the widget to
 
-            args: arguments to pass to the native pyqt dial widget
+            args: arguments to pass to the native pyqt widget
 
-            kwargs: arguments to pass to the native pyqt dial widget
+            rq_if: RQBool that controls the visibility
+
+            kwargs: arguments to pass to the native pyqt widget
         """
-        super().__init__(*args, **kwargs)
-        self.model = model
+        RQWidget.__init__(self, model, rq_if)
+        QDial.__init__(self, *args, **kwargs)
+
         self._rq_data_changed()
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self.valueChanged.connect(self._value_changed)

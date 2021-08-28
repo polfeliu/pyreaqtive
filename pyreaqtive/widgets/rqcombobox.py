@@ -1,7 +1,9 @@
 from PyQt5.QtWidgets import QComboBox
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQChoice
+from ..models import RQChoice, RQBool
+from .rqwidget import RQWidget
+from typing import Union
 
 
 class RQCombobox(QComboBox):
@@ -10,18 +12,21 @@ class RQCombobox(QComboBox):
     model: RQChoice
     """Model linked to the widget"""
 
-    def __init__(self, model: RQChoice, *args, **kwargs):
-        """Constructor
+    def __init__(self, model: RQChoice, *args, rq_if: Union[RQBool, None] = None, **kwargs):
+        """Constructor.
 
         Args:
             model: Model to link the widget to
 
-            args: arguments to pass to the native pyqt combobox widget
+            args: arguments to pass to the native pyqt widget
 
-            kwargs: arguments to pass to the native pyqt combobox widget
+            rq_if: RQBool that controls the visibility
+
+            kwargs: arguments to pass to the native pyqt widget
         """
-        super().__init__(*args, **kwargs)
-        self.model = model
+        RQWidget.__init__(self, model, rq_if)
+        QComboBox.__init__(self, *args, **kwargs)
+
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)
         self.model.rq_choices_list.rq_list_remove.connect(self._rq_choice_remove)

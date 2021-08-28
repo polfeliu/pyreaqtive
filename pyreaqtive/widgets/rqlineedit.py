@@ -1,27 +1,33 @@
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQText
+from ..models import RQText, RQBool
+from .rqwidget import RQWidget
+
+from typing import Union
 
 
-class RQLineEdit(QLineEdit):
+class RQLineEdit(RQWidget, QLineEdit):
     """Reactive LineEdit Widget"""
 
     model: RQText
     """Model linked to the widget"""
 
-    def __init__(self, model: RQText, *args, **kwargs):
-        """Constructor
+    def __init__(self, model: Union[RQText, str], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+        """Constructor.
 
         Args:
             model: Model to link the widget to
 
-            args: arguments to pass to the native pyqt LineEdit widget
+            args: arguments to pass to the native pyqt widget
 
-            kwargs: arguments to pass to the native pyqt LineEdit widget
+            rq_if: RQBool that controls the visibility
+
+            kwargs: arguments to pass to the native pyqt widget
         """
-        self.model = model
-        super().__init__(*args, **kwargs)
+        RQWidget.__init__(self, model, rq_if)
+        QLineEdit.__init__(self, *args, **kwargs)
+
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self.textChanged.connect(self._value_changed)
         self._rq_data_changed()

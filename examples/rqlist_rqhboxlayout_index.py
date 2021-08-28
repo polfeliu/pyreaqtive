@@ -1,11 +1,12 @@
 import string
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout
+
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton
+
+from pyreaqtive.layouts import RQHBoxLayout
 from pyreaqtive.models import RQList, RQModel, RQFormatter
 from pyreaqtive.widgets import RQLabel
-from pyreaqtive.layouts import RQHBoxLayout
-
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 
 
 class Item(RQModel):
@@ -26,7 +27,7 @@ class ItemWidget(QWidget):
         self.list_model = list_model
 
         self.main_layout = QVBoxLayout(self)
-        self.resize(200,200)
+        self.resize(200, 200)
 
         global next_letter
         self.letter_label = QLabel(

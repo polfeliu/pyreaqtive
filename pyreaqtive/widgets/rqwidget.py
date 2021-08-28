@@ -1,8 +1,41 @@
 from PyQt5.QtWidgets import QWidget
+from ..models import RQModel, RQText, RQBool, RQInt, RQFloat
+
+from typing import Union
 
 
-class RQWidget(QWidget):
-    """
-    Reactive Widget Base class
-    """
-    pass
+class RQWidget:
+    """Reactive Widget Base class"""
+
+    def __init__(self, model: Union[RQModel, str, bool, int, float], rq_if: Union[RQBool, None] = None):
+        """Constructor.
+
+        This class always always inherits from QWidget but is not declared as so. User defined widgets,
+            will directly have the QWidget methods
+
+        Args:
+            model: model of the widget. Can also be a built-in type that is converted to a dummy model
+            rq_if: RQBool that controls the visibility
+        """
+
+        if isinstance(model, str):
+            model = RQText(model)
+        elif isinstance(model, int):
+            model = RQInt(model)
+        elif isinstance(model, float):
+            model = RQFloat
+        elif isinstance(model, bool):
+            model = RQBool(model)
+
+        self.model: RQModel = model
+
+        self._rq_if_model = rq_if
+        if self._rq_if_model is not None:
+            self._rq_if_model.rq_data_changed.connect(self._rq_if_data_changed)
+
+    def _rq_if_data_changed(self):
+        if issubclass(type(self), QWidget):
+            if self._rq_if_model:
+                self.show()
+            else:
+                self.hide()

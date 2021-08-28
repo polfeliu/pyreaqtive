@@ -24,4 +24,6 @@ from .widgets import \
     RQDoubleSpinBox
 
 from .layouts import \
-    RQVBoxLayout
+    RQBoxLayout, \
+    RQVBoxLayout, \
+    RQHBoxLayout

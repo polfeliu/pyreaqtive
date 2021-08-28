@@ -1,27 +1,33 @@
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQModel
+from ..models import RQModel, RQBool
+from .rqwidget import RQWidget
+
+from typing import Union
 
 
-class RQLabel(QLabel):
+class RQLabel(RQWidget, QLabel):
     """Reactive Label Widget"""
 
     model: RQModel = None
     """Model linked to the widget"""
 
-    def __init__(self, model: RQModel, *args, **kwargs):
+    def __init__(self, model: Union[RQModel, str], *args, rq_if: Union[RQBool, None] = None, **kwargs):
         """Constructor.
 
         Args:
             model: Model to link the widget to
 
-            args: arguments to pass to the native pyqt label widget
+            args: arguments to pass to the native pyqt widget
 
-            kwargs: arguments to pass to the native pyqt label widget
+            rq_if: RQBool that controls the visibility
+
+            kwargs: arguments to pass to the native pyqt widget
         """
-        super().__init__(str(self.model), *args, **kwargs)
-        self.model = model
+        RQWidget.__init__(self, model, rq_if)
+        QLabel.__init__(self, str(self.model), *args, **kwargs)
+
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()
 
