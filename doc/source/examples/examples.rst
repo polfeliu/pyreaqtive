@@ -14,3 +14,4 @@ Examples
    examples.rqlist_rqvboxlayout_advanced
    examples.rqlist_rqhboxlayout_index
    examples.rqif
+   examples.rqif_rqcomputedbool

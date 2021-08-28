@@ -1,4 +1,6 @@
-from .rqmodel import RQModel
+from .rqmodel import RQModel, RQComputedModel
+
+from typing import Callable
 
 
 class RQBool(RQModel):
@@ -50,7 +52,7 @@ class RQBool(RQModel):
             bool: value of the model
 
         """
-        return self._bool
+        return self.get()
 
     def __str__(self) -> str:
         """Get value of the model in string format
@@ -58,4 +60,24 @@ class RQBool(RQModel):
         Returns:
             str: value of the model converted to string
         """
-        return str(self._bool)
+        return str(self.get())
+
+
+class RQComputedBool(RQComputedModel, RQBool):
+    """Reactive Computed Boolean Model"""
+
+    def __init__(self, function: Callable, **kwargs):
+        """Constructor
+
+        Args:
+            function: function to calculate the model value from input values
+
+            kwargs: reactive models in the function by variable name as keyword
+                Changes in these models will trigger recalculation of the function
+       """
+        RQComputedModel.__init__(self, function, **kwargs)
+        RQBool.__init__(self, self.get())
+
+    def get(self) -> bool:
+        """Get the computed value"""
+        return bool(super(RQComputedBool, self).get())

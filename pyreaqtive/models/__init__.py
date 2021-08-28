@@ -1,6 +1,6 @@
-from .rqmodel import RQModel
+from .rqmodel import RQModel, RQComputedModel
 from .rqint import RQInt
-from .rqbool import RQBool
+from .rqbool import RQBool, RQComputedBool
 from .rqtext import RQText
 from .rqlist import RQList
 from .rqchoice import RQChoice
