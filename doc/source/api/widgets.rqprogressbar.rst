@@ -7,4 +7,4 @@ RQProgressBar
    :show-inheritance:
    :special-members:
    :private-members:
-   :exclude-members: __annotations__, __module__
+   :exclude-members: __annotations__, __module__, __dict__
