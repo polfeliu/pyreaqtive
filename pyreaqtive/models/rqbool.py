@@ -9,9 +9,6 @@ class RQBool(RQModel):
     Represents a Boolean
     """
 
-    _bool: bool
-    """Model store variable"""
-
     def __init__(self, state: bool):
         """Constructor
 
@@ -19,7 +16,8 @@ class RQBool(RQModel):
             state: Initial state of the model
         """
         super().__init__()
-        self._bool = bool(state)
+        self._bool: bool = bool(state)
+        """Model store variable"""
 
     def get(self) -> bool:
         """Get value of the model

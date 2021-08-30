@@ -9,14 +9,6 @@ from typing import List, Callable, Type, Union
 class RQBoxLayout(QBoxLayout):
     """Reactive QBoxLayout"""
 
-    model: RQList
-    """Model linked to the layout"""
-
-    _rq_widget_callback: Callable[[RQModel, RQList], QWidget]
-    """
-    Widget callback. For a new model that is insert on the list, must return the new and appropriate widget
-    """
-
     def __init__(self, model: RQList,
                  widget: Union[Type[QWidget], Callable[[RQModel, RQList], QWidget]], *args,
                  **kwargs):
@@ -35,9 +27,14 @@ class RQBoxLayout(QBoxLayout):
             kwargs: arguments to pass to the native pyqt layout
         """
         super().__init__(*args, **kwargs)
-        self.model = model
+        self.model: RQList = model
+        """Model linked to the layout"""
 
         self.widgets: List[QWidget] = []
+        """List of current widgets in the layout"""
+
+        self._rq_widget_callback: Callable[[RQModel, RQList], QWidget]
+        """Widget callback. For a new model that is insert on the list, must return the new and appropriate widget"""
 
         if isinstance(widget, QWidget):
             self._rq_widget_callback = lambda item_model, list_model: widget(item_model, list_model)

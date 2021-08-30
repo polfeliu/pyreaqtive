@@ -7,9 +7,6 @@ class RQText(RQModel):
     Represents a string of text
     """
 
-    _text: str
-    """Model store variable"""
-
     def __init__(self, text: str):
         """Constructor
 
@@ -17,7 +14,8 @@ class RQText(RQModel):
             text: Initial value of the model
         """
         super().__init__()
-        self._text = text
+        self._text: str = text
+        """Model store variable"""
 
     def get(self) -> str:
         """Get value of the model

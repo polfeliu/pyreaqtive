@@ -9,6 +9,19 @@ class RQModel(QObject):
     All pyreaqtive models must inherit from this class, that provides basic get, set method and data changed signals
     """
 
+    rq_data_changed = pyqtSignal()
+    """pyqtSignal data changed signal.
+
+    Widgets that are connected to models can connect slots to this signal.
+    The model must emit to this when the state of it changes, to notify the widgets.
+    """
+
+    _rq_delete = pyqtSignal()
+    """pyqtSignal delete signal.
+
+    Signals that the model instance is about to be deleted
+    """
+
     def get(self) -> Any:
         """Method to get the value of the underlying object.
 
@@ -28,19 +41,6 @@ class RQModel(QObject):
             value: New value of the model
         """
         raise NotImplementedError
-
-    rq_data_changed = pyqtSignal()
-    """pyqtSignal data changed signal.
-    
-    Widgets that are connected to models can connect slots to this signal.
-    The model must emit to this when the state of it changes, to notify the widgets.
-    """
-
-    _rq_delete = pyqtSignal()
-    """pyqtSignal delete signal.
-    
-    Signals that the model instance is about to be deleted
-    """
 
     def __delete__(self):
         self._rq_delete.emit()
@@ -64,8 +64,8 @@ class RQComputedModel(RQModel):
                 Changes in these models will trigger recalculation of the function
         """
         RQModel.__init__(self)
-        self.rq_computed_function = function
-        self.rq_computed_variables = kwargs
+        self.rq_computed_function: Callable = function
+        self.rq_computed_variables: dict = kwargs
         for name, model in self.rq_computed_variables.items():
             if isinstance(model, RQModel) or issubclass(type(model), RQModel):
                 model.rq_data_changed.connect(self._variable_changed)
@@ -83,7 +83,7 @@ class RQComputedModel(RQModel):
     def set(self, value) -> None:
         raise RuntimeError("Computed Models do not allow set()")
 
-    def get(self):
+    def get(self) -> Any:
         """Get value of the model in the output format of the function
 
         Returns:

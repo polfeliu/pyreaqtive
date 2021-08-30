@@ -9,9 +9,6 @@ class RQFloat(RQModel):
     Represents a floating point number
     """
 
-    _float: float
-    """Model store variable"""
-
     def __init__(self, initial_float: float):
         """Constructor
 
@@ -19,7 +16,8 @@ class RQFloat(RQModel):
             initial_float: Initial value of the model
         """
         super().__init__()
-        self._float = float(initial_float)
+        self._float: float = float(initial_float)
+        """Model store variable"""
 
     def get(self) -> float:
         """Get value of the model

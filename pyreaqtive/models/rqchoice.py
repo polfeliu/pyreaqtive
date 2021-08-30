@@ -10,18 +10,6 @@ class RQChoice(RQModel):
     Represents a choice from a list of choices
     """
 
-    rq_choices_list: RQList
-    """Reactive list of available choices"""
-
-    selected: Union[RQModel, None]
-    """Selected item
-    
-    Can be None if allow_none is True
-    """
-
-    allow_none: bool
-    """Indicates if model accepts choice none apart from the list of choices"""
-
     def __init__(self, choices: RQList, selected: RQModel = None, allow_none=False):
         """Constructor
 
@@ -30,9 +18,18 @@ class RQChoice(RQModel):
             selected: Initial choice selected
         """
         super().__init__()
-        self.rq_choices_list = choices
-        self.selected = selected
-        self.allow_none = allow_none
+        self.rq_choices_list: RQList = choices
+        """Reactive list of available choices"""
+
+        self.selected: Union[RQModel, None] = selected
+        """Selected item
+
+        Can be None if allow_none is True
+        """
+
+        self.allow_none: bool = allow_none
+        """Indicates if model accepts choice none apart from the list of choices"""
+
         self.validate_selected()
         self.rq_choices_list.rq_list_remove.connect(lambda: self.validate_selected(auto_reset=True))
 

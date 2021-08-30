@@ -9,9 +9,6 @@ class RQInt(RQModel):
     Represents a initial_integer number
     """
 
-    _int: int
-    """Model store variable"""
-
     def __init__(self, initial_integer: int):
         """Constructor
 
@@ -19,7 +16,8 @@ class RQInt(RQModel):
             initial_integer: Initial value of the model
         """
         super().__init__()
-        self._int = int(initial_integer)
+        self._int: int = int(initial_integer)
+        """Model store variable"""
 
     def get(self) -> int:
         """Get value of the model

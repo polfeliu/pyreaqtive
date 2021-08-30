@@ -45,10 +45,16 @@ class RQList(RQModel):
     This can greatly improve the efficiency of widgets that use this model.
     """
 
-    _list: List[RQModel]
-    """Model store variable
-    
-    Stores instances of models
+    rq_list_insert = pyqtSignal(int)
+    """List insert signal. 
+
+    Indicates that there's been an insertion to the position indicated by the int
+    """
+
+    rq_list_remove = pyqtSignal(int)
+    """List remove signal. 
+
+    Indicates that there's been an deletion in the position indicated by the int
     """
 
     def __init__(self, initial_models: List[RQModel] = None):
@@ -57,7 +63,12 @@ class RQList(RQModel):
         Args:
             initial_models: List of model instances
         """
-        self._list = initial_models if initial_models is not None else []
+        self._list: List[RQModel] = initial_models if initial_models is not None else []
+        """Model store variable
+
+        Stores instances of models
+        """
+
         super().__init__()
         self.rq_list_insert.connect(
             lambda: self.rq_data_changed.emit()
@@ -65,18 +76,6 @@ class RQList(RQModel):
         self.rq_list_remove.connect(
             lambda: self.rq_data_changed.emit()
         )
-
-    rq_list_insert = pyqtSignal(int)
-    """List insert signal. 
-    
-    Indicates that there's been an insertion to the position indicated by the int
-    """
-
-    rq_list_remove = pyqtSignal(int)
-    """List remove signal. 
-    
-    Indicates that there's been an deletion in the position indicated by the int
-    """
 
     def set(self, value) -> None:
         raise NotImplementedError("Cannot set whole list, insert items one by one")
@@ -217,6 +216,7 @@ class RQList(RQModel):
     def __contains__(self, item: RQModel) -> bool:
         """Same as python list method"""
         return self._list.__contains__(item)
+
 
 class RQComputedList:
 
