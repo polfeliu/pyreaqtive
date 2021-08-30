@@ -11,7 +11,7 @@ class RQWidget:
         """Constructor.
 
         This class always always inherits from QWidget but is not declared as so. User defined widgets,
-            will directly have the QWidget methods
+        will directly have the QWidget methods
 
         Args:
             model: model of the widget. Can also be a built-in type that is converted to a dummy model
