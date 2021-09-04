@@ -5,3 +5,4 @@ from .rqtext import RQText, RQComputedText
 from .rqlist import RQList, RQComputedList
 from .rqchoice import RQChoice
 from .rqfloat import RQFloat, RQComputedFloat
+from .rqobject import RQObject

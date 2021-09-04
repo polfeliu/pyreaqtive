@@ -8,3 +8,4 @@ from .rqprogressbar import RQProgressBar
 from .rqslider import RQSlider
 from .rqdial import RQDial
 from .rqdoublespinbox import RQDoubleSpinBox
+from .rqwidgetobject import RQWidgetObject
