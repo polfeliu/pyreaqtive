@@ -1,13 +1,14 @@
 __version__ = "0.1.1"
 
 from .models import \
-    RQModel, \
-    RQInt, RQComputedInt,\
-    RQBool, RQComputedBool,\
-    RQText, RQComputedText,\
-    RQList, RQComputedList,\
+    RQModel, RQComputedModel, \
+    RQInt, RQComputedInt, \
+    RQBool, RQComputedBool, \
+    RQText, RQComputedText, \
+    RQList, RQComputedList, \
     RQChoice, \
-    RQFloat, RQComputedFloat
+    RQFloat, RQComputedFloat, \
+    RQObject
 
 from .widgets import \
     RQWidget, \
@@ -19,9 +20,12 @@ from .widgets import \
     RQProgressBar, \
     RQSlider, \
     RQDial, \
-    RQDoubleSpinBox
+    RQDoubleSpinBox, \
+    RQWidgetObject
 
 from .layouts import \
     RQBoxLayout, \
     RQVBoxLayout, \
     RQHBoxLayout
+
+from .rq_getattr import rq_getattr

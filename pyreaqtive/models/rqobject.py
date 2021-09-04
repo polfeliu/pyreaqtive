@@ -16,3 +16,5 @@ class RQObject(RQModel):
         self._instance = instance
         self.rq_data_changed.emit()
 
+    def __str__(self):
+        return self._instance.__str__()

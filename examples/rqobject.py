@@ -56,10 +56,8 @@ class MainWindow(QMainWindow):
 
     def toggle_object_to_display(self):
         if isinstance(self.object_to_display.get(), TypeA):
-            print("b")
             self.object_to_display.set(self.object_b)
         elif isinstance(self.object_to_display.get(), TypeB):
-            print("a")
             self.object_to_display.set(self.object_a)
 
 
