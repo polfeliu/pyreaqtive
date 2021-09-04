@@ -18,3 +18,9 @@ class RQObject(RQModel):
 
     def __str__(self):
         return self._instance.__str__()
+
+    def __int__(self):
+        if hasattr(self._instance, "__int__"):
+            return self._instance.__int__()
+        else:
+            raise TypeError

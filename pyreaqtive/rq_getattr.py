@@ -19,5 +19,9 @@ def rq_getattr(obj: object, attribute_name):
         raise RuntimeError("Cannot get reactive attribute from type that has not been reactivized")
     if obj.rq_reactive_attributes is None:
         obj.rq_reactive_attributes = {}
-    obj.rq_reactive_attributes[attribute_name] = RQObject(obj.__getattribute__(attribute_name))
-    return obj.rq_reactive_attributes[attribute_name]
+    reactive_attribute = RQObject(obj.__getattribute__(attribute_name))
+    reactive_attribute.rq_data_changed.connect(
+        lambda: super(type(obj), obj).__setattr__(attribute_name, reactive_attribute.get())
+    )
+    obj.rq_reactive_attributes[attribute_name] = reactive_attribute
+    return reactive_attribute
