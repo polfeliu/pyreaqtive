@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from ..models import RQModel, RQText, RQBool, RQInt, RQFloat
+from ..models import RQModel, RQText, RQBool, RQInt, RQFloat, RQObject
 
 from typing import Union
 
@@ -7,14 +7,14 @@ from typing import Union
 class RQWidget:
     """Reactive Widget Base class"""
 
-    def __init__(self, model: Union[RQModel, str, bool, int, float], rq_if: Union[RQBool, None] = None):
+    def __init__(self, model: Union[RQModel, str, bool, int, float, RQObject], rq_if: Union[RQBool, None] = None):
         """Constructor.
 
         This class always always inherits from QWidget but is not declared as so. User defined widgets,
         will directly have the QWidget methods
 
         Args:
-            model: model of the widget. Can also be a built-in type that is converted to a dummy model
+            model: model to link the widget to. Can also be a built-in type that is converted to a dummy model
             rq_if: RQBool that controls the visibility
         """
 
@@ -23,7 +23,7 @@ class RQWidget:
         elif isinstance(model, int):
             model = RQInt(model)
         elif isinstance(model, float):
-            model = RQFloat
+            model = RQFloat(model)
         elif isinstance(model, bool):
             model = RQBool(model)
 

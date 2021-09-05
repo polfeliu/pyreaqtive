@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDial
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQInt, RQFloat, RQBool
+from ..models import RQInt, RQFloat, RQBool, RQObject
 from typing import Union
 
 from .rqwidget import RQWidget
@@ -10,10 +10,11 @@ from .rqwidget import RQWidget
 class RQDial(RQWidget, QDial):
     """Reactive Dial Widget"""
 
-    model: Union[RQInt, RQFloat]
+    model: Union[RQInt, RQFloat, RQObject]
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQInt, RQFloat, int, float], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self, model: Union[RQInt, RQFloat, int, float, RQObject], *args, rq_if: Union[RQBool, None] = None,
+                 **kwargs):
         """Constructor.
 
         Args:

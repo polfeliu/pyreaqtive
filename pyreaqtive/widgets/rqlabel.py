@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQModel, RQBool
+from ..models import RQModel, RQBool, RQObject
 from .rqwidget import RQWidget
 
 from typing import Union
@@ -13,7 +13,7 @@ class RQLabel(RQWidget, QLabel):
     model: RQModel = None
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQModel, str], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self, model: Union[RQModel, str, RQObject], *args, rq_if: Union[RQBool, None] = None, **kwargs):
         """Constructor.
 
         Args:

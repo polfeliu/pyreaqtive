@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QSpinBox
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQInt, RQBool
+from ..models import RQInt, RQBool, RQObject
 from .rqwidget import RQWidget
 from typing import Union
 
@@ -9,10 +9,10 @@ from typing import Union
 class RQSpinBox(RQWidget, QSpinBox):
     """Reactive SpinBox Widget"""
 
-    model: RQInt = None
+    model: Union[RQInt, RQObject] = None
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQInt, int], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self, model: Union[RQInt, int, RQObject], *args, rq_if: Union[RQBool, None] = None, **kwargs):
         """Constructor.
 
         Args:

@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQText, RQBool
+from ..models import RQText, RQBool, RQObject
 from .rqwidget import RQWidget
 
 from typing import Union
@@ -10,10 +10,10 @@ from typing import Union
 class RQLineEdit(RQWidget, QLineEdit):
     """Reactive LineEdit Widget"""
 
-    model: RQText
+    model: Union[RQText, RQObject]
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQText, str], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self, model: Union[RQText, str, RQObject], *args, rq_if: Union[RQBool, None] = None, **kwargs):
         """Constructor.
 
         Args:

@@ -3,17 +3,18 @@ from typing import Union
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QProgressBar
 
-from ..models import RQInt, RQFloat, RQBool
+from ..models import RQInt, RQFloat, RQBool, RQObject
 from .rqwidget import RQWidget
 
 
 class RQProgressBar(RQWidget, QProgressBar):
     """Reactive ProgressBar Widget"""
 
-    model: Union[RQInt, RQFloat]
+    model: Union[RQInt, RQFloat, RQObject]
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQInt, RQFloat, int, float], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self, model: Union[RQInt, RQFloat, int, float, RQObject], *args, rq_if: Union[RQBool, None] = None,
+                 **kwargs):
         """Constructor.
 
         Args:

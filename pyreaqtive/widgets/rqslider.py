@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QSlider
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQInt, RQFloat, RQBool
+from ..models import RQInt, RQFloat, RQBool, RQObject
 from .rqwidget import RQWidget
 from typing import Union
 
@@ -9,10 +9,11 @@ from typing import Union
 class RQSlider(RQWidget, QSlider):
     """Reactive Slider Widget"""
 
-    model: Union[RQInt, RQFloat]
+    model: Union[RQInt, RQFloat, RQObject]
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQInt, RQFloat, int, float], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self, model: Union[RQInt, RQFloat, int, float, RQObject], *args, rq_if: Union[RQBool, None] = None,
+                 **kwargs):
         """Constructor.
 
         Args:
