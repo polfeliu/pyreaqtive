@@ -9,6 +9,7 @@ pyqt5 = "*"
 [dev-packages]
 sphinx = "*"
 sphinx-rtd-theme = "*"
+pyqt5-stubs = "==5.15.2.0"
 
 [requires]
 python_version = "3"

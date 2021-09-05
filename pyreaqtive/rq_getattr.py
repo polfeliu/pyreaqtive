@@ -1,7 +1,16 @@
 from .models.rqobject import RQObject
 
 
-def new__setattr__(self, key, value):
+def new__setattr__(self, key, value) -> None:
+    """Set Attribute Replacement
+
+    Captures changes in the attributes and reports them to the rq_reactive_attributes RQObject models
+
+    Args:
+        self: object to capture
+        key: key name of the attribute
+        value: new value of the attribute
+    """
     super(type(self), self).__setattr__(key, value)
     if hasattr(self, "rq_reactive_attributes"):
         if self.rq_reactive_attributes is not None:
@@ -9,19 +18,49 @@ def new__setattr__(self, key, value):
                 self.rq_reactive_attributes[key].set(value)
 
 
-def reactivize(obj_type):
+def reactivize(obj_type: type) -> None:
+    """Reactivize method
+
+    Injects the set attribute replacement to a object type and creates a placeholder for the reactive attributes
+
+    Args:
+        obj_type: object type to reactivize
+    """
     obj_type.__setattr__ = new__setattr__
     obj_type.rq_reactive_attributes = None
 
 
-def rq_getattr(obj: object, attribute_name):
+def rq_getattr(obj: object, attribute_name: str) -> RQObject:
+    """Reactive Get Attribute
+
+    Returns an RQObject that is linked to a object attribute. Changes are two-way propagated
+
+    Args:
+        obj: object to get the attribute from
+        attribute_name: name of the attribute
+
+    Returns:
+        RQObject: reactive object
+    """
     if not hasattr(obj, "rq_reactive_attributes"):
         reactivize(type(obj))
     if obj.rq_reactive_attributes is None:
         obj.rq_reactive_attributes = {}
-    reactive_attribute = RQObject(obj.__getattribute__(attribute_name))
-    reactive_attribute.rq_data_changed.connect(
-        lambda: super(type(obj), obj).__setattr__(attribute_name, reactive_attribute.get())
-    )
-    obj.rq_reactive_attributes[attribute_name] = reactive_attribute
-    return reactive_attribute
+
+    # Check if rqobject has already been created for this attribute
+    if attribute_name in obj.rq_reactive_attributes:
+        # Return if already exists
+        return obj.rq_reactive_attributes[attribute_name]
+    else:
+        # Create the RQObject with the initial value from the attribute
+        reactive_attribute = RQObject(obj.__getattribute__(attribute_name))
+
+        # Propagate changes from the rqobject to the attribute.
+        # Using the __setattr__ from the super(), to avoid new__setattr__ and retriggering the update
+        reactive_attribute.rq_data_changed.connect(
+            lambda: super(type(obj), obj).__setattr__(attribute_name, reactive_attribute.get())
+        )
+
+        # Store the object to the dictionary
+        obj.rq_reactive_attributes[attribute_name] = reactive_attribute
+        return reactive_attribute
