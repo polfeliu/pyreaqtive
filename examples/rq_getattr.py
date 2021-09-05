@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QHBoxLayout, QLabel
 
 from pyreaqtive.widgets import RQLabel, RQSpinBox
-from pyreaqtive.rq_getattr import rq_getattr, reactivize
+from pyreaqtive.rq_getattr import rq_getattr
 
 
 class LibraryObject:
@@ -23,7 +23,6 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
-        reactivize(LibraryObject)
         self.library_instance = LibraryObject()
 
         change_button = QPushButton("Add One")

@@ -16,7 +16,7 @@ def reactivize(obj_type):
 
 def rq_getattr(obj: object, attribute_name):
     if not hasattr(obj, "rq_reactive_attributes"):
-        raise RuntimeError("Cannot get reactive attribute from type that has not been reactivized")
+        reactivize(type(obj))
     if obj.rq_reactive_attributes is None:
         obj.rq_reactive_attributes = {}
     reactive_attribute = RQObject(obj.__getattribute__(attribute_name))
