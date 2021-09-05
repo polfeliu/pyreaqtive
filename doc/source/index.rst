@@ -15,6 +15,7 @@ Welcome to pyreaqtive's documentation!
    api/models
    api/widgets
    api/layouts
+   api/rq_getattr
 
 Indices and tables
 ==================

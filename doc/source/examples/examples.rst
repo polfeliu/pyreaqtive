@@ -15,3 +15,5 @@ Examples
    examples.rqlist_rqhboxlayout_index
    examples.rqif
    examples.rqif_rqcomputedbool
+   examples.rqobject_rqwidgetobject
+   examples.rq_getattr

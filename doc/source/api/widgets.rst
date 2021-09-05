@@ -18,3 +18,5 @@ Widgets
    widgets.rqdial
 
    widgets.rqcombobox
+
+   widgets.rqwidgetobject

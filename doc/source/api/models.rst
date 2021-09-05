@@ -13,3 +13,5 @@ Models
 
    models.rqlist
    models.rqchoice
+
+   models.rqobject

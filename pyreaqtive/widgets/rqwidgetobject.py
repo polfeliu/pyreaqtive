@@ -22,7 +22,9 @@ class RQWidgetObject(RQWidget, QObject):
 
         Args:
             model: Model to link the widget to
+
             layout: layout to place the widget
+
             widget: QWidget type that represents each the instances
                 Can also be a function that accepts the instance as argument, and returns the widget instance
         """
@@ -32,7 +34,7 @@ class RQWidgetObject(RQWidget, QObject):
         if not hasattr(self.layout, "rq_widget_object"):
             self.layout.rq_widget_objects = []
         self.layout.rq_widget_objects = self
-        if issubclass(widget, QWidget):
+        if issubclass(type(widget), QWidget):
             self.rq_widget_callback = lambda instance: widget(instance)
         else:
             self.rq_widget_callback = widget
