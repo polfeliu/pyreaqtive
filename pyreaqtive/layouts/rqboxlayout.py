@@ -36,7 +36,7 @@ class RQBoxLayout(QBoxLayout):
         self._rq_widget_callback: Callable[[RQModel, RQList], QWidget]
         """Widget callback. For a new model that is insert on the list, must return the new and appropriate widget"""
 
-        if issubclass(widget, QWidget):
+        if issubclass(type(widget), QWidget):
             self._rq_widget_callback = lambda item_model, list_model: widget(item_model, list_model)
         elif callable(widget):
             self._rq_widget_callback = widget
