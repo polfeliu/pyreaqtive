@@ -1,4 +1,4 @@
-RQFunction
+RQComputedFloat
 =========================
 
 .. literalinclude:: ../../../examples/rqcomputedfloat.py
