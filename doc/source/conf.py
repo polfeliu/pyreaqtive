@@ -28,7 +28,7 @@ author = 'Pol Feliu Cuberes'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    #'sphinxcontrib.napoleon'
+    'sphinxcontrib.napoleon'
 ]
 
 # Autodoc
