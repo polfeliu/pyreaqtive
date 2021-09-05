@@ -9,6 +9,9 @@ class RQModel(QObject):
     All pyreaqtive models must inherit from this class, that provides basic get, set method and data changed signals
     """
 
+    rq_read_only = False
+    """Indicates if the model cannot be written to. Set() raises error"""
+
     rq_data_changed = pyqtSignal()
     """pyqtSignal data changed signal.
 
@@ -64,6 +67,7 @@ class RQComputedModel(RQModel):
                 Changes in these models will trigger recalculation of the function
         """
         RQModel.__init__(self)
+        self.rq_read_only = True
         self.rq_computed_function: Callable = function
         self.rq_computed_variables: dict = kwargs
         for name, model in self.rq_computed_variables.items():

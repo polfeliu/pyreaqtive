@@ -36,6 +36,12 @@ class MainWindow(QMainWindow):
         area_label = RQLabel(area)
         layout.addWidget(area_label)
 
+        # Trying to connect a widget that modifies values, to computed models (they are read_only) throws an IOError
+        try:
+            area_widget = RQDoubleSpinBox(area)
+        except IOError:
+            print("io exception")
+
 
 app = QApplication(sys.argv)
 window = MainWindow()

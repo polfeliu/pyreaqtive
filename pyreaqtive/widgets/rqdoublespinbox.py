@@ -25,6 +25,9 @@ class RQDoubleSpinBox(RQWidget, QDoubleSpinBox):
 
             kwargs: arguments to pass to the native pyqt widget
         """
+        if model.rq_read_only:
+            raise IOError("Cannot connect rqdoublespinbox to a read only model")
+
         RQWidget.__init__(self, model, rq_if)
         QDoubleSpinBox.__init__(self, *args, **kwargs)
 

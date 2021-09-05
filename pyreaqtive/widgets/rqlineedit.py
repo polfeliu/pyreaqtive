@@ -25,6 +25,9 @@ class RQLineEdit(RQWidget, QLineEdit):
 
             kwargs: arguments to pass to the native pyqt widget
         """
+        if model.rq_read_only:
+            raise IOError("Cannot connect rqlineedit to a read only model")
+
         RQWidget.__init__(self, model, rq_if)
         QLineEdit.__init__(self, *args, **kwargs)
 

@@ -25,6 +25,9 @@ class RQSlider(RQWidget, QSlider):
 
             kwargs: arguments to pass to the native pyqt widget
         """
+        if model.rq_read_only:
+            raise IOError("Cannot connect rqslider to a read only model")
+
         RQWidget.__init__(self, model, rq_if)
         QSlider.__init__(self, *args, **kwargs)
 
