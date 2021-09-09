@@ -1,9 +1,10 @@
-from .rqmodel import RQModel
+from .rqmodel import RQModel, RQComputedModel
 from .rqint import RQInt
 
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from difflib import SequenceMatcher
 
-from typing import List, Iterator
+from typing import List, Iterator, Callable
 
 
 class RQListIndex(RQInt):
@@ -69,13 +70,7 @@ class RQList(RQModel):
         Stores instances of models
         """
 
-        super().__init__()
-        self.rq_list_insert.connect(
-            lambda: self.rq_data_changed.emit()
-        )
-        self.rq_list_remove.connect(
-            lambda: self.rq_data_changed.emit()
-        )
+        RQModel.__init__(self)
 
     def set(self, value) -> None:
         raise NotImplementedError("Cannot set whole list, insert items one by one")
@@ -103,6 +98,7 @@ class RQList(RQModel):
         )
         self._list.insert(index, model)
         self.rq_list_insert.emit(index)
+        self.rq_data_changed.emit()
 
     def append(self, model: RQModel) -> None:
         """Append a model instance to the end of the list
@@ -112,7 +108,8 @@ class RQList(RQModel):
 
         Returns: Instance of the model
         """
-        self.insert(
+        RQList.insert(
+            self,
             index=len(self._list),
             model=model
         )
@@ -123,12 +120,13 @@ class RQList(RQModel):
         Args:
             index: positional index on the list
         """
-        self._list.__delitem__(index)
+        self.RQList.__delitem__(self, index)
         self.rq_list_remove.emit(index)
+        self.rq_data_changed.emit()
 
     def pop(self) -> None:
         """Delete last instance of the list"""
-        self.__delitem__(len(self._list) - 1)
+        RQList.__delitem__(self, len(self._list) - 1)
 
     def remove(self, item: RQModel) -> None:
         """Remove first occurrence of value
@@ -136,7 +134,7 @@ class RQList(RQModel):
         Args:
             item: model item
         """
-        index = self.index(item)
+        index = RQList.index(self, item)
         self.__delitem__(index)
 
     def remove_all(self, item: RQModel) -> None:
@@ -218,7 +216,59 @@ class RQList(RQModel):
         return self._list.__contains__(item)
 
 
-class RQComputedList:
+import difflib
 
-    def __init__(self):
-        raise NotImplementedError
+
+class RQComputedList(RQList, RQComputedModel):
+
+    def __init__(self, function: Callable, **kwargs):
+        RQList.__init__(self, [])
+        RQComputedModel.__init__(self, function, **kwargs)
+
+    def _variable_changed(self) -> None:
+        # Recompute list
+        new_list = RQComputedModel.get(self)
+
+        while True:
+            sequence = SequenceMatcher(None, self._list, new_list)
+            opcodes = sequence.get_opcodes()
+
+            equal = True
+
+            for operation, i1, i2, j1, j2 in opcodes:
+
+                if operation == 'equal':
+                    continue
+                else:
+                    equal = False
+
+                for x in range(i2 - i1 + 1):
+                    if operation == 'insert':
+                        super(RQComputedList, self).insert(
+                            index=j1 + x,
+                            model=new_list[i1 + x]
+                        )
+                    elif operation == 'delete':
+                        super(RQComputedList, self).__delitem__(
+                            index=j1 + x
+                        )
+                    elif operation == 'replace':
+                        super(RQComputedList, self).__delitem__(
+                            index=j1 + x
+                        )
+                        super(RQComputedList, self).insert(
+                            index=j1 + x,
+                            model=new_list[i1 + x]
+                        )
+
+            if equal:
+                break
+
+    def get(self) -> list:
+        return self._list
+
+    def insert(self, index, model: RQModel) -> None:
+        raise RuntimeError("Computed Models do not allow insert()")
+
+    def __delitem__(self, key):
+        raise RuntimeError("Computed Models do not allow __delitem__()")

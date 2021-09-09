@@ -15,7 +15,7 @@ class RQFloat(RQModel):
         Args:
             initial_float: Initial value of the model
         """
-        super().__init__()
+        super(RQFloat, self).__init__()
         self._float: float = float(initial_float)
         """Model store variable"""
 

@@ -17,7 +17,7 @@ class RQChoice(RQModel):
             choices: Initial list of choices
             selected: Initial choice selected
         """
-        super().__init__()
+        super(RQChoice, self).__init__()
         self.rq_choices_list: RQList = choices
         """Reactive list of available choices"""
 

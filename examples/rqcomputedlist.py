@@ -1,14 +1,11 @@
-import string
+import random
 import sys
 
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton
 
 from pyreaqtive.layouts import RQHBoxLayout
-from pyreaqtive.models import RQList, RQModel, RQComputedText
-from pyreaqtive.widgets import RQLabel
-
-import random
+from pyreaqtive.models import RQList, RQModel, RQComputedList
 
 
 class Number(RQModel):
@@ -16,6 +13,10 @@ class Number(RQModel):
     def __init__(self):
         super(Number, self).__init__()
         self.number = random.randint(0, 100)
+
+    @property
+    def is_odd(self):
+        return self.number % 2 != 0
 
 
 class ItemWidget(QWidget):
@@ -42,8 +43,14 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
 
         self.all_numbers = RQList()
-        self.odd_numbers = RQList()
-        self.even_numbers = RQList()
+        self.odd_numbers = RQComputedList(
+            lambda numbers: [number for number in numbers if number.is_odd],
+            numbers=self.all_numbers
+        )
+        self.even_numbers = RQComputedList(
+            lambda numbers: [number for number in numbers if not number.is_odd],
+            numbers=self.all_numbers
+        )
 
         self.add_button = QPushButton("Add")
         self.add_button.clicked.connect(self.add_item)

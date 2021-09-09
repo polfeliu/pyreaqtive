@@ -15,7 +15,7 @@ class RQInt(RQModel):
         Args:
             initial_integer: Initial value of the model
         """
-        super().__init__()
+        super(RQInt, self).__init__()
         self._int: int = int(initial_integer)
         """Model store variable"""
 

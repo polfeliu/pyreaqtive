@@ -13,7 +13,7 @@ class RQObject(RQModel):
         Args:
             instance: Initial object
         """
-        super().__init__()
+        super(RQObject, self).__init__()
         self._instance = instance
 
     def get(self) -> object:

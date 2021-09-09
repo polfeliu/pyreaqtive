@@ -15,7 +15,7 @@ class RQBool(RQModel):
         Args:
             state: Initial state of the model
         """
-        super().__init__()
+        super(RQBool, self).__init__()
         self._bool: bool = bool(state)
         """Model store variable"""
 

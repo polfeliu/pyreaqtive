@@ -13,7 +13,7 @@ class RQText(RQModel):
         Args:
             text: Initial value of the model
         """
-        super().__init__()
+        super(RQText, self).__init__()
         self._text: str = text
         """Model store variable"""
 
