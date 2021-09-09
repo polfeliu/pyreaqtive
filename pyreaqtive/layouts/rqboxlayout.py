@@ -24,7 +24,7 @@ class RQBoxLayout(QBoxLayout):
 
             args: arguments to pass to the native pyqt layout
 
-            kwargs: arguments to pass to the native pyqt layout
+            **kwargs: arguments to pass to the native pyqt layout
         """
         super().__init__(*args, **kwargs)
         self.model: RQList = model

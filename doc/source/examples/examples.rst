@@ -13,6 +13,7 @@ Examples
    examples.rqlist_rqvboxlayout
    examples.rqlist_rqvboxlayout_advanced
    examples.rqlist_rqhboxlayout_index
+   examples.rqcomputedlist
    examples.rqif
    examples.rqif_rqcomputedbool
    examples.rqobject_rqwidgetobject

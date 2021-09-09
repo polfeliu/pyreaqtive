@@ -23,7 +23,7 @@ class RQLabel(RQWidget, QLabel):
 
             rq_if: RQBool that controls the visibility
 
-            kwargs: arguments to pass to the native pyqt widget
+            **kwargs: arguments to pass to the native pyqt widget
         """
         RQWidget.__init__(self, model, rq_if)
         QLabel.__init__(self, str(self.model), *args, **kwargs)

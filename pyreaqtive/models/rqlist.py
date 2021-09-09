@@ -216,16 +216,29 @@ class RQList(RQModel):
         return self._list.__contains__(item)
 
 
-import difflib
-
-
 class RQComputedList(RQList, RQComputedModel):
+    """Reactive Computed List Model"""
 
     def __init__(self, function: Callable, **kwargs):
+        """Constructor
+
+        Args:
+            function: function to calculate the model value from input values
+
+            **kwargs: reactive models in the function by variable name as keyword
+                Changes in these models will trigger recalculation of the function
+        """
         RQList.__init__(self, [])
         RQComputedModel.__init__(self, function, **kwargs)
 
     def _variable_changed(self) -> None:
+        """Variable changed slot
+
+        Called when some of the models have emitted rq_data_changed.
+
+        Recalculates the list with the function and calculates differences with the current list,
+        inserting and deleting the differences.
+        """
         # Recompute list
         new_list = RQComputedModel.get(self)
 
@@ -265,6 +278,11 @@ class RQComputedList(RQList, RQComputedModel):
                 break
 
     def get(self) -> list:
+        """See overridden method
+
+        ComputedLists are recalculated on change, not on request,
+        so this just redirects to the actual list.
+        """
         return self._list
 
     def insert(self, index, model: RQModel) -> None:

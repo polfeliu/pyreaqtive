@@ -23,7 +23,7 @@ class RQLineEdit(RQWidget, QLineEdit):
 
             rq_if: RQBool that controls the visibility
 
-            kwargs: arguments to pass to the native pyqt widget
+            **kwargs: arguments to pass to the native pyqt widget
         """
         if model.rq_read_only:
             raise IOError("Cannot connect rqlineedit to a read only model")

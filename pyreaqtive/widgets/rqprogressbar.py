@@ -24,7 +24,7 @@ class RQProgressBar(RQWidget, QProgressBar):
 
             rq_if: RQBool that controls the visibility
 
-            kwargs: arguments to pass to the native pyqt widget
+            **kwargs: arguments to pass to the native pyqt widget
         """
         RQWidget.__init__(self, model, rq_if)
         QProgressBar.__init__(self, *args, **kwargs)

@@ -70,7 +70,7 @@ class RQComputedBool(RQComputedModel, RQBool):
         Args:
             function: function to calculate the model value from input values
 
-            kwargs: reactive models in the function by variable name as keyword
+            **kwargs: reactive models in the function by variable name as keyword
                 Changes in these models will trigger recalculation of the function
        """
         RQComputedModel.__init__(self, function, **kwargs)

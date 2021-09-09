@@ -22,6 +22,6 @@ class RQVBoxLayout(RQBoxLayout):
 
             args: arguments to pass to the native pyqt layout
 
-            kwargs: arguments to pass to the native pyqt layout
+            **kwargs: arguments to pass to the native pyqt layout
         """
         super().__init__(model, widget, QBoxLayout.Direction.Down, *args, **kwargs)
