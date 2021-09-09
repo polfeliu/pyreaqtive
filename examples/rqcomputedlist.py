@@ -44,11 +44,17 @@ class MainWindow(QMainWindow):
 
         self.all_numbers = RQList()
         self.odd_numbers = RQComputedList(
-            lambda numbers: [number for number in numbers if number.is_odd],
+            lambda numbers: sorted(
+                [number for number in numbers if number.is_odd],
+                key=lambda number: number.number
+            ),
             numbers=self.all_numbers
         )
         self.even_numbers = RQComputedList(
-            lambda numbers: [number for number in numbers if not number.is_odd],
+            lambda numbers: sorted(
+                [number for number in numbers if not number.is_odd],
+                key=lambda number: number.number
+            ),
             numbers=self.all_numbers
         )
 
