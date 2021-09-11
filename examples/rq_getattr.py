@@ -1,4 +1,6 @@
 import sys
+import threading
+import time
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton
 
@@ -10,7 +12,23 @@ from pyreaqtive.widgets import RQLabel, RQSpinBox
 class LibraryObject:
 
     def __init__(self):
-        self.counter = 1
+        self.counter = 0
+
+        self.count_up = True
+        self.thread = threading.Thread(target=self._worker)
+        self.thread.start()
+
+    def _worker(self):
+        while True:
+            time.sleep(0.0001)
+            if self.count_up:
+                self.counter += 1
+                if self.counter >= 99:
+                    self.count_up = False
+            else:
+                self.counter -= 1
+                if self.counter <= 0:
+                    self.count_up = True
 
     def add_one(self):
         self.counter += 1
