@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # read the contents of your README file
 from os import path
@@ -12,7 +12,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     version=__version__,
-    packages=['pyreaqtive', 'pyreaqtive.models', 'pyreaqtive.widgets'],
+    packages=find_packages(include=["pyreaqtive", "pyreaqtive.*"]),
     url='https://github.com/polfeliu/pyreaqtive',
     license='Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)',
     author='Pol Feliu Cuberes',
