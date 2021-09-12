@@ -1,6 +1,7 @@
 # pyreaqtive
+![alt text](doc/source/_static/logo256.png)
 
-pyreaqtive is a framework for developing applications in pyqt with reactive programming. It enables to write applications in a declarative form, that is focused on data and functionality that doesn't bloat code with gui callbacks.
+pyreaqtive is a framework for developing applications in pyqt with reactive programming. It enables to write applications in a declarative form, that is focused on data and functionality and that does not bloat code with gui callbacks.
 
 The library provides several models to hold data, and many prebuilt widgets and layouts to present the data from the models to the user, making the separation from data and visualization, and the adequate link between them, a simple task.
 
