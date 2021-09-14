@@ -120,7 +120,7 @@ class RQList(RQModel):
         Args:
             index: positional index on the list
         """
-        RQList.__delitem__(self, index)
+        self._list.__delitem__(index)
         self.rq_list_remove.emit(index)
         self.rq_data_changed.emit()
 
