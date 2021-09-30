@@ -17,19 +17,22 @@ class RQWidgetObject(RQWidget, QObject):
     model: RQObject
     """Model linked to the widget"""
 
-    def __init__(self, model: RQObject, layout: QLayout, widget: Union[Type[QWidget], Callable[[object], QWidget]]):
+    def __init__(self,
+                 model: RQObject,
+                 layout: QLayout,
+                 widget: Union[Type[QWidget], Callable[[object], QWidget]]):
         """Constructor
 
         Args:
             model: Model to link the widget to
-
             layout: layout to place the widget
-
             widget: QWidget type that represents each the instances
                 Can also be a function that accepts the instance as argument, and returns the widget instance
         """
         RQWidget.__init__(self, model)
         QObject.__init__(self)
+        self.rq_init_widget()
+
         self.layout = layout
         if not hasattr(self.layout, "rq_widget_object"):
             self.layout.rq_widget_objects = []

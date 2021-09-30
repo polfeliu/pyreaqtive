@@ -1,4 +1,4 @@
-RQIf with RQComputedBool
+RQ_If with RQComputedBool
 ==================================
 
 .. literalinclude:: ../../../examples/rq_if_rqcomputedbool.py

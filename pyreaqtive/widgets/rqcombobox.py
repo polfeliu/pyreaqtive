@@ -6,29 +6,34 @@ from .rqwidget import RQWidget
 from typing import Union
 
 
-class RQCombobox(QComboBox):
+class RQCombobox(RQWidget, QComboBox):
     """Reactive ComboBox Widget"""
 
     model: RQChoice
     """Model linked to the widget"""
 
-    def __init__(self, model: RQChoice, *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self,
+                 model: RQChoice,
+                 *args,
+                 rq_if: Union[RQBool, None] = None,
+                 rq_disabled: Union[RQBool, None] = None,
+                 **kwargs
+                 ):
         """Constructor.
 
         Args:
             model: Model to link the widget to
-
-            args: arguments to pass to the native pyqt widget
-
+            *args: arguments to pass to the native pyqt widget
             rq_if: RQBool that controls the visibility
-
+            rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
         if model.rq_read_only:
             raise IOError("Cannot connect rqcombobox to a read only model")
 
-        RQWidget.__init__(self, model, rq_if)
+        RQWidget.__init__(self, model, rq_if, rq_disabled)
         QComboBox.__init__(self, *args, **kwargs)
+        self.rq_init_widget()
 
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)

@@ -6,29 +6,33 @@ from .rqwidget import RQWidget
 from typing import Union
 
 
-class RQCheckbox(QCheckBox):
+class RQCheckbox(RQWidget, QCheckBox):
     """Reactive Checkbox Widget"""
 
     model: RQBool
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQBool, bool], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self,
+                 model: Union[RQBool, bool],
+                 *args,
+                 rq_if: Union[RQBool, None] = None,
+                 rq_disabled: Union[RQBool, None] = None,
+                 **kwargs
+                 ):
         """Constructor.
 
         Args:
             model: Model to link the widget to
-
-            args: arguments to pass to the native pyqt widget
-
+            *args: arguments to pass to the native pyqt widget
             rq_if: RQBool that controls the visibility
-
             **kwargs: arguments to pass to the native pyqt widget
         """
         if model.rq_read_only:
             raise IOError("Cannot connect rqcheckbox to a read only model")
 
-        RQWidget.__init__(self, model, rq_if)
+        RQWidget.__init__(self, model, rq_if, rq_disabled)
         QCheckBox.__init__(self, *args, **kwargs)
+        self.rq_init_widget()
 
         self.toggled.connect(self._toggled)
         self.model.rq_data_changed.connect(self._rq_data_changed)
