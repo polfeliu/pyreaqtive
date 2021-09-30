@@ -14,7 +14,8 @@ Examples
    examples.rqlist_rqvboxlayout_advanced
    examples.rqlist_rqhboxlayout_index
    examples.rqcomputedlist
-   examples.rqif
-   examples.rqif_rqcomputedbool
    examples.rqobject_rqwidgetobject
+   examples.rq_if
+   examples.rq_if_rqcomputedbool
+   examples.rq_disabled
    examples.rq_getattr

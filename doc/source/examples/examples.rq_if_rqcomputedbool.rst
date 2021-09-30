@@ -1,10 +1,10 @@
 RQIf with RQComputedBool
 ==================================
 
-.. literalinclude:: ../../../examples/rqif_rqcomputedbool.py
+.. literalinclude:: ../../../examples/rq_if_rqcomputedbool.py
    :caption: example code
 
-.. image:: ../_static/rqif_rqcomputedbool.gif
+.. image:: ../_static/rq_if_rqcomputedbool.gif
    :width: 350
    :align: center
  

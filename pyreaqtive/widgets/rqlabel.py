@@ -13,7 +13,8 @@ class RQLabel(RQWidget, QLabel):
     model: RQModel = None
     """Model linked to the widget"""
 
-    def __init__(self, model: Union[RQModel, str, RQObject], *args, rq_if: Union[RQBool, None] = None, **kwargs):
+    def __init__(self, model: Union[RQModel, str, RQObject], *args, rq_if: Union[RQBool, None] = None,
+                 rq_disabled: Union[RQBool, None] = None, **kwargs):
         """Constructor.
 
         Args:
@@ -25,7 +26,7 @@ class RQLabel(RQWidget, QLabel):
 
             **kwargs: arguments to pass to the native pyqt widget
         """
-        RQWidget.__init__(self, model, rq_if)
+        RQWidget.__init__(self, model, rq_if, rq_disabled)
         QLabel.__init__(self, str(self.model), *args, **kwargs)
 
         self.model.rq_data_changed.connect(self._rq_data_changed)

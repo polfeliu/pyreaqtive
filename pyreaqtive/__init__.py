@@ -21,7 +21,8 @@ from .widgets import \
     RQSlider, \
     RQDial, \
     RQDoubleSpinBox, \
-    RQWidgetObject
+    RQWidgetObject, \
+    RQPushButton
 
 from .layouts import \
     RQBoxLayout, \
