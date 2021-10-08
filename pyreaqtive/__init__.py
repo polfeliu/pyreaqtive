@@ -30,3 +30,4 @@ from .layouts import \
     RQHBoxLayout
 
 from .rq_getattr import rq_getattr
+from .rq_getlist import rq_getlist
