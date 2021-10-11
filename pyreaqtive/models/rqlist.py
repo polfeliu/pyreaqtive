@@ -4,7 +4,7 @@ from .rqint import RQInt
 from PyQt5.QtCore import pyqtSignal, pyqtSlot
 from difflib import SequenceMatcher
 
-from typing import List, Iterator, Callable
+from typing import List, Iterator, Callable, Any
 
 
 class RQListIndex(RQInt):
@@ -13,7 +13,7 @@ class RQListIndex(RQInt):
     INVALID_INDEX_VALUE = -1
     """Value if item is not present in list"""
 
-    def __init__(self, item: RQModel, initial: 'RQList'):
+    def __init__(self, item: Any, initial: 'RQList'):
         """Constructor
 
         Args:
@@ -58,16 +58,16 @@ class RQList(RQModel):
     Indicates that there's been an deletion in the position indicated by the int
     """
 
-    def __init__(self, initial_models: List[RQModel] = None):
+    def __init__(self, initial_items: List[Any] = None):
         """Constructor
 
         Args:
-            initial_models: List of model instances
+            initial_items: List of items
         """
-        self._list: List[RQModel] = initial_models if initial_models is not None else []
+        self._list: List[Any] = initial_items if initial_items is not None else []
         """Model store variable
 
-        Stores instances of models
+        Stores list of instances
         """
 
         RQModel.__init__(self)
@@ -83,35 +83,34 @@ class RQList(RQModel):
         """
         return self._list
 
-    def insert(self, index, model: RQModel) -> None:
-        """Insert a model instance to the specified index on the list
+    def insert(self, index: int, item: Any) -> None:
+        """Insert a item to the specified index on the list
 
         Args:
             index: positional index on the list
-            model: Model to be inserted
+            item: item to be inserted
 
         Returns:
 
         """
-        model._rq_delete.connect(
-            lambda: self.remove_all(model)
-        )
-        self._list.insert(index, model)
+        if isinstance(item, RQModel):
+            item._rq_delete.connect(
+                lambda: self.remove_all(item)
+            )
+        self._list.insert(index, item)
         self.rq_list_insert.emit(index)
         self.rq_data_changed.emit()
 
-    def append(self, model: RQModel) -> None:
-        """Append a model instance to the end of the list
+    def append(self, item: Any) -> None:
+        """Append a item to the end of the list
 
         Args:
-            model: Model to be appended
-
-        Returns: Instance of the model
+            item: Item to be appended
         """
         RQList.insert(
             self,
             index=len(self._list),
-            model=model
+            item=item
         )
 
     def __delitem__(self, index) -> None:
@@ -128,20 +127,20 @@ class RQList(RQModel):
         """Delete last instance of the list"""
         RQList.__delitem__(self, len(self._list) - 1)
 
-    def remove(self, item: RQModel) -> None:
+    def remove(self, item: Any) -> None:
         """Remove first occurrence of value
 
         Args:
-            item: model item
+            item: item
         """
         index = RQList.index(self, item)
         self.__delitem__(index)
 
-    def remove_all(self, item: RQModel) -> None:
+    def remove_all(self, item: Any) -> None:
         """Remove all instances in the list
 
         Args:
-            item: model item
+            item: item
         """
         while True:
             try:
@@ -154,18 +153,18 @@ class RQList(RQModel):
         while len(self) > 0:
             self.pop()
 
-    def __getitem__(self, index: int) -> RQModel:
+    def __getitem__(self, index: int) -> Any:
         """Returns the indicated item of the list
 
         Args:
             index: element of the list
 
         Returns:
-            RQModel: item in the list indicated by index
+            Any: item in the list indicated by index
         """
         return self._list[index]
 
-    def index(self, item: RQModel) -> int:
+    def index(self, item: Any) -> int:
         """Returns the index where a item is located
 
         Raises an ValueError if is not in the list
@@ -178,7 +177,7 @@ class RQList(RQModel):
         """
         return self._list.index(item)
 
-    def reactive_index(self, item: RQModel) -> RQListIndex:
+    def reactive_index(self, item: Any) -> RQListIndex:
         """Returns a reactive index model that indicates where the item is located
 
         Args:
@@ -189,7 +188,7 @@ class RQList(RQModel):
         """
         return RQListIndex(item, self)
 
-    def __iter__(self) -> Iterator[RQModel]:
+    def __iter__(self) -> Iterator[Any]:
         """Iterator of the elements of the list
 
         Returns:
@@ -206,12 +205,12 @@ class RQList(RQModel):
         """Same as python list method"""
         return self._list.count(value)
 
-    def extend(self, iterable: List[RQModel]):
+    def extend(self, iterable: List[Any]):
         """Same as python list method"""
-        for model in iterable:
-            self.append(model)
+        for item in iterable:
+            self.append(item)
 
-    def __contains__(self, item: RQModel) -> bool:
+    def __contains__(self, item: Any) -> bool:
         """Same as python list method"""
         return self._list.__contains__(item)
 
@@ -259,7 +258,7 @@ class RQComputedList(RQList, RQComputedModel):
                     if operation == 'insert':
                         super(RQComputedList, self).insert(
                             index=j1 + x,
-                            model=new_list[i1 + x]
+                            item=new_list[i1 + x]
                         )
                     elif operation == 'delete':
                         super(RQComputedList, self).__delitem__(
@@ -271,7 +270,7 @@ class RQComputedList(RQList, RQComputedModel):
                         )
                         super(RQComputedList, self).insert(
                             index=j1 + x,
-                            model=new_list[i1 + x]
+                            item=new_list[i1 + x]
                         )
 
             if equal:
@@ -285,7 +284,7 @@ class RQComputedList(RQList, RQComputedModel):
         """
         return self._list
 
-    def insert(self, index, model: RQModel) -> None:
+    def insert(self, index, model: Any) -> None:
         raise RuntimeError("Computed Models do not allow insert()")
 
     def __delitem__(self, key):

@@ -26,6 +26,7 @@ All reactive widgets and layouts use pyqt built-in widgets, which makes them ful
    api/widgets
    api/layouts
    api/rq_getattr
+   api/rq_getlist
 
 Indices and tables
 ==================

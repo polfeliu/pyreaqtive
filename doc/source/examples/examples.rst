@@ -19,3 +19,4 @@ Examples
    examples.rq_if_rqcomputedbool
    examples.rq_disabled
    examples.rq_getattr
+   examples.rq_getlist

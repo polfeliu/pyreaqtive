@@ -1,4 +1,4 @@
-from typing import Union, Iterator
+from typing import Union, Iterator, Any
 
 from .rqlist import RQList
 from .rqmodel import RQModel
@@ -21,7 +21,7 @@ class RQChoice(RQModel):
         self.rq_choices_list: RQList = choices
         """Reactive list of available choices"""
 
-        self.selected: Union[RQModel, None] = selected
+        self.selected: Union[Any, None] = selected
         """Selected item
 
         Can be None if allow_none is True
@@ -33,11 +33,11 @@ class RQChoice(RQModel):
         self.validate_selected()
         self.rq_choices_list.rq_list_remove.connect(lambda: self.validate_selected(auto_reset=True))
 
-    def get(self) -> RQModel:
+    def get(self) -> Any:
         """Get current selection
 
         Returns:
-            RQModel: Selected Model
+            Any: Selected Model
         """
         return self.selected
 
@@ -69,7 +69,7 @@ class RQChoice(RQModel):
             else:
                 raise KeyError
 
-    def set(self, value: Union[RQModel, None]) -> None:
+    def set(self, value: Union[Any, None]) -> None:
         """Set selected option
 
         Args:
@@ -97,10 +97,10 @@ class RQChoice(RQModel):
         """
         return str(self.selected)
 
-    def __iter__(self) -> Iterator[RQModel]:
+    def __iter__(self) -> Iterator[Any]:
         """Iterator of the choices of the list
 
         Returns:
-            Iterator of RQModels
+            Iterator
         """
         return self.get_choices().__iter__()

@@ -1,4 +1,4 @@
-__version__ = "1.0.2"
+__version__ = "1.1.0"
 
 from .models import \
     RQModel, RQComputedModel, \
@@ -30,3 +30,4 @@ from .layouts import \
     RQHBoxLayout
 
 from .rq_getattr import rq_getattr
+from .rq_getlist import rq_getlist
