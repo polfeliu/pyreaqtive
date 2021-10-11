@@ -1,28 +1,26 @@
 import sys
+from random import randint
+from typing import List
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel
 
-from pyreaqtive.rq_getlist import rq_getlist
-from pyreaqtive.models import RQComputedText, RQList
-from pyreaqtive.widgets import RQLabel, RQSpinBox
 from pyreaqtive.layouts import RQHBoxLayout
-from random import randint
-
-from typing import List
+from pyreaqtive.models import RQList
+from pyreaqtive.rq_getlist import rq_getlist
 
 
 # Example class that is on a library that doesn't use pyreaqtive models
 class LibraryObject:
 
     def __init__(self):
-        # Be extracareful, this list will be replaced by a RQList.
+        # Be extra careful, this list will be replaced by a RQList.
         # All list methods can be used by the library. But the type is not list anymore.
-        # The library cannot check against isinstance or issubclass
+        # The library cannot rely on checking against isinstance or issubclass
         self.my_list: List[str] = []
 
     def add_item(self):
         self.my_list.extend(
-            [str(randint(0, 99)) for i in range(randint(1, 3))]
+            [str(randint(0, 99)) for _ in range(randint(1, 3))]
         )
 
 
@@ -45,7 +43,7 @@ class MainWindow(QMainWindow):
         self.library_instance = LibraryObject()
 
         # Some Internal functionality of the library, connected to a button to demostrate
-        change_button = QPushButton("Add One")
+        change_button = QPushButton("Add Numbers")
         change_button.clicked.connect(self.add_item)
         layout.addWidget(change_button)
 
