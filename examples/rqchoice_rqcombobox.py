@@ -4,11 +4,10 @@ from pyreaqtive.models import RQChoice, RQList, RQModel, RQComputedText
 from pyreaqtive.widgets import RQCombobox, RQLabel
 
 
-class Food(RQModel):
-    # Declare a model to use with the choice
+class Food:
+    # Declare a class to use with the choice
 
     def __init__(self, name: str):
-        super(Food, self).__init__()
         self.name = name
 
     def __str__(self):
