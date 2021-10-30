@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pyqt5 = "*"
+qtpy = "*"
 
 [dev-packages]
 sphinx = "==4.0.2"
