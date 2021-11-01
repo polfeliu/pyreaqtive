@@ -1,6 +1,9 @@
-from typing import Callable, Type, Union, Any
+from typing import TYPE_CHECKING, Callable, Type, Union, Any
 
-from PyQt5.QtWidgets import QBoxLayout, QWidget # TODO
+from qtpy.QtWidgets import QBoxLayout, QWidget
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QBoxLayout, QWidget
 
 from .rqboxlayout import RQBoxLayout
 from ..models import RQList

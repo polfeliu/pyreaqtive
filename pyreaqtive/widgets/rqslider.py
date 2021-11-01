@@ -1,9 +1,14 @@
-from PyQt5.QtWidgets import QSlider
-from PyQt5.QtCore import pyqtSlot
+from typing import TYPE_CHECKING, Union
+
+from qtpy.QtWidgets import QSlider
+from qtpy.QtCore import Slot
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QSlider
+    from PyQt5.QtCore import pyqtSlot as Slot
 
 from ..models import RQInt, RQFloat, RQBool, RQObject
 from .rqwidget import RQWidget
-from typing import Union
 
 
 class RQSlider(RQWidget, QSlider):
@@ -30,7 +35,7 @@ class RQSlider(RQWidget, QSlider):
         if model.rq_read_only:
             raise IOError("Cannot connect rqslider to a read only model")
 
-        RQWidget.__init__(self, model, rq_if)
+        RQWidget.__init__(self, model, rq_if, rq_disabled)
         QSlider.__init__(self, *args, **kwargs)
         self.rq_init_widget()
 
@@ -38,7 +43,7 @@ class RQSlider(RQWidget, QSlider):
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self.valueChanged.connect(self._value_changed)
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when the model changes value.
 
@@ -55,7 +60,7 @@ class RQSlider(RQWidget, QSlider):
     _rq_reading = False
     """Flag to indicate that the model changed and the widget is reading the model"""
 
-    @pyqtSlot()
+    @Slot()
     def _value_changed(self) -> None:
         """Slot triggered when the user changes value of the slider.
 

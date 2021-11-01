@@ -4,13 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pyqt5 = "*"
 qtpy = "*"
 
 [dev-packages]
 sphinx = "==4.0.2"
 sphinx-rtd-theme = "==0.5.2"
 pyqt5-stubs = "==5.15.2.0"
+pyqt5 = "*"
 
 [requires]
 python_version = "3"

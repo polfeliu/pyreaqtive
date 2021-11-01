@@ -1,9 +1,14 @@
-from PyQt5.QtWidgets import QComboBox
-from PyQt5.QtCore import pyqtSlot
+from typing import TYPE_CHECKING, Union
+
+from qtpy.QtWidgets import QComboBox
+from qtpy.QtCore import Slot
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QComboBox
+    from PyQt5.QtCore import pyqtSlot as Slot
 
 from ..models import RQChoice, RQBool
 from .rqwidget import RQWidget
-from typing import Union
 
 
 class RQCombobox(RQWidget, QComboBox):
@@ -49,7 +54,7 @@ class RQCombobox(RQWidget, QComboBox):
 
         self._rq_data_changed()
 
-    @pyqtSlot(int)
+    @Slot(int)
     def _rq_choice_insert(self, index: int) -> None:
         """Slot triggered when the initial of choices inserts a new item.
 
@@ -63,7 +68,7 @@ class RQCombobox(RQWidget, QComboBox):
             str(self.model.rq_choices_list[index])
         )
 
-    @pyqtSlot(int)
+    @Slot(int)
     def _rq_choice_remove(self, index: int) -> None:
         """Slot triggered when the initial of choices removes a new item
 
@@ -74,7 +79,7 @@ class RQCombobox(RQWidget, QComboBox):
         """
         self.removeItem(index)
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when the selection of the choice model changed
 
@@ -100,7 +105,7 @@ class RQCombobox(RQWidget, QComboBox):
     _rq_reading = False
     """Flag to indicate that the model changed and the widget is reading the model"""
 
-    @pyqtSlot(int)
+    @Slot(int)
     def _current_index_changed(self, index: int) -> None:
         """Slot triggered when the user changes the selection in the combobox
 

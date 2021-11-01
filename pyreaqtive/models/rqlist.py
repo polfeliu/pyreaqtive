@@ -1,10 +1,14 @@
-from .rqmodel import RQModel, RQComputedModel
-from .rqint import RQInt
+from typing import TYPE_CHECKING, List, Iterator, Callable, Any
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot # TODO
+from qtpy.QtCore import Signal, Slot
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import pyqtSignal as Signal, pyqtSlot as Slot
+
 from difflib import SequenceMatcher
 
-from typing import List, Iterator, Callable, Any
+from .rqmodel import RQModel, RQComputedModel
+from .rqint import RQInt
 
 
 class RQListIndex(RQInt):
@@ -46,13 +50,13 @@ class RQList(RQModel):
     This can greatly improve the efficiency of widgets that use this model.
     """
 
-    rq_list_insert = pyqtSignal(int)
+    rq_list_insert = Signal(int)
     """List insert signal. 
 
     Indicates that there's been an insertion to the position indicated by the int
     """
 
-    rq_list_remove = pyqtSignal(int)
+    rq_list_remove = Signal(int)
     """List remove signal. 
 
     Indicates that there's been an deletion in the position indicated by the int

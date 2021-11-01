@@ -1,9 +1,13 @@
-from PyQt5.QtWidgets import QPushButton
-from PyQt5.QtCore import pyqtSlot
+from typing import TYPE_CHECKING, Union
+
+from qtpy.QtWidgets import QPushButton
+from qtpy.QtCore import Slot
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QPushButton
+    from PyQt5.QtCore import pyqtSlot as Slot
 
 from ..models import RQInt, RQFloat, RQBool, RQObject
-from typing import Union
-
 from .rqwidget import RQWidget
 
 

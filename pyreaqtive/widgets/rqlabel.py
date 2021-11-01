@@ -1,10 +1,14 @@
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtCore import pyqtSlot
+from typing import TYPE_CHECKING, Union
+
+from qtpy.QtWidgets import QLabel
+from qtpy.QtCore import Slot
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QLabel
+    from PyQt5.QtCore import pyqtSlot as Slot
 
 from ..models import RQModel, RQBool, RQObject
 from .rqwidget import RQWidget
-
-from typing import Union
 
 
 class RQLabel(RQWidget, QLabel):
@@ -36,7 +40,7 @@ class RQLabel(RQWidget, QLabel):
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when the model changes value.
 
