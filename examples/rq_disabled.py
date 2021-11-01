@@ -1,7 +1,10 @@
 import sys
+from typing import TYPE_CHECKING
 
-#from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
 from pyreaqtive.models import RQBool
 from pyreaqtive.widgets import RQPushButton, RQCheckbox
