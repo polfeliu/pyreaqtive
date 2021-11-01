@@ -1,6 +1,5 @@
 import sys
 
-
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton
 
 from pyreaqtive.rq_getattr import rq_getattr

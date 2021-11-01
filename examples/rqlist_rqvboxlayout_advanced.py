@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout, \
-    QInputDialog # TODO
+    QInputDialog
 from pyreaqtive.models import RQList, RQModel
 from pyreaqtive.layouts import RQVBoxLayout
 

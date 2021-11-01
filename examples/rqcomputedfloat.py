@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel # TODO
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel
 from pyreaqtive.models import RQFloat, RQComputedFloat
 from pyreaqtive.widgets import RQDoubleSpinBox, RQLabel
 
