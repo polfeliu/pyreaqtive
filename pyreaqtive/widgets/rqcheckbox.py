@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QCheckBox
+from PyQt5.QtWidgets import QCheckBox # TODO
 from PyQt5.QtCore import pyqtSlot
 
 from ..models import RQBool

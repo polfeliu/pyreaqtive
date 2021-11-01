@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QBoxLayout, QWidget
+from PyQt5.QtWidgets import QBoxLayout, QWidget # TODO
 from .rqboxlayout import RQBoxLayout
 
 from ..models import RQList

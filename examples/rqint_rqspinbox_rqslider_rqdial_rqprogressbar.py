@@ -1,8 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget # TODO
 from pyreaqtive.models import RQInt
 from pyreaqtive.widgets import RQSpinBox, RQSlider, RQDial, RQProgressBar
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt # TODO
 
 
 class MainWindow(QMainWindow):

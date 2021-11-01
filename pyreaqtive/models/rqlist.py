@@ -1,7 +1,7 @@
 from .rqmodel import RQModel, RQComputedModel
 from .rqint import RQInt
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from PyQt5.QtCore import pyqtSignal, pyqtSlot # TODO
 from difflib import SequenceMatcher
 
 from typing import List, Iterator, Callable, Any
