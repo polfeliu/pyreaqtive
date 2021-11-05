@@ -1,5 +1,7 @@
 import sys
+
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+
 from pyreaqtive.models import RQText, RQComputedText
 from pyreaqtive.widgets import RQLineEdit, RQLabel
 
@@ -15,15 +17,26 @@ class MainWindow(QMainWindow):
         my_text = RQText("hello")
 
         line_edit = RQLineEdit(my_text)
-        label = RQLabel(
+
+        # Text expression can be in format style
+        label_1 = RQLabel(
             RQComputedText(
                 "entered text is: {text}",
                 text=my_text
             )
         )
 
+        # Or as a lambda expression
+        label_2 = RQLabel(
+            RQComputedText(
+                lambda text: f"entered text is: {text}",
+                text=my_text
+            )
+        )
+
         layout.addWidget(line_edit)
-        layout.addWidget(label)
+        layout.addWidget(label_1)
+        layout.addWidget(label_2)
 
 
 app = QApplication(sys.argv)
