@@ -113,14 +113,14 @@ class RQList(RQModel):
             item=item
         )
 
-    def __delitem__(self, index) -> None:
+    def __delitem__(self, key) -> None:
         """Delete the item in the list in the specified index
 
         Args:
-            index: positional index on the list
+            key: positional index on the list
         """
-        self._list.__delitem__(index)
-        self.rq_list_remove.emit(index)
+        self._list.__delitem__(key)
+        self.rq_list_remove.emit(key)
         self.rq_data_changed.emit()
 
     def pop(self) -> None:
@@ -262,11 +262,11 @@ class RQComputedList(RQList, RQComputedModel):
                         )
                     elif operation == 'delete':
                         super(RQComputedList, self).__delitem__(
-                            index=j1 + x
+                            j1 + x
                         )
                     elif operation == 'replace':
                         super(RQComputedList, self).__delitem__(
-                            index=j1 + x
+                            j1 + x
                         )
                         super(RQComputedList, self).insert(
                             index=j1 + x,
