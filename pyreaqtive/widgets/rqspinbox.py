@@ -1,15 +1,16 @@
-from PyQt5.QtWidgets import QSpinBox
-from PyQt5.QtCore import pyqtSlot
-
-from ..models import RQInt, RQBool, RQObject
-from .rqwidget import RQWidget
 from typing import Union
+
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QSpinBox
+
+from .rqwidget import RQWidget
+from ..models import RQInt, RQBool, RQObject, RQModel
 
 
 class RQSpinBox(RQWidget, QSpinBox):
     """Reactive SpinBox Widget"""
 
-    model: Union[RQInt, RQObject] = None
+    model: Union[RQInt, RQObject]
     """Model linked to the widget"""
 
     def __init__(self,
@@ -27,8 +28,9 @@ class RQSpinBox(RQWidget, QSpinBox):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if model.rq_read_only:
-            raise IOError("Cannot connect rqspinbox to a read only model")
+        if isinstance(type(model), RQModel):
+            if model.rq_read_only:  # type: ignore
+                raise IOError("Cannot connect rqspinbox to a read only model")
 
         RQWidget.__init__(self, model, rq_if, rq_disabled)
         QSpinBox.__init__(self, *args, **kwargs)

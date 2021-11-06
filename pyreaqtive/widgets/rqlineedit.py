@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQText, RQBool, RQObject
+from ..models import RQText, RQBool, RQObject, RQModel
 from .rqwidget import RQWidget
 
 from typing import Union
@@ -28,8 +28,9 @@ class RQLineEdit(RQWidget, QLineEdit):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if model.rq_read_only:
-            raise IOError("Cannot connect rqlineedit to a read only model")
+        if isinstance(type(model), RQModel):
+            if model.rq_read_only:  # type: ignore
+                raise IOError("Cannot connect rqlineedit to a read only model")
 
         RQWidget.__init__(self, model, rq_if, rq_disabled)
         QLineEdit.__init__(self, *args, **kwargs)

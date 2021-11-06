@@ -1,15 +1,16 @@
-from PyQt5.QtWidgets import QComboBox
-from PyQt5.QtCore import pyqtSlot
-
-from ..models import RQChoice, RQBool
-from .rqwidget import RQWidget
 from typing import Union
+
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QComboBox
+
+from .rqwidget import RQWidget
+from ..models import RQChoice, RQBool, RQModel
 
 
 class RQCombobox(RQWidget, QComboBox):
     """Reactive ComboBox Widget"""
 
-    model: RQChoice
+    model: RQChoice  # type: ignore
     """Model linked to the widget"""
 
     def __init__(self,
@@ -28,8 +29,9 @@ class RQCombobox(RQWidget, QComboBox):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if model.rq_read_only:
-            raise IOError("Cannot connect rqcombobox to a read only model")
+        if isinstance(type(model), RQModel):
+            if model.rq_read_only:  # type: ignore
+                raise IOError("Cannot connect rqcombobox to a read only model")
 
         RQWidget.__init__(self, model, rq_if, rq_disabled)
         QComboBox.__init__(self, *args, **kwargs)

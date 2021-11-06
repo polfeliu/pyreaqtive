@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDoubleSpinBox
 from PyQt5.QtCore import pyqtSlot
 
-from ..models import RQFloat, RQBool, RQObject
+from ..models import RQFloat, RQBool, RQObject, RQModel
 from .rqwidget import RQWidget
 
 from typing import Union
@@ -29,8 +29,8 @@ class RQDoubleSpinBox(RQWidget, QDoubleSpinBox):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if isinstance(model, RQFloat):
-            if model.rq_read_only:
+        if isinstance(type(model), RQModel):
+            if model.rq_read_only:  # type: ignore
                 raise IOError("Cannot connect rqdoublespinbox to a read only model")
 
         RQWidget.__init__(self, model, rq_if, rq_disabled)
