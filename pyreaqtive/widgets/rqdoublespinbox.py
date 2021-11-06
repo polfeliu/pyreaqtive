@@ -29,8 +29,9 @@ class RQDoubleSpinBox(RQWidget, QDoubleSpinBox):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if model.rq_read_only:
-            raise IOError("Cannot connect rqdoublespinbox to a read only model")
+        if isinstance(model, RQFloat):
+            if model.rq_read_only:
+                raise IOError("Cannot connect rqdoublespinbox to a read only model")
 
         RQWidget.__init__(self, model, rq_if, rq_disabled)
         QDoubleSpinBox.__init__(self, *args, **kwargs)
