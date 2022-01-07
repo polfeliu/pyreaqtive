@@ -35,8 +35,8 @@ class RQWidgetObject(RQWidget, QObject):
 
         self.layout = layout
         if not hasattr(self.layout, "rq_widget_object"):
-            self.layout.rq_widget_objects = []
-        self.layout.rq_widget_objects = self
+            self.layout.rq_widget_objects = []  # type: ignore
+        self.layout.rq_widget_objects = self  # type: ignore
         if issubclass(type(widget), QWidget):
             self.rq_widget_callback = lambda instance: widget(instance)
         else:

@@ -26,8 +26,8 @@ def reactivize(obj_type: type) -> None:
     Args:
         obj_type: object type to reactivize
     """
-    obj_type.__setattr__ = new__setattr__
-    obj_type.rq_reactive_attributes = None
+    obj_type.__setattr__ = new__setattr__  # type: ignore
+    obj_type.rq_reactive_attributes = None  # type: ignore
 
 
 def rq_getattr(obj: object, attribute_name: str) -> RQObject:
@@ -44,23 +44,23 @@ def rq_getattr(obj: object, attribute_name: str) -> RQObject:
     """
     if not hasattr(obj, "rq_reactive_attributes"):
         reactivize(type(obj))
-    if obj.rq_reactive_attributes is None:
-        obj.rq_reactive_attributes = {}
+    if obj.rq_reactive_attributes is None:  # type: ignore
+        obj.rq_reactive_attributes = {}  # type: ignore
 
     # Check if rqobject has already been created for this attribute
-    if attribute_name in obj.rq_reactive_attributes:
+    if attribute_name in obj.rq_reactive_attributes:  # type: ignore
         # Return if already exists
-        return obj.rq_reactive_attributes[attribute_name]
+        return obj.rq_reactive_attributes[attribute_name]  # type: ignore
     else:
         # Create the RQObject with the initial value from the attribute
         reactive_attribute = RQObject(obj.__getattribute__(attribute_name))
 
         # Propagate changes from the rqobject to the attribute.
-        # Using the __setattr__ from the super(), to avoid new__setattr__ and retriggering the update
+        # Using the __setattr__ from the super(), to avoid new__setattr__ and re-triggering the update
         reactive_attribute.rq_data_changed.connect(
-            lambda: super(type(obj), obj).__setattr__(attribute_name, reactive_attribute.get())
+            lambda: super(type(obj), obj).__setattr__(attribute_name, reactive_attribute.get())  # type: ignore
         )
 
         # Store the object to the dictionary
-        obj.rq_reactive_attributes[attribute_name] = reactive_attribute
+        obj.rq_reactive_attributes[attribute_name] = reactive_attribute  # type: ignore
         return reactive_attribute

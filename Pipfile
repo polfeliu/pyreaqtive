@@ -10,6 +10,7 @@ pyqt5 = "*"
 sphinx = "==4.0.2"
 sphinx-rtd-theme = "==0.5.2"
 pyqt5-stubs = "==5.15.2.0"
+mypy = "*"
 
 [requires]
 python_version = "3"

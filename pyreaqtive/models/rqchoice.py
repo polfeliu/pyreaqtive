@@ -104,3 +104,14 @@ class RQChoice(RQModel):
             Iterator
         """
         return self.get_choices().__iter__()
+
+    def __getitem__(self, index: int) -> Any:
+        """Get item of the choices of the list
+
+        Args:
+            index: element of the list
+
+        Returns:
+            Any: item in the list indicated by index
+        """
+        return self.get_choices().__getitem__(index)

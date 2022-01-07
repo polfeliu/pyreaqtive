@@ -32,7 +32,7 @@ class RQWidget:
         elif isinstance(model, bool):
             model = RQBool(model)
 
-        self.model: RQModel = model
+        self.model = model
 
         self._rq_if_model = rq_if
         self._rq_disabled_model = rq_disabled
@@ -48,10 +48,10 @@ class RQWidget:
     def _rq_if_data_changed(self) -> None:
         if issubclass(type(self), QWidget):
             if self._rq_if_model:
-                self.show()
+                self.show()  # type: ignore
             else:
-                self.hide()
+                self.hide()  # type: ignore
 
     def _rq_disabled_data_changed(self) -> None:
         if issubclass(type(self), QWidget):
-            self.setDisabled(bool(self._rq_disabled_model))
+            self.setDisabled(bool(self._rq_disabled_model))  # type: ignore

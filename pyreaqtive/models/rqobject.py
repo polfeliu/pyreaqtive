@@ -53,7 +53,7 @@ class RQObject(RQModel):
             TypeError
         """
         if hasattr(self._instance, "__int__"):
-            return self._instance.__int__()
+            return self._instance.__int__()  # type: ignore
         else:
             raise TypeError
 
@@ -67,6 +67,6 @@ class RQObject(RQModel):
             TypeError
         """
         if hasattr(self._instance, "__float__"):
-            return self._instance.__float__()
+            return self._instance.__float__()  # type: ignore
         else:
             raise TypeError

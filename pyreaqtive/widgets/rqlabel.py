@@ -1,16 +1,16 @@
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtCore import pyqtSlot
-
-from ..models import RQModel, RQBool, RQObject
-from .rqwidget import RQWidget
-
 from typing import Union
+
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QLabel
+
+from .rqwidget import RQWidget
+from ..models import RQModel, RQBool, RQObject
 
 
 class RQLabel(RQWidget, QLabel):
     """Reactive Label Widget"""
 
-    model: RQModel = None
+    model: RQModel
     """Model linked to the widget"""
 
     def __init__(self,

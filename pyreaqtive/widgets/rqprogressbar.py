@@ -3,8 +3,8 @@ from typing import Union
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QProgressBar
 
-from ..models import RQInt, RQFloat, RQBool, RQObject
 from .rqwidget import RQWidget
+from ..models import RQInt, RQFloat, RQBool, RQObject
 
 
 class RQProgressBar(RQWidget, QProgressBar):
@@ -42,4 +42,4 @@ class RQProgressBar(RQWidget, QProgressBar):
 
         Updates value of the progressbar
         """
-        self.setValue(self.model.get())
+        self.setValue(int(self.model))

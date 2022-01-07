@@ -1,3 +1,5 @@
+from typing import Union, Callable
+
 from .rqmodel import RQModel, RQComputedModel
 
 
@@ -46,31 +48,27 @@ class RQText(RQModel):
 class RQComputedText(RQComputedModel, RQText):
     """Reactive Computed Float Model"""
 
-    def __init__(self, format_string: str, **kwargs):
+    def __init__(self, function: Union[str, Callable[..., str]], **kwargs):
         """Constructor
 
         Args:
-            format_string: python formatting string
+            function: function or python formatting string
 
             **kwargs: reactive models in the function by variable name as keyword
                 Changes in these models will trigger recalculation of the function
        """
-        self.rq_format_string = format_string
-        RQComputedModel.__init__(self, self._format_text, **kwargs)
+        if isinstance(function, str):
+            format_string = function
+
+            def generator(**kwargs) -> str:
+                return format_string.format(
+                    **{key: str(variable) for key, variable in kwargs.items()}
+                )
+
+            function = generator
+
+        RQComputedModel.__init__(self, function, **kwargs)
         RQText.__init__(self, self.get())
-
-    def _format_text(self, **kwargs) -> str:
-        """Get value of the model in string format
-
-        Args:
-            **kwargs: arguments to inject in the string
-
-        Returns:
-            str: formatted string with current model values
-        """
-        return self.rq_format_string.format(
-            **{key: str(variable) for key, variable in kwargs.items()}
-        )
 
     def get(self) -> str:
         """Get the computed text"""

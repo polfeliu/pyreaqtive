@@ -1,0 +1,1 @@
+pipenv run mypy -m pyreaqtive --config-file mypy.ini
