@@ -20,3 +20,4 @@ Examples
    examples.rq_disabled
    examples.rq_getattr
    examples.rq_getlist
+   examples.rq_connect

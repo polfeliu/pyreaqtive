@@ -30,6 +30,7 @@ class MainWindow(QMainWindow):
         fahrenheit_spinbox.setMaximum(10000)
         layout.addWidget(fahrenheit_spinbox)
 
+        # It's important to reference the connect object so it's not garbage collected
         self.connect = RQConnect(
             model_a=celsius,  # Connect to model A
             model_b=fahrenheit,  # Connect to Model B
