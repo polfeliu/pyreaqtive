@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel
 
 from pyreaqtive.models import RQFloat
-from pyreaqtive.rq_connect import RQConnect, LinearConversion, Conversion
+from pyreaqtive.rq_connect import RQConnect, Conversion
 from pyreaqtive.widgets import RQDoubleSpinBox
 
 
@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
         )
         # Note RQConnect only makes sense for functions that are reversible.
 
-        # In this case we could use LinearConversion
+        # In this case we could also use LinearConversion
         # self.connect = RQConnect(
         #    model_a=celsius,
         #    model_b=fahrenheit,
