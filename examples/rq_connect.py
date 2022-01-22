@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel
 
 from pyreaqtive.models import RQFloat
-from pyreaqtive.rq_connect import RQConnect, LinearConversion
+from pyreaqtive.rq_connect import RQConnect, LinearConversion, Conversion
 from pyreaqtive.widgets import RQDoubleSpinBox
 
 
@@ -31,13 +31,24 @@ class MainWindow(QMainWindow):
         layout.addWidget(fahrenheit_spinbox)
 
         self.connect = RQConnect(
-            model_a=celsius,
-            model_b=fahrenheit,
-            conversion=LinearConversion(
-                scale_a_to_b=9 / 5,
-                offset_a_to_b=32
+            model_a=celsius,  # Connect to model A
+            model_b=fahrenheit,  # Connect to Model B
+            conversion=Conversion(  # Declare conversion formulas to convert reciprocally
+                a_to_b=lambda c: c * (9 / 5) + 32,
+                b_to_a=lambda f: (f - 32) / (9 / 5)
             )
         )
+        # Note RQConnect only makes sense for functions that are reversible.
+
+        # In this case we could use LinearConversion
+        # self.connect = RQConnect(
+        #    model_a=celsius,
+        #    model_b=fahrenheit,
+        #    conversion=LinearConversion(
+        #        scale_a_to_b=9 / 5,
+        #        offset_a_to_b=32
+        #    )
+        # )
 
 
 app = QApplication(sys.argv)
