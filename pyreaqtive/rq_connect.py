@@ -36,7 +36,7 @@ class Conversion(AbstractConversion):
 class LinearConversion(AbstractConversion):
     """Linear Conversion Declared with scale and offset"""
 
-    def __init__(self, scale_a_to_b: float, offset_a_to_b: Optional[float] = None):
+    def __init__(self, scale_a_to_b: float, offset_a_to_b: float = 0):
         self.scale_a_to_b = scale_a_to_b
         self.offset_a_to_b = offset_a_to_b
 
