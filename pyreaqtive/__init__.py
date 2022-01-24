@@ -1,4 +1,4 @@
-__version__ = "1.1.1"
+__version__ = "1.2.0"
 
 from .models import \
     RQModel, RQComputedModel, \
@@ -31,3 +31,4 @@ from .layouts import \
 
 from .rq_getattr import rq_getattr
 from .rq_getlist import rq_getlist
+from .rq_connect import RQConnect

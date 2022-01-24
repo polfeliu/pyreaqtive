@@ -18,7 +18,9 @@ class RQSpinBox(RQWidget, QSpinBox):
                  *args,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs):
+                 wait_for_finish: bool = False,
+                 **kwargs
+                 ):
         """Constructor.
 
         Args:
@@ -26,6 +28,7 @@ class RQSpinBox(RQWidget, QSpinBox):
             *args: arguments to pass to the native pyqt widget
             rq_if: RQBool that controls the visibility
             rq_disabled: RQBool that controls the disabling
+            wait_for_finish: if true, the model is not updated until Enter is pressed or focus is changed
             **kwargs: arguments to pass to the native pyqt widget
         """
         if isinstance(type(model), RQModel):
@@ -38,7 +41,11 @@ class RQSpinBox(RQWidget, QSpinBox):
 
         self._rq_data_changed()
         self.model.rq_data_changed.connect(self._rq_data_changed)
-        self.valueChanged.connect(self._value_changed)
+
+        if wait_for_finish:
+            self.editingFinished.connect(self._update_model)
+        else:
+            self.valueChanged.connect(self._update_model)
 
     @pyqtSlot()
     def _rq_data_changed(self) -> None:
@@ -58,11 +65,8 @@ class RQSpinBox(RQWidget, QSpinBox):
     """Flag to indicate that the model changed and the widget is reading the model"""
 
     @pyqtSlot()
-    def _value_changed(self) -> None:
-        """Slot triggered when the user changes value of the spinbox.
-
-        Propagates changes to the model
-        """
+    def _update_model(self) -> None:
+        """Propagates changes to the model"""
         if not self._rq_reading:
             self._rq_writing = True
             self.model.set(self.value())
