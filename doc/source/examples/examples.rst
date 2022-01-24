@@ -7,6 +7,7 @@ Examples
    examples.rqbool_rqcheckbox
    examples.rqtext_rqlineedit_rqlabel
    examples.rqint_rqspinbox_rqslider_rqdial_rqprogressbar
+   examples.rqdoublespinbox
    examples.rqcomputedtext
    examples.rqcomputedfloat
    examples.rqchoice_rqcombobox
