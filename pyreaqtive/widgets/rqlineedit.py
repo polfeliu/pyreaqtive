@@ -64,10 +64,10 @@ class RQLineEdit(RQWidget, QLineEdit):
     _rq_reading = False
     """Flag to indicate that the model changed and the widget is reading the model"""
 
-    @pyqtSlot(str)
-    def _update_model(self, text: str) -> None:
+    @pyqtSlot()
+    def _update_model(self) -> None:
         """Propagates changes to the model"""
         if not self._rq_reading:
             self._rq_writing = True
-            self.model.set(text)
+            self.model.set(self.text())
             self._rq_writing = False
