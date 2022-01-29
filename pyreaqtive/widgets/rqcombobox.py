@@ -92,7 +92,6 @@ class RQCombobox(RQWidget, QComboBox):
                         self.model.selected
                     )
                 )
-
             else:
                 self.setCurrentIndex(
                     self.count() - 1

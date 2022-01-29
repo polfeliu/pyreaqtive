@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
 
         # This List can be a reactive RQList
         choices = RQList([
-            Food(1),
+            Food("tomato"),
             Food("apple"),
             Food("banana")
         ])
