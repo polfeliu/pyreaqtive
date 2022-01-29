@@ -1,4 +1,5 @@
 from typing import Union, Iterator, Any, List
+from enum import Enum, EnumMeta
 
 from .rqlist import RQList
 from .rqmodel import RQModel
@@ -10,7 +11,7 @@ class RQChoice(RQModel):
     Represents a choice from a list of choices
     """
 
-    def __init__(self, choices: Union[RQList, List], selected: RQModel = None, allow_none=False):
+    def __init__(self, choices: Union[RQList, List, Enum], selected: RQModel = None, allow_none=False):
         """Constructor
 
         Args:
@@ -46,11 +47,14 @@ class RQChoice(RQModel):
         """Get list of choices
 
         Returns:
-            RQList: List of choices
+            List of choices
         """
-        return self.rq_choices_list
+        if isinstance(self.rq_choices_list, EnumMeta):
+            return list(self.rq_choices_list)
+        else:
+            return self.rq_choices_list
 
-    def validate_selected(self, auto_reset=False) -> None:
+    def validate_selected(self, auto_reset: bool = False) -> None:
         """Validate that the current selection is none or is a valid choice from the choices list
 
         Args:

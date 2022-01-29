@@ -2,7 +2,8 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from pyreaqtive.models import RQChoice, RQList, RQModel, RQComputedText
 from pyreaqtive.widgets import RQCombobox, RQLabel
-from enum import Enum
+from enum import Enum, auto
+
 
 class Food:
     # Declare a class to use with the choice if using rqlist
@@ -12,6 +13,15 @@ class Food:
 
     def __str__(self):
         # When rendering the object, return it's name by default
+        return self.name
+
+
+class FoodEnum(Enum):
+    tomato = auto()
+    apple = auto()
+    banana = auto()
+
+    def __str__(self):
         return self.name
 
 
@@ -27,19 +37,20 @@ class MainWindow(QMainWindow):
 
         # This List can be a reactive RQList
         choices = RQList([
-            Food("tomato"),
+            Food(1),
             Food("apple"),
             Food("banana")
         ])
 
         # Or a regular list
         choices = [
-            "Food",
-            "Apple",
-            "Banana"
+            "tomato",
+            "apple",
+            "banana"
         ]
 
-
+        # Or use enum
+        choices = FoodEnum
 
         # Declare a Choices model
         choice = RQChoice(

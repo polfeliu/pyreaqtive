@@ -1,4 +1,5 @@
 from typing import Union
+from enum import EnumMeta
 
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QComboBox
@@ -63,7 +64,7 @@ class RQCombobox(RQWidget, QComboBox):
         """
         self.insertItem(
             index,
-            str(self.model.rq_choices_list[index])
+            str(self.model[index])
         )
 
     @pyqtSlot(int)
@@ -87,10 +88,11 @@ class RQCombobox(RQWidget, QComboBox):
             self._rq_reading = True
             if self.model.selected is not None:
                 self.setCurrentIndex(
-                    self.model.rq_choices_list.index(
+                    self.model.get_choices().index(
                         self.model.selected
                     )
                 )
+
             else:
                 self.setCurrentIndex(
                     self.count() - 1
@@ -116,7 +118,7 @@ class RQCombobox(RQWidget, QComboBox):
             if self.model.allow_none and self.currentIndex() == self.count() - 1:
                 choice = None
             else:
-                choice = self.model.rq_choices_list[index]
+                choice = self.model[index]
 
             self.model.set(choice)
 
