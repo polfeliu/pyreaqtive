@@ -1,5 +1,5 @@
 from typing import Union, Iterator, Any, List
-from enum import Enum, EnumMeta
+from enum import EnumMeta
 
 from .rqlist import RQList
 from .rqmodel import RQModel
@@ -11,7 +11,7 @@ class RQChoice(RQModel):
     Represents a choice from a list of choices
     """
 
-    def __init__(self, choices: Union[RQList, List, Enum], selected: RQModel = None, allow_none=False):
+    def __init__(self, choices: Union[RQList, List, EnumMeta], selected: RQModel = None, allow_none=False):
         """Constructor
 
         Args:
