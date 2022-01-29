@@ -1,4 +1,4 @@
-from typing import Union, Iterator, Any
+from typing import Union, Iterator, Any, List
 
 from .rqlist import RQList
 from .rqmodel import RQModel
@@ -10,7 +10,7 @@ class RQChoice(RQModel):
     Represents a choice from a list of choices
     """
 
-    def __init__(self, choices: RQList, selected: RQModel = None, allow_none=False):
+    def __init__(self, choices: Union[RQList, List], selected: RQModel = None, allow_none=False):
         """Constructor
 
         Args:
@@ -18,7 +18,7 @@ class RQChoice(RQModel):
             selected: Initial choice selected
         """
         super(RQChoice, self).__init__()
-        self.rq_choices_list: RQList = choices
+        self.rq_choices_list = choices
         """Reactive list of available choices"""
 
         self.selected: Union[Any, None] = selected
@@ -31,7 +31,8 @@ class RQChoice(RQModel):
         """Indicates if model accepts choice none apart from the list of choices"""
 
         self.validate_selected()
-        self.rq_choices_list.rq_list_remove.connect(lambda: self.validate_selected(auto_reset=True))
+        if isinstance(self.rq_choices_list, RQList):
+            self.rq_choices_list.rq_list_remove.connect(lambda: self.validate_selected(auto_reset=True))
 
     def get(self) -> Any:
         """Get current selection
@@ -41,7 +42,7 @@ class RQChoice(RQModel):
         """
         return self.selected
 
-    def get_choices(self) -> RQList:
+    def get_choices(self) -> Union[RQList, List]:
         """Get list of choices
 
         Returns:

@@ -4,7 +4,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QComboBox
 
 from .rqwidget import RQWidget
-from ..models import RQChoice, RQBool, RQModel
+from ..models import RQChoice, RQBool, RQModel, RQList
 
 
 class RQCombobox(RQWidget, QComboBox):
@@ -38,8 +38,9 @@ class RQCombobox(RQWidget, QComboBox):
         self.rq_init_widget()
 
         self.model.rq_data_changed.connect(self._rq_data_changed)
-        self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)
-        self.model.rq_choices_list.rq_list_remove.connect(self._rq_choice_remove)
+        if isinstance(self.model.rq_choices_list, RQList):
+            self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)
+            self.model.rq_choices_list.rq_list_remove.connect(self._rq_choice_remove)
 
         for index, choice in enumerate(self.model):
             self._rq_choice_insert(index)
