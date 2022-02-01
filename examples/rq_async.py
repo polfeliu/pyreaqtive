@@ -18,7 +18,7 @@ class Author:
 
     def get_author_titles(self):
         res = requests.get(f"https://poetrydb.org/author/{self.name}/title")
-        return res.json()  # TODO
+        return [Title(title['title']) for title in res.json()]
 
     def __str__(self):
         return self.name
@@ -32,6 +32,9 @@ class Title:
     def get_text(self):
         res = requests.get(f"https://poetrydb.org/title/{self.name}/lines")
         return res.json()  # TODO
+
+    def __str__(self):
+        return self.name
 
 
 class MainWindow(QMainWindow):
@@ -50,15 +53,22 @@ class MainWindow(QMainWindow):
 
         self.author_selected = RQChoice(self.author_list, allow_none=True)
 
-        self.author_select = RQCombobox(self.author_selected)
+        self.author_select = RQCombobox(self.author_selected, rq_disabled=self.get_author_list.working)
         layout.addWidget(self.author_select)
 
-        self.title_list = RQList()
+        self.title_list = RQComputedList(
+            function=lambda author: author.get_author_titles() if author is not None else [],
+            author=self.author_selected
+        )
+        """self.get_title_list = RQAsync(
+            task=lambda: self.title_list.set(get_authors()),
+            trigger=self.title_list
+        )"""
 
-        self.title_selected = RQChoice(self.title_list, allow_none=True)
+        """self.title_selected = RQChoice(self.title_list, allow_none=True)
 
         self.title_select = RQCombobox(self.title_selected)
-        layout.addWidget(self.title_select)
+        layout.addWidget(self.title_select)"""
 
 
 app = QApplication(sys.argv)

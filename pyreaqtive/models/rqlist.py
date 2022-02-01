@@ -275,6 +275,8 @@ class RQComputedList(RQList, RQComputedModel):
                             item=new_list[i1 + x]
                         )
 
+                    # TODO Diffing has problems when multiple elements are changed
+
             if equal:
                 break
 
