@@ -1,10 +1,10 @@
-from .rqmodel import RQModel, RQComputedModel
-from .rqint import RQInt
-
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
 from difflib import SequenceMatcher
-
 from typing import List, Iterator, Callable, Any
+
+from PyQt5.QtCore import pyqtSignal
+
+from .rqint import RQInt
+from .rqmodel import RQModel, RQComputedModel
 
 
 class RQListIndex(RQInt):
@@ -72,8 +72,10 @@ class RQList(RQModel):
 
         RQModel.__init__(self)
 
-    def set(self, value) -> None:
-        raise NotImplementedError("Cannot set whole list, insert items one by one")
+    def set(self, items: List[Any]) -> None:
+        self.clear()
+        for item in items:
+            self.append(item)
 
     def get(self) -> list:
         """Get value of the model

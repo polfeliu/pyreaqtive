@@ -1,13 +1,13 @@
 import sys
+
 import requests
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
-from pyreaqtive import RQList, RQVBoxLayout, RQLabel, RQCombobox, RQChoice
+from pyreaqtive import RQList, RQCombobox, RQChoice, RQAsync
 
 
 def get_authors():
     res = requests.get(f"https://poetrydb.org/authors")
-
     return [Author(name) for name in res.json()['authors']]
 
 
@@ -43,7 +43,10 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
 
         self.author_list = RQList()
-        self.author_list.append(Author("asdf"))
+        self.get_author_list = RQAsync(
+            task=lambda: self.author_list.set(get_authors()),
+            trigger=RQAsync.Start
+        )
 
         self.author_selected = RQChoice(self.author_list, allow_none=True)
 
