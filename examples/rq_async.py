@@ -3,7 +3,7 @@ import sys
 import requests
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
-from pyreaqtive import RQList, RQCombobox, RQChoice, RQAsync
+from pyreaqtive import RQList, RQCombobox, RQChoice, RQAsync, RQComputedList
 
 
 def get_authors():
@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         self.author_list = RQList()
         self.get_author_list = RQAsync(
             task=lambda: self.author_list.set(get_authors()),
-            trigger=RQAsync.Start
+            trigger=RQAsync.AutoTriggers.Start
         )
 
         self.author_selected = RQChoice(self.author_list, allow_none=True)
@@ -56,19 +56,19 @@ class MainWindow(QMainWindow):
         self.author_select = RQCombobox(self.author_selected, rq_disabled=self.get_author_list.working)
         layout.addWidget(self.author_select)
 
-        self.title_list = RQComputedList(
-            function=lambda author: author.get_author_titles() if author is not None else [],
-            author=self.author_selected
-        )
-        """self.get_title_list = RQAsync(
-            task=lambda: self.title_list.set(get_authors()),
-            trigger=self.title_list
-        )"""
+        self.title_list = RQList()
 
-        """self.title_selected = RQChoice(self.title_list, allow_none=True)
+        self.get_title_list = RQAsync(
+            task=lambda: self.title_list.set(
+                self.author_selected.get().get_author_titles()) if self.author_selected.get() is not None else None,
+            trigger=self.author_selected
+
+        )
+
+        self.title_selected = RQChoice(self.title_list, allow_none=True)
 
         self.title_select = RQCombobox(self.title_selected)
-        layout.addWidget(self.title_select)"""
+        layout.addWidget(self.title_select)
 
 
 app = QApplication(sys.argv)

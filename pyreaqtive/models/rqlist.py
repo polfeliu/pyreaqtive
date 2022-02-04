@@ -258,6 +258,3 @@ class RQComputedList(RQList, RQComputedModel):
         so this just redirects to the actual list.
         """
         return self._list
-
-    def __delitem__(self, key):
-        raise RuntimeError("Computed Models do not allow __delitem__()")
