@@ -1,7 +1,12 @@
+from typing import TYPE_CHECKING, Union
+
 import difflib
 
+if TYPE_CHECKING:
+    from .rqlist import RQList
 
-def sequence_matching(modifiable_list: list, target_list: list):
+
+def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list):
     """
     Modifies a list so it's the same as an other one, applying insert and delete operations
 

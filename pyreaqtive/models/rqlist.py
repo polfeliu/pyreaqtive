@@ -6,6 +6,8 @@ from PyQt5.QtCore import pyqtSignal
 from .rqint import RQInt
 from .rqmodel import RQModel, RQComputedModel
 
+from .sequence_matching import sequence_matching
+
 
 class RQListIndex(RQInt):
     """Reactive Index of a Item in a List"""
@@ -243,42 +245,11 @@ class RQComputedList(RQList, RQComputedModel):
         # Recompute list
         new_list = RQComputedModel.get(self)
 
-        while True:
-            sequence = SequenceMatcher(None, self._list, new_list)
-            opcodes = sequence.get_opcodes()
-
-            equal = True
-
-            for operation, i1, i2, j1, j2 in opcodes:
-
-                if operation == 'equal':
-                    continue
-                else:
-                    equal = False
-
-                for x in range(i2 - i1 + 1):
-                    if operation == 'insert':
-                        super(RQComputedList, self).insert(
-                            index=j1 + x,
-                            item=new_list[i1 + x]
-                        )
-                    elif operation == 'delete':
-                        super(RQComputedList, self).__delitem__(
-                            j1 + x
-                        )
-                    elif operation == 'replace':
-                        super(RQComputedList, self).__delitem__(
-                            j1 + x
-                        )
-                        super(RQComputedList, self).insert(
-                            index=j1 + x,
-                            item=new_list[i1 + x]
-                        )
-
-                    # TODO Diffing has problems when multiple elements are changed
-
-            if equal:
-                break
+        # Apply operations to current list so it's the same as the newly computed
+        sequence_matching(
+            modifiable_list=self,
+            target_list=new_list
+        )
 
     def get(self) -> list:
         """See overridden method
@@ -287,9 +258,6 @@ class RQComputedList(RQList, RQComputedModel):
         so this just redirects to the actual list.
         """
         return self._list
-
-    def insert(self, index, model: Any) -> None:
-        raise RuntimeError("Computed Models do not allow insert()")
 
     def __delitem__(self, key):
         raise RuntimeError("Computed Models do not allow __delitem__()")
