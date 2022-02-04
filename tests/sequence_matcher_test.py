@@ -1,5 +1,5 @@
 import random
-from pyreaqtive.models.sequence_matcher import sequence_matcher
+from pyreaqtive.models.sequence_matcher import sequence_matching
 from enum import Enum, auto
 
 
@@ -45,7 +45,7 @@ def test_sequence_matcher():
     print(f"Initial list {initial_list}")
     print(f"Modified list {modified_list}")
 
-    sequence_matcher(initial_list, modified_list)
+    sequence_matching(initial_list, modified_list)
 
     print(f"Matched list {initial_list}")
 

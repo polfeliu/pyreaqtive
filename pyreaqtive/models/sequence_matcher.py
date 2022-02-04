@@ -1,10 +1,9 @@
 import difflib
 
 
-# TODO Refactor name of sequence_matcher
-def sequence_matcher(modifiable_list: list, target_list: list):
+def sequence_matching(modifiable_list: list, target_list: list):
     """
-    Modifies a list so it's the same as an other one
+    Modifies a list so it's the same as an other one, applying insert and delete operations
 
     Args:
         modifiable_list: list that has to be modified
