@@ -51,42 +51,46 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
+        # Author
         self.author_list = RQList()
-        self.get_author_list = RQAsync(
+
+        self.get_author_list_task = RQAsync(
             task=lambda: self.author_list.set(get_authors()),
             trigger=RQAsync.AutoTriggers.Start
         )
 
-        self.author_selected = RQChoice(self.author_list, allow_none=True)
+        self.author_selection = RQChoice(self.author_list, allow_none=True)
 
-        self.author_select = RQCombobox(self.author_selected, rq_disabled=self.get_author_list.working)
-        layout.addWidget(self.author_select)
+        self.author_combobox = RQCombobox(self.author_selection, rq_disabled=self.get_author_list_task.working)
+        layout.addWidget(self.author_combobox)
 
+        # Title
         self.title_list = RQList()
 
-        self.get_title_list = RQAsync(
+        self.get_title_list_task = RQAsync(
             task=lambda: self.title_list.set(
-                self.author_selected.get().get_author_titles()) if self.author_selected.get() is not None else None,
-            trigger=self.author_selected
+                self.author_selection.selected.get_author_titles()) if self.author_selection.get() is not None else None,
+            trigger=self.author_selection
 
         )
 
-        self.title_selected = RQChoice(self.title_list, allow_none=True)
+        self.title_selection = RQChoice(self.title_list, allow_none=True)
 
-        self.title_select = RQCombobox(self.title_selected, rq_disabled=self.get_title_list.working)
-        layout.addWidget(self.title_select)
+        self.title_combobox = RQCombobox(self.title_selection, rq_disabled=self.get_title_list_task.working)
+        layout.addWidget(self.title_combobox)
 
+        # Text
         self.text = RQText("")
 
-        self.get_text = RQAsync(
+        self.get_text_task = RQAsync(
             task=lambda: self.text.set(
-                self.title_selected.get().get_text() if self.title_selected.get() is not None else ""
+                self.title_selection.selected.get_text() if self.title_selection.get() is not None else ""
             ),
-            trigger=self.title_selected
+            trigger=self.title_selection
         )
 
-        self.label = RQLabel(self.text)
-        layout.addWidget(self.label)
+        self.text_display = RQLabel(self.text)
+        layout.addWidget(self.text_display)
 
 
 app = QApplication(sys.argv)
