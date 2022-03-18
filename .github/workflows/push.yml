@@ -3,7 +3,7 @@ name: Pipeline
 on: [ push ]
 
 jobs:
-  build:
+  Pipeline:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -18,7 +18,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pipenv install
+          pipenv install --dev
 
       - name: Run mypy
         run: |
