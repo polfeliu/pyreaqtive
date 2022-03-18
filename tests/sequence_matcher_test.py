@@ -1,5 +1,5 @@
 import random
-from pyreaqtive.models.sequence_matcher import sequence_matching
+from pyreaqtive.models.sequence_matching import sequence_matching
 from enum import Enum, auto
 
 
@@ -54,6 +54,5 @@ def test_sequence_matcher():
 
 
 if __name__ == "__main__":
-    for i in range(100000):
-        print("#############################################################")
+    for i in range(100):
         test_sequence_matcher()
