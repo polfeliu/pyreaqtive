@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
 
         self.title_selected = RQChoice(self.title_list, allow_none=True)
 
-        self.title_select = RQCombobox(self.title_selected)
+        self.title_select = RQCombobox(self.title_selected, rq_disabled=self.get_title_list.working)
         layout.addWidget(self.title_select)
 
         self.text = RQText("")
