@@ -3,7 +3,7 @@ import sys
 import requests
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
-from pyreaqtive import RQList, RQCombobox, RQChoice, RQAsync, RQComputedList
+from pyreaqtive import RQList, RQCombobox, RQChoice, RQAsync, RQText, RQLabel
 
 
 def get_authors():
@@ -18,7 +18,7 @@ class Author:
 
     def get_author_titles(self):
         res = requests.get(f"https://poetrydb.org/author/{self.name}/title")
-        return [Title(title['title']) for title in res.json()]
+        return [Title(title['title'], of_author=self) for title in res.json()]
 
     def __str__(self):
         return self.name
@@ -26,12 +26,18 @@ class Author:
 
 class Title:
 
-    def __init__(self, name):
+    def __init__(self, name, of_author: Author):
         self.name = name
+        self.of_author = of_author
 
     def get_text(self):
-        res = requests.get(f"https://poetrydb.org/title/{self.name}/lines")
-        return res.json()  # TODO
+        res = requests.get(f"https://poetrydb.org/title/{self.name}/author,lines")
+
+        for title in res.json():
+            if title['author'] == self.of_author.name:
+                return '\n'.join(title['lines'])
+
+        raise ValueError
 
     def __str__(self):
         return self.name
@@ -69,6 +75,18 @@ class MainWindow(QMainWindow):
 
         self.title_select = RQCombobox(self.title_selected)
         layout.addWidget(self.title_select)
+
+        self.text = RQText("")
+
+        self.get_text = RQAsync(
+            task=lambda: self.text.set(
+                self.title_selected.get().get_text() if self.title_selected.get() is not None else ""
+            ),
+            trigger=self.title_selected
+        )
+
+        self.label = RQLabel(self.text)
+        layout.addWidget(self.label)
 
 
 app = QApplication(sys.argv)
