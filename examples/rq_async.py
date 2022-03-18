@@ -3,7 +3,7 @@ import sys
 import requests
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
-from pyreaqtive import RQList, RQCombobox, RQChoice, RQAsync, RQText, RQLabel
+from pyreaqtive import RQList, RQComboBox, RQChoice, RQAsync, RQText, RQLabel
 
 
 def get_authors():
@@ -61,7 +61,7 @@ class MainWindow(QMainWindow):
 
         self.author_selection = RQChoice(self.author_list, allow_none=True)
 
-        self.author_combobox = RQCombobox(self.author_selection, rq_disabled=self.get_author_list_task.working)
+        self.author_combobox = RQComboBox(self.author_selection, rq_disabled=self.get_author_list_task.working)
         layout.addWidget(self.author_combobox)
 
         # Title
@@ -76,7 +76,7 @@ class MainWindow(QMainWindow):
 
         self.title_selection = RQChoice(self.title_list, allow_none=True)
 
-        self.title_combobox = RQCombobox(self.title_selection, rq_disabled=self.get_title_list_task.working)
+        self.title_combobox = RQComboBox(self.title_selection, rq_disabled=self.get_title_list_task.working)
         layout.addWidget(self.title_combobox)
 
         # Text

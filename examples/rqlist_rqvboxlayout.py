@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLa
 
 from pyreaqtive.layouts import RQVBoxLayout
 from pyreaqtive.models import RQList, RQModel, RQChoice
-from pyreaqtive.widgets import RQCombobox
+from pyreaqtive.widgets import RQComboBox
 
 
 # Declare a Custom Model
@@ -82,7 +82,7 @@ class MainWindow(QMainWindow):
             self.fruits_list,
             allow_none=True
         )
-        fruit_choice_combobox = RQCombobox(fruit_choice)
+        fruit_choice_combobox = RQComboBox(fruit_choice)
         layout.addWidget(fruit_choice_combobox)
 
     @pyqtSlot()

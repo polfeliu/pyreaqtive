@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
 from pyreaqtive.models import RQBool
-from pyreaqtive.widgets import RQLabel, RQCheckbox
+from pyreaqtive.widgets import RQLabel, RQCheckBox
 
 
 class MainWindow(QMainWindow):
@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
 
         state = RQBool(True)
 
-        checkbox = RQCheckbox(state, "show message")
+        checkbox = RQCheckBox(state, "show message")
         layout.addWidget(checkbox)
 
         message = RQLabel("Toggle checkbox to hide/show me", rq_if=state)

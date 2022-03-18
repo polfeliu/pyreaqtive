@@ -14,15 +14,19 @@ from .widgets import \
     RQWidget, \
     RQLabel, \
     RQSpinBox, \
-    RQCheckbox, \
+    RQCheckBox, \
     RQLineEdit, \
-    RQCombobox, \
+    RQComboBox, \
     RQProgressBar, \
     RQSlider, \
     RQDial, \
     RQDoubleSpinBox, \
     RQWidgetObject, \
     RQPushButton
+
+# Backwards compatibility
+RQCheckbox = RQCheckBox
+RQCombobox = RQComboBox
 
 from .layouts import \
     RQBoxLayout, \

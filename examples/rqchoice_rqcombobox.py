@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from pyreaqtive.models import RQChoice, RQList, RQModel, RQComputedText
-from pyreaqtive.widgets import RQCombobox, RQLabel
+from pyreaqtive.widgets import RQComboBox, RQLabel
 from enum import Enum, auto
 
 
@@ -67,7 +67,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(label)
 
         # RQCombobox to select the choice
-        combobox = RQCombobox(choice)
+        combobox = RQComboBox(choice)
         layout.addWidget(combobox)
 
 
