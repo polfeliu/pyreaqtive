@@ -21,4 +21,5 @@ jobs:
           pipenv install
 
       - name: Run mypy
+        run: |
           pipenv run mypy -m pyreaqtive --config-file mypy.ini
