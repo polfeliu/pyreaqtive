@@ -49,7 +49,7 @@ class RQModel(QObject):
         self._rq_delete.emit()
 
 
-class RQComputedModel(RQModel):
+class RQComputedModel:
     """RQComputedModel Base Class.
 
     All pyreaqtive computed models must inherit from this class.
@@ -66,13 +66,18 @@ class RQComputedModel(RQModel):
             **kwargs: reactive models in the function by variable name as keyword
                 Changes in these models will trigger recalculation of the function
         """
-        RQModel.__init__(self)
+        if not issubclass(type(self), RQModel):
+            raise TypeError("RQComputed models must inherit from RQModel by the parent class")
+
         self.rq_read_only = True
         self.rq_computed_function: Callable = function
         self.rq_computed_variables: dict = kwargs
         for name, model in self.rq_computed_variables.items():
             if isinstance(model, RQModel) or issubclass(type(model), RQModel):
                 model.rq_data_changed.connect(self._variable_changed)
+
+        # First calculation
+        self._variable_changed()
 
     @pyqtSlot()
     def _variable_changed(self) -> None:

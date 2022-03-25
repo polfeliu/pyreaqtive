@@ -67,8 +67,8 @@ class RQComputedText(RQComputedModel, RQText):
 
             function = generator
 
+        RQText.__init__(self, "")
         RQComputedModel.__init__(self, function, **kwargs)
-        RQText.__init__(self, self.get())
 
     def get(self) -> str:
         """Get the computed text"""

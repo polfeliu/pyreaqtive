@@ -91,8 +91,8 @@ class RQComputedInt(RQComputedModel, RQInt):
             **kwargs: reactive models in the function by variable name as keyword
                 Changes in these models will trigger recalculation of the function
        """
+        RQInt.__init__(self, 0)
         RQComputedModel.__init__(self, function, **kwargs)
-        RQInt.__init__(self, self.get())
 
     def get(self) -> int:
         """Get the computed value"""
