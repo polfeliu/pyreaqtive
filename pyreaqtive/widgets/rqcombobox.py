@@ -8,7 +8,7 @@ from .rqwidget import RQWidget
 from ..models import RQChoice, RQBool, RQModel, RQList
 
 
-class RQCombobox(RQWidget, QComboBox):
+class RQComboBox(RQWidget, QComboBox):
     """Reactive ComboBox Widget"""
 
     model: RQChoice  # type: ignore

@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from pyreaqtive.models import RQBool
-from pyreaqtive.widgets import RQCheckbox
+from pyreaqtive.widgets import RQCheckBox
 
 
 class MainWindow(QMainWindow):
@@ -16,8 +16,8 @@ class MainWindow(QMainWindow):
         state = RQBool(False)
 
         # Create two reactive checkboxes linked to the same model
-        checkbox_1 = RQCheckbox(state, "checkbox 1")
-        checkbox_2 = RQCheckbox(state, "checkbox 2")
+        checkbox_1 = RQCheckBox(state, "checkbox 1")
+        checkbox_2 = RQCheckBox(state, "checkbox 2")
         # They will update each other through the model that represents the state
 
         # Add the widgets to the layout

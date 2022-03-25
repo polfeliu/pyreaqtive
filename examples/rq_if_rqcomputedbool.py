@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
 from pyreaqtive.models import RQBool, RQComputedBool
-from pyreaqtive.widgets import RQLabel, RQCheckbox
+from pyreaqtive.widgets import RQLabel, RQCheckBox
 
 
 class MainWindow(QMainWindow):
@@ -17,10 +17,10 @@ class MainWindow(QMainWindow):
         state_1 = RQBool(True)
         state_2 = RQBool(True)
 
-        checkbox_1 = RQCheckbox(state_1, "state 1")
+        checkbox_1 = RQCheckBox(state_1, "state 1")
         layout.addWidget(checkbox_1)
 
-        checkbox_2 = RQCheckbox(state_2, "state 2")
+        checkbox_2 = RQCheckBox(state_2, "state 2")
         layout.addWidget(checkbox_2)
 
         message = RQLabel("Set both checkboxes to display me", rq_if=RQComputedBool(
