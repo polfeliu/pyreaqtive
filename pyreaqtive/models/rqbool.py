@@ -73,8 +73,8 @@ class RQComputedBool(RQComputedModel, RQBool):
             **kwargs: reactive models in the function by variable name as keyword
                 Changes in these models will trigger recalculation of the function
        """
+        RQBool.__init__(self, False)
         RQComputedModel.__init__(self, function, **kwargs)
-        RQBool.__init__(self, self.get())
 
     def get(self) -> bool:
         """Get the computed value"""

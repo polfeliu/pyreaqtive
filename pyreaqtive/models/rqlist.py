@@ -1,5 +1,5 @@
 from difflib import SequenceMatcher
-from typing import List, Iterator, Callable, Any
+from typing import List, Iterator, Callable, Any, Dict
 
 from PyQt5.QtCore import pyqtSignal
 
@@ -8,34 +8,7 @@ from .rqmodel import RQModel, RQComputedModel
 
 from .sequence_matching import sequence_matching
 
-
-class RQListIndex(RQInt):
-    """Reactive Index of a Item in a List"""
-
-    INVALID_INDEX_VALUE = -1
-    """Value if item is not present in list"""
-
-    def __init__(self, item: Any, initial: 'RQList'):
-        """Constructor
-
-        Args:
-            item: item that presumably is on the list
-            initial: list where to search the item
-        """
-        self.item = item
-        self.list = initial
-        super(RQListIndex, self).__init__(self._get_index_int())
-        self.list.rq_data_changed.connect(
-            lambda: self.set(self._get_index_int())
-        )
-
-    def _get_index_int(self) -> int:
-        try:
-            index = self.list.index(self.item)
-        except ValueError:
-            index = self.INVALID_INDEX_VALUE
-
-        return index
+import weakref
 
 
 class RQList(RQModel):
@@ -73,6 +46,17 @@ class RQList(RQModel):
         """
 
         RQModel.__init__(self)
+
+        self._reactive_indexes: Dict[RQModel, RQInt] = weakref.WeakKeyDictionary()  # type: ignore
+        """
+        Weak reference dictionary of reactive indexes requested and that
+        have to be updated when list changes
+        
+        Key is model
+        Value is reactive index
+        """
+
+        self.rq_data_changed.connect(self.update_reactive_indexes)
 
     def set(self, items: List[Any]) -> None:
         self.clear()
@@ -181,7 +165,15 @@ class RQList(RQModel):
         """
         return self._list.index(item)
 
-    def reactive_index(self, item: Any) -> RQListIndex:
+    def update_reactive_indexes(self):
+        for model, reactive_index in self._reactive_indexes.items():
+            reactive_index: RQInt
+            if model in self._list:
+                reactive_index.set(
+                    self.index(model)
+                )
+
+    def reactive_index(self, model: Any) -> RQInt:
         """Returns a reactive index model that indicates where the item is located
 
         Args:
@@ -190,7 +182,9 @@ class RQList(RQModel):
         Returns:
             RQListIndex: reactive index of the item in the list
         """
-        return RQListIndex(item, self)
+        reactive_index = RQInt(0)  # TODO
+        self._reactive_indexes[model] = reactive_index
+        return reactive_index
 
     def __iter__(self) -> Iterator[Any]:
         """Iterator of the elements of the list
@@ -219,7 +213,7 @@ class RQList(RQModel):
         return self._list.__contains__(item)
 
 
-class RQComputedList(RQList, RQComputedModel):
+class RQComputedList(RQComputedModel, RQList):
     """Reactive Computed List Model"""
 
     def __init__(self, function: Callable, **kwargs):
