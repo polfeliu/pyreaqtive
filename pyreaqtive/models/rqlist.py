@@ -1,5 +1,5 @@
 from difflib import SequenceMatcher
-from typing import List, Iterator, Callable, Any
+from typing import List, Iterator, Callable, Any, Dict
 
 from PyQt5.QtCore import pyqtSignal
 
@@ -47,7 +47,7 @@ class RQList(RQModel):
 
         RQModel.__init__(self)
 
-        self._reactive_indexes = weakref.WeakKeyDictionary()
+        self._reactive_indexes: Dict[RQModel, RQInt] = weakref.WeakKeyDictionary()  # type: ignore
         """
         Weak reference dictionary of reactive indexes requested and that
         have to be updated when list changes

@@ -87,7 +87,8 @@ class RQComputedModel:
         Informs connected widgets that the function model has changed.
         Widgets will ask the value again and recalculate it with the new data
         """
-        self.rq_data_changed.emit()
+        # RQModels have rq_data_changed, asserted on __init__
+        self.rq_data_changed.emit()  # type: ignore
 
     def set(self, value) -> None:
         raise RuntimeError("Computed Models do not allow set()")
