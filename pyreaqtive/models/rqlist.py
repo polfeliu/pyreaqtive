@@ -1,39 +1,14 @@
-from .rqmodel import RQModel, RQComputedModel
-from .rqint import RQInt
-
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
 from difflib import SequenceMatcher
+from typing import List, Iterator, Callable, Any, Dict
 
-from typing import List, Iterator, Callable, Any
+from PyQt5.QtCore import pyqtSignal
 
+from .rqint import RQInt
+from .rqmodel import RQModel, RQComputedModel
 
-class RQListIndex(RQInt):
-    """Reactive Index of a Item in a List"""
+from .sequence_matching import sequence_matching
 
-    INVALID_INDEX_VALUE = -1
-    """Value if item is not present in list"""
-
-    def __init__(self, item: Any, initial: 'RQList'):
-        """Constructor
-
-        Args:
-            item: item that presumably is on the list
-            initial: list where to search the item
-        """
-        self.item = item
-        self.list = initial
-        super(RQListIndex, self).__init__(self._get_index_int())
-        self.list.rq_data_changed.connect(
-            lambda: self.set(self._get_index_int())
-        )
-
-    def _get_index_int(self) -> int:
-        try:
-            index = self.list.index(self.item)
-        except ValueError:
-            index = self.INVALID_INDEX_VALUE
-
-        return index
+import weakref
 
 
 class RQList(RQModel):
@@ -72,8 +47,21 @@ class RQList(RQModel):
 
         RQModel.__init__(self)
 
-    def set(self, value) -> None:
-        raise NotImplementedError("Cannot set whole list, insert items one by one")
+        self._reactive_indexes: Dict[RQModel, RQInt] = weakref.WeakKeyDictionary()  # type: ignore
+        """
+        Weak reference dictionary of reactive indexes requested and that
+        have to be updated when list changes
+        
+        Key is model
+        Value is reactive index
+        """
+
+        self.rq_data_changed.connect(self.update_reactive_indexes)
+
+    def set(self, items: List[Any]) -> None:
+        self.clear()
+        for item in items:
+            self.append(item)
 
     def get(self) -> list:
         """Get value of the model
@@ -177,7 +165,15 @@ class RQList(RQModel):
         """
         return self._list.index(item)
 
-    def reactive_index(self, item: Any) -> RQListIndex:
+    def update_reactive_indexes(self):
+        for model, reactive_index in self._reactive_indexes.items():
+            reactive_index: RQInt
+            if model in self._list:
+                reactive_index.set(
+                    self.index(model)
+                )
+
+    def reactive_index(self, model: Any) -> RQInt:
         """Returns a reactive index model that indicates where the item is located
 
         Args:
@@ -186,7 +182,9 @@ class RQList(RQModel):
         Returns:
             RQListIndex: reactive index of the item in the list
         """
-        return RQListIndex(item, self)
+        reactive_index = RQInt(0)  # TODO
+        self._reactive_indexes[model] = reactive_index
+        return reactive_index
 
     def __iter__(self) -> Iterator[Any]:
         """Iterator of the elements of the list
@@ -215,7 +213,7 @@ class RQList(RQModel):
         return self._list.__contains__(item)
 
 
-class RQComputedList(RQList, RQComputedModel):
+class RQComputedList(RQComputedModel, RQList):
     """Reactive Computed List Model"""
 
     def __init__(self, function: Callable, **kwargs):
@@ -241,40 +239,11 @@ class RQComputedList(RQList, RQComputedModel):
         # Recompute list
         new_list = RQComputedModel.get(self)
 
-        while True:
-            sequence = SequenceMatcher(None, self._list, new_list)
-            opcodes = sequence.get_opcodes()
-
-            equal = True
-
-            for operation, i1, i2, j1, j2 in opcodes:
-
-                if operation == 'equal':
-                    continue
-                else:
-                    equal = False
-
-                for x in range(i2 - i1 + 1):
-                    if operation == 'insert':
-                        super(RQComputedList, self).insert(
-                            index=j1 + x,
-                            item=new_list[i1 + x]
-                        )
-                    elif operation == 'delete':
-                        super(RQComputedList, self).__delitem__(
-                            j1 + x
-                        )
-                    elif operation == 'replace':
-                        super(RQComputedList, self).__delitem__(
-                            j1 + x
-                        )
-                        super(RQComputedList, self).insert(
-                            index=j1 + x,
-                            item=new_list[i1 + x]
-                        )
-
-            if equal:
-                break
+        # Apply operations to current list so it's the same as the newly computed
+        sequence_matching(
+            modifiable_list=self,
+            target_list=new_list
+        )
 
     def get(self) -> list:
         """See overridden method
@@ -283,9 +252,3 @@ class RQComputedList(RQList, RQComputedModel):
         so this just redirects to the actual list.
         """
         return self._list
-
-    def insert(self, index, model: Any) -> None:
-        raise RuntimeError("Computed Models do not allow insert()")
-
-    def __delitem__(self, key):
-        raise RuntimeError("Computed Models do not allow __delitem__()")

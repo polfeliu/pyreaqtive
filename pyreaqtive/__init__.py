@@ -1,4 +1,4 @@
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 from .models import \
     RQModel, RQComputedModel, \
@@ -14,15 +14,19 @@ from .widgets import \
     RQWidget, \
     RQLabel, \
     RQSpinBox, \
-    RQCheckbox, \
+    RQCheckBox, \
     RQLineEdit, \
-    RQCombobox, \
+    RQComboBox, \
     RQProgressBar, \
     RQSlider, \
     RQDial, \
     RQDoubleSpinBox, \
     RQWidgetObject, \
     RQPushButton
+
+# Backwards compatibility
+RQCheckbox = RQCheckBox
+RQCombobox = RQComboBox
 
 from .layouts import \
     RQBoxLayout, \
@@ -32,3 +36,4 @@ from .layouts import \
 from .rq_getattr import rq_getattr
 from .rq_getlist import rq_getlist
 from .rq_connect import RQConnect
+from .rq_async import RQAsync

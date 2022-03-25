@@ -76,8 +76,8 @@ class RQComputedFloat(RQComputedModel, RQFloat):
             **kwargs: reactive models in the function by variable name as keyword
                 Changes in these models will trigger recalculation of the function
        """
+        RQFloat.__init__(self, 0)
         RQComputedModel.__init__(self, function, **kwargs)
-        RQFloat.__init__(self, self.get())
 
     def get(self) -> float:
         """Get the computed value"""

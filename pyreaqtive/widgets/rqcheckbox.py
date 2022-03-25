@@ -7,7 +7,7 @@ from .rqwidget import RQWidget
 from ..models import RQBool, RQModel
 
 
-class RQCheckbox(RQWidget, QCheckBox):
+class RQCheckBox(RQWidget, QCheckBox):
     """Reactive Checkbox Widget"""
 
     model: RQBool

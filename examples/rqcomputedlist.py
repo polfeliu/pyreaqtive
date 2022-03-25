@@ -43,6 +43,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
 
         self.all_numbers = RQList()
+
         self.odd_numbers = RQComputedList(
             lambda numbers: sorted(
                 [number for number in numbers if number.is_odd],

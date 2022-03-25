@@ -1,13 +1,14 @@
 from typing import Union
+from enum import EnumMeta
 
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QComboBox
 
 from .rqwidget import RQWidget
-from ..models import RQChoice, RQBool, RQModel
+from ..models import RQChoice, RQBool, RQModel, RQList
 
 
-class RQCombobox(RQWidget, QComboBox):
+class RQComboBox(RQWidget, QComboBox):
     """Reactive ComboBox Widget"""
 
     model: RQChoice  # type: ignore
@@ -38,8 +39,9 @@ class RQCombobox(RQWidget, QComboBox):
         self.rq_init_widget()
 
         self.model.rq_data_changed.connect(self._rq_data_changed)
-        self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)
-        self.model.rq_choices_list.rq_list_remove.connect(self._rq_choice_remove)
+        if isinstance(self.model.rq_choices_list, RQList):
+            self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)
+            self.model.rq_choices_list.rq_list_remove.connect(self._rq_choice_remove)
 
         for index, choice in enumerate(self.model):
             self._rq_choice_insert(index)
@@ -62,7 +64,7 @@ class RQCombobox(RQWidget, QComboBox):
         """
         self.insertItem(
             index,
-            str(self.model.rq_choices_list[index])
+            str(self.model[index])
         )
 
     @pyqtSlot(int)
@@ -86,7 +88,7 @@ class RQCombobox(RQWidget, QComboBox):
             self._rq_reading = True
             if self.model.selected is not None:
                 self.setCurrentIndex(
-                    self.model.rq_choices_list.index(
+                    self.model.get_choices().index(
                         self.model.selected
                     )
                 )
@@ -115,7 +117,7 @@ class RQCombobox(RQWidget, QComboBox):
             if self.model.allow_none and self.currentIndex() == self.count() - 1:
                 choice = None
             else:
-                choice = self.model.rq_choices_list[index]
+                choice = self.model[index]
 
             self.model.set(choice)
 

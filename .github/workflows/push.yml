@@ -1,0 +1,25 @@
+name: Pipeline
+
+on: [ push ]
+
+jobs:
+  Pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.6
+
+      - name: Install pipenv
+        run: |
+          python -m pip install --upgrade pipenv wheel
+
+      - name: Install Dependencies
+        run: |
+          pipenv install --dev
+
+      - name: Run mypy
+        run: |
+          pipenv run mypy -m pyreaqtive --config-file mypy.ini

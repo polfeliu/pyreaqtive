@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
 from pyreaqtive.models import RQBool
-from pyreaqtive.widgets import RQPushButton, RQCheckbox
+from pyreaqtive.widgets import RQPushButton, RQCheckBox
 
 
 class MainWindow(QMainWindow):
@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
 
         state = RQBool(True)
 
-        checkbox = RQCheckbox(state, "disable")
+        checkbox = RQCheckBox(state, "disable")
         layout.addWidget(checkbox)
 
         button = RQPushButton("Toggle checkbox to enable/disable me", rq_disabled=state)
