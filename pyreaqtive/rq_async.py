@@ -8,7 +8,7 @@ from pyreaqtive import RQBool, RQModel
 
 class RQAsync(QThread):
     class AutoTriggers(Enum):
-        Start = auto()  # TODO
+        Start = auto()
 
     def __init__(self, task, trigger: Union[AutoTriggers, RQModel] = AutoTriggers.Start):
         super(RQAsync, self).__init__()

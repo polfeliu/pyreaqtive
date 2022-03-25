@@ -22,3 +22,4 @@ Examples
    examples.rq_getattr
    examples.rq_getlist
    examples.rq_connect
+   examples.rq_async

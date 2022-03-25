@@ -71,7 +71,6 @@ class MainWindow(QMainWindow):
             task=lambda: self.title_list.set(
                 self.author_selection.selected.get_author_titles()) if self.author_selection.get() is not None else None,
             trigger=self.author_selection
-
         )
 
         self.title_selection = RQChoice(self.title_list, allow_none=True)
