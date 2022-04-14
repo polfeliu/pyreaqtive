@@ -1,7 +1,7 @@
 import string
 import sys
 
-from qtpy.QtCore import pyqtSlot
+from qtpy.QtCore import Slot
 from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton
 
 from pyreaqtive.layouts import RQHBoxLayout
@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
         )
         layout.addLayout(item_display)
 
-    @pyqtSlot()
+    @Slot()
     def add_item(self):
         self.my_list.append(
             Item()

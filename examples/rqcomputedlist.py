@@ -1,7 +1,7 @@
 import random
 import sys
 
-from qtpy.QtCore import pyqtSlot
+from qtpy.QtCore import Slot
 from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton
 
 from pyreaqtive.layouts import RQHBoxLayout
@@ -90,7 +90,7 @@ class MainWindow(QMainWindow):
 
         return QLabel(f"{model.number}")
 
-    @pyqtSlot()
+    @Slot()
     def add_item(self):
         self.all_numbers.append(
             Number()
