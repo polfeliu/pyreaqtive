@@ -9,8 +9,8 @@ qtpy = "==2.0.1"
 [dev-packages]
 sphinx = "==4.0.2"
 sphinx-rtd-theme = "==0.5.2"
-pyqt6 = "*"
 mypy = "*"
+pyqt6 = "==6.3.0"
 
 [requires]
 python_version = "3"
