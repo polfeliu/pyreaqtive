@@ -1,7 +1,11 @@
-from typing import Union
+from typing import TYPE_CHECKING, Union
 
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QSpinBox
+from qtpy.QtCore import Slot  # type: ignore
+from qtpy.QtWidgets import QSpinBox  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import pyqtSlot as Slot
+    from PyQt5.QtWidgets import QSpinBox
 
 from .rqwidget import RQWidget
 from ..models import RQInt, RQBool, RQObject, RQModel
@@ -47,7 +51,7 @@ class RQSpinBox(RQWidget, QSpinBox):
         else:
             self.valueChanged.connect(self._update_model)
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when the model changes value.
 
@@ -64,7 +68,7 @@ class RQSpinBox(RQWidget, QSpinBox):
     _rq_reading = False
     """Flag to indicate that the model changed and the widget is reading the model"""
 
-    @pyqtSlot()
+    @Slot()
     def _update_model(self) -> None:
         """Propagates changes to the model"""
         if not self._rq_reading:

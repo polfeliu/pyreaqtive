@@ -1,7 +1,9 @@
-from difflib import SequenceMatcher
-from typing import List, Iterator, Callable, Any, Dict
+from typing import TYPE_CHECKING, List, Iterator, Callable, Any, Dict
 
-from PyQt5.QtCore import pyqtSignal
+from qtpy.QtCore import Signal  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import pyqtSignal as Signal
 
 from .rqint import RQInt
 from .rqmodel import RQModel, RQComputedModel
@@ -21,13 +23,13 @@ class RQList(RQModel):
     This can greatly improve the efficiency of widgets that use this model.
     """
 
-    rq_list_insert = pyqtSignal(int)
+    rq_list_insert = Signal(int)
     """List insert signal. 
 
     Indicates that there's been an insertion to the position indicated by the int
     """
 
-    rq_list_remove = pyqtSignal(int)
+    rq_list_remove = Signal(int)
     """List remove signal. 
 
     Indicates that there's been an deletion in the position indicated by the int

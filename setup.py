@@ -20,6 +20,6 @@ setup(
     keywords='pyqt5 framework reactive gui',
     description='PyQt Reactive Framework',
     install_requires=[
-        "pyqt5>=5.6"
+        "qtpy>2.0.0"
     ]
 )

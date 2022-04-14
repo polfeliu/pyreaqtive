@@ -1,7 +1,11 @@
-from typing import Union
+from typing import TYPE_CHECKING, Union
 
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QDial
+from qtpy.QtCore import Slot  # type: ignore
+from qtpy.QtWidgets import QDial  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import pyqtSlot as Slot
+    from PyQt5.QtWidgets import QDial
 
 from .rqwidget import RQWidget
 from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
@@ -41,7 +45,7 @@ class RQDial(RQWidget, QDial):
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self.valueChanged.connect(self._value_changed)
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when the model changes value.
 
@@ -58,7 +62,7 @@ class RQDial(RQWidget, QDial):
     _rq_reading = False
     """Flag to indicate that the model changed and the widget is reading the model"""
 
-    @pyqtSlot()
+    @Slot()
     def _value_changed(self) -> None:
         """Slot triggered when the user changes value of the dial.
 

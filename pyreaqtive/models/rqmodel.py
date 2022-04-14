@@ -1,6 +1,11 @@
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from typing import TYPE_CHECKING, Any, Callable
 
-from typing import Any, Callable
+from qtpy.QtCore import QObject, Signal, Slot  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import QObject
+    from PyQt5.QtCore import pyqtSignal as Signal
+    from PyQt5.QtCore import pyqtSlot as Slot
 
 
 class RQModel(QObject):
@@ -12,15 +17,15 @@ class RQModel(QObject):
     rq_read_only = False
     """Indicates if the model cannot be written to. Set() raises error"""
 
-    rq_data_changed = pyqtSignal()
-    """pyqtSignal data changed signal.
+    rq_data_changed = Signal()
+    """Data changed signal.
 
     Widgets that are connected to models can connect slots to this signal.
     The model must emit to this when the state of it changes, to notify the widgets.
     """
 
-    _rq_delete = pyqtSignal()
-    """pyqtSignal delete signal.
+    _rq_delete = Signal()
+    """Delete signal.
 
     Signals that the model instance is about to be deleted
     """
@@ -79,7 +84,7 @@ class RQComputedModel:
         # First calculation
         self._variable_changed()
 
-    @pyqtSlot()
+    @Slot()
     def _variable_changed(self) -> None:
         """Variable changed slot
 

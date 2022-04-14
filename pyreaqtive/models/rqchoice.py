@@ -1,5 +1,5 @@
-from typing import Union, Iterator, Any, List
 from enum import EnumMeta
+from typing import Union, Iterator, Any, List
 
 from .rqlist import RQList
 from .rqmodel import RQModel

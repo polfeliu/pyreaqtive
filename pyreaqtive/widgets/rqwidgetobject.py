@@ -1,7 +1,13 @@
-from typing import Union, Callable, Type
+from typing import TYPE_CHECKING, Union, Callable, Type
 
-from PyQt5.QtCore import pyqtSlot, QObject
-from PyQt5.QtWidgets import QLayout, QWidget
+from qtpy.QtCore import QObject  # type: ignore
+from qtpy.QtCore import Slot  # type: ignore
+from qtpy.QtWidgets import QLayout, QWidget  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import pyqtSlot as Slot
+    from PyQt5.QtCore import QObject
+    from PyQt5.QtWidgets import QLayout, QWidget
 
 from .rqwidget import RQWidget
 from ..models import RQObject
@@ -50,7 +56,7 @@ class RQWidgetObject(RQWidget, QObject):
         self.widget = self.rq_widget_callback(self.model.get())
         return self.widget
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when when model has changed
 
@@ -58,6 +64,7 @@ class RQWidgetObject(RQWidget, QObject):
         """
         index = self.layout.indexOf(self.widget)
         self.layout.removeWidget(self.widget)
+        self.widget.deleteLater()
         self._rq_new_widget()
         self.layout.insertWidget(index, self.widget)
 

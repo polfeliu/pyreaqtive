@@ -1,7 +1,10 @@
-from typing import Union
 from enum import Enum, auto
+from typing import TYPE_CHECKING, Union
 
-from PyQt5.QtCore import QThread
+from qtpy.QtCore import QThread  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import QThread
 
 from pyreaqtive import RQBool, RQModel
 

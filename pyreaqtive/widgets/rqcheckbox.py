@@ -1,7 +1,11 @@
-from typing import Union
+from typing import TYPE_CHECKING, Union
 
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QCheckBox
+from qtpy.QtCore import Slot  # type: ignore
+from qtpy.QtWidgets import QCheckBox  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import pyqtSlot as Slot
+    from PyQt5.QtWidgets import QCheckBox
 
 from .rqwidget import RQWidget
 from ..models import RQBool, RQModel
@@ -40,7 +44,7 @@ class RQCheckBox(RQWidget, QCheckBox):
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when the model changes state.
 
@@ -57,7 +61,7 @@ class RQCheckBox(RQWidget, QCheckBox):
     _rq_reading = False
     """Flag to indicate that the model changed and the widget is reading the model"""
 
-    @pyqtSlot()
+    @Slot()
     def _toggled(self) -> None:
         """Slot triggered when the user changes state of this checkbox.
 
@@ -65,5 +69,5 @@ class RQCheckBox(RQWidget, QCheckBox):
         """
         if not self._rq_reading:
             self._rq_writing = True
-            self.model.set(bool(self.checkState()))
+            self.model.set(self.isChecked())
             self._rq_writing = False

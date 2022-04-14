@@ -1,7 +1,4 @@
 .. pyreaqtive documentation master file, created by
-sphinx-quickstart on Sat Jun 26 21:03:28 2021.
-You can adapt this file completely to your liking, but it should at least
-contain the root `toctree` directive.
 
 Welcome to pyreaqtive's documentation!
 ======================================
@@ -10,11 +7,13 @@ Welcome to pyreaqtive's documentation!
    :width: 200
    :align: center
 
-pyreaqtive is a framework for developing applications in pyqt with reactive programming. It enables to write applications in a declarative form, that is focused on data and functionality and that does not bloat code with gui callbacks.
+pyreaqtive is a framework for developing applications in pyqt/pyside with reactive programming. It enables to write applications in a declarative form, that is focused on data and functionality and that does not bloat code with gui callbacks.
 
 The library provides several models to hold data, and many prebuilt widgets and layouts to present the data from the models to the user, making the separation from data and visualization, and the adequate link between them, a simple task.
 
-All reactive widgets and layouts use pyqt built-in widgets, which makes them fully compatible with pyqt without loosing functionality. Reactive and non-reactive parts can be mixed into an application, and non-reactive components can be turned to reactive ones without necessarily changing codebases.
+All reactive widgets and layouts use qt built-in widgets, which makes them fully compatible with qt without loosing functionality. Reactive and non-reactive parts can be mixed into an application, and non-reactive components can be turned to reactive ones without necessarily changing codebases.
+
+It was originally developed for PyQt5, but through the QtPy package it is also compatible with to PyQt6, PySide2 and PySide6.
 
 .. toctree::
    :maxdepth: 1
