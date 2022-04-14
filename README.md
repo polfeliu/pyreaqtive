@@ -7,5 +7,7 @@ The library provides several models to hold data, and many prebuilt widgets and 
 
 All reactive widgets and layouts use qt built-in widgets, which makes them fully compatible with qt without loosing functionality. Reactive and non-reactive parts can be mixed into an application, and non-reactive components can be turned to reactive ones without necessarily changing codebases.
 
+It was originally developed for PyQt5, but through the QtPy package it is also compatible with to PyQt6, PySide2 and PySide6.
+
 ## Documentation
 https://pyreaqtive.readthedocs.io/en/latest/
