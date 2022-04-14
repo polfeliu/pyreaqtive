@@ -4,7 +4,7 @@ from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLab
 from pyreaqtive.models import RQList, RQModel
 from pyreaqtive.layouts import RQVBoxLayout
 
-from qtpy.QtCore import pyqtSlot
+from qtpy.QtCore import Slot
 
 
 # Declare a model for each type
@@ -63,17 +63,17 @@ class FruitWidget(QWidget):
             self.add_shopping_button.clicked.connect(self.add_to_shopping_list)
             self.main_layout.addWidget(self.add_shopping_button)
 
-    @pyqtSlot()
+    @Slot()
     def delete_model(self) -> None:
         # Delete the model, is removed from all lists
         self.model.__delete__()
 
-    @pyqtSlot()
+    @Slot()
     def remove_from_shopping_list(self) -> None:
         # Remove model from the shopping list
         self.list_model.remove(self.model)
 
-    @pyqtSlot()
+    @Slot()
     def add_to_shopping_list(self):
         self.shopping_list.append(self.model)
 
@@ -107,15 +107,15 @@ class GrainWidget(QWidget):
             self.add_shopping_button.clicked.connect(self.add_to_shopping_list)
             self.main_layout.addWidget(self.add_shopping_button)
 
-    @pyqtSlot()
+    @Slot()
     def delete_model(self) -> None:
         self.model.__delete__()
 
-    @pyqtSlot()
+    @Slot()
     def remove_from_shopping_list(self) -> None:
         self.list_model.remove(self.model)
 
-    @pyqtSlot()
+    @Slot()
     def add_to_shopping_list(self):
         self.shopping_list.append(self.model)
 
@@ -176,7 +176,7 @@ class MainWindow(QMainWindow):
         else:
             raise TypeError
 
-    @pyqtSlot()
+    @Slot()
     def add_fruit(self):
         text, ok = QInputDialog.getText(self, 'Text Input Dialog', 'Enter fruit name:')
 
