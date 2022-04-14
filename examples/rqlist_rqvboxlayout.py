@@ -1,8 +1,8 @@
 import random
 import sys
 
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout
+from qtpy.QtCore import pyqtSlot
+from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout
 
 from pyreaqtive.layouts import RQVBoxLayout
 from pyreaqtive.models import RQList, RQModel, RQChoice

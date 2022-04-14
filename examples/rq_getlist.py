@@ -2,7 +2,7 @@ import sys
 from random import randint
 from typing import List
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel
+from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel
 
 from pyreaqtive.layouts import RQHBoxLayout
 from pyreaqtive.models import RQList

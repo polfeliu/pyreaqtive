@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
 from pyreaqtive.models import RQBool, RQComputedBool
 from pyreaqtive.widgets import RQLabel, RQCheckBox

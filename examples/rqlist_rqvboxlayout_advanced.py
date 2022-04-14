@@ -1,10 +1,10 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout, \
+from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout, \
     QInputDialog
 from pyreaqtive.models import RQList, RQModel
 from pyreaqtive.layouts import RQVBoxLayout
 
-from PyQt5.QtCore import pyqtSlot
+from qtpy.QtCore import pyqtSlot
 
 
 # Declare a model for each type

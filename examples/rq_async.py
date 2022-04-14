@@ -1,7 +1,7 @@
 import sys
 
 import requests
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
 from pyreaqtive import RQList, RQComboBox, RQChoice, RQAsync, RQText, RQLabel
 
