@@ -64,6 +64,7 @@ class RQWidgetObject(RQWidget, QObject):
         """
         index = self.layout.indexOf(self.widget)
         self.layout.removeWidget(self.widget)
+        self.widget.deleteLater()
         self._rq_new_widget()
         self.layout.insertWidget(index, self.widget)
 
