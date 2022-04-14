@@ -1,7 +1,7 @@
 import random
 import sys
 
-from qtpy.QtCore import pyqtSlot
+from qtpy.QtCore import Slot
 from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QHBoxLayout
 
 from pyreaqtive.layouts import RQVBoxLayout
@@ -43,7 +43,7 @@ class FruitWidget(QWidget):
         self.remove_button.clicked.connect(self.remove)
         self.main_layout.addWidget(self.remove_button)
 
-    @pyqtSlot()
+    @Slot()
     def remove(self) -> None:
         # Request that the list removes the model this widget is representing
         self.list_model.remove(self.model)
@@ -85,7 +85,7 @@ class MainWindow(QMainWindow):
         fruit_choice_combobox = RQComboBox(fruit_choice)
         layout.addWidget(fruit_choice_combobox)
 
-    @pyqtSlot()
+    @Slot()
     def add_fruit(self):
         # When clicking the button add a random fruit
         possible_fruits = [
