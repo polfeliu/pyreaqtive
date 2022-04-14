@@ -69,5 +69,5 @@ class RQCheckBox(RQWidget, QCheckBox):
         """
         if not self._rq_reading:
             self._rq_writing = True
-            self.model.set(bool(self.checkState()))
+            self.model.set(self.isChecked())
             self._rq_writing = False
