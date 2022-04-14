@@ -1,8 +1,11 @@
-from PyQt5.QtWidgets import QPushButton
-from PyQt5.QtCore import pyqtSlot
+from typing import TYPE_CHECKING, Union
 
-from ..models import RQInt, RQFloat, RQBool, RQObject
-from typing import Union
+from qtpy.QtWidgets import QPushButton  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QPushButton
+
+from ..models import RQBool
 
 from .rqwidget import RQWidget
 

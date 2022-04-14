@@ -1,7 +1,11 @@
-from typing import Union
+from typing import TYPE_CHECKING, Union
 
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QProgressBar
+from qtpy.QtCore import Slot  # type: ignore
+from qtpy.QtWidgets import QProgressBar  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtCore import pyqtSlot as Slot
+    from PyQt5.QtWidgets import QProgressBar
 
 from .rqwidget import RQWidget
 from ..models import RQInt, RQFloat, RQBool, RQObject
@@ -36,7 +40,7 @@ class RQProgressBar(RQWidget, QProgressBar):
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_data_changed()
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when the model changes value.
 

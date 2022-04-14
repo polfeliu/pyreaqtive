@@ -1,7 +1,11 @@
-from PyQt5.QtWidgets import QWidget
-from ..models import RQModel, RQText, RQBool, RQInt, RQFloat, RQObject
+from typing import TYPE_CHECKING, Union
 
-from typing import Union
+from qtpy.QtWidgets import QWidget  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QWidget
+
+from ..models import RQModel, RQText, RQBool, RQInt, RQFloat, RQObject
 
 
 class RQWidget:

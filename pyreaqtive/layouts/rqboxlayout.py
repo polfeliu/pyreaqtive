@@ -1,9 +1,13 @@
-from PyQt5.QtWidgets import QBoxLayout, QWidget
-from PyQt5.QtCore import pyqtSlot
+from typing import TYPE_CHECKING, List, Callable, Type, Union, Any
+
+from qtpy.QtCore import Slot  # type: ignore
+from qtpy.QtWidgets import QBoxLayout, QWidget  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QBoxLayout, QWidget
+    from PyQt5.QtCore import pyqtSlot as Slot
 
 from ..models import RQList
-
-from typing import List, Callable, Type, Union, Any
 
 
 class RQBoxLayout(QBoxLayout):
@@ -55,7 +59,7 @@ class RQBoxLayout(QBoxLayout):
         for index, item in enumerate(self.model):
             self._rq_insert_widget(index)
 
-    @pyqtSlot(int)
+    @Slot(int)
     def _rq_insert_widget(self, index) -> None:
         """Slot triggered when the model inserts a new item
 
@@ -66,7 +70,7 @@ class RQBoxLayout(QBoxLayout):
         self.widgets.insert(index, self._rq_widget_callback(item, self.model))
         self.insertWidget(index, self.widgets[index])
 
-    @pyqtSlot(int)
+    @Slot(int)
     def _rq_remove_widget(self, index) -> None:
         """Slot triggered when the model removes an item
 

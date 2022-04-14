@@ -1,10 +1,14 @@
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtCore import pyqtSlot
+from typing import TYPE_CHECKING, Union
+
+from qtpy.QtCore import Slot  # type: ignore
+from qtpy.QtWidgets import QLineEdit  # type: ignore
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QLineEdit
+    from PyQt5.QtCore import pyqtSlot as Slot
 
 from ..models import RQText, RQBool, RQObject, RQModel
 from .rqwidget import RQWidget
-
-from typing import Union
 
 
 class RQLineEdit(RQWidget, QLineEdit):
@@ -47,7 +51,7 @@ class RQLineEdit(RQWidget, QLineEdit):
         else:
             self.textChanged.connect(self._update_model)
 
-    @pyqtSlot()
+    @Slot()
     def _rq_data_changed(self) -> None:
         """Slot triggered when the model changes text.
 
@@ -64,7 +68,7 @@ class RQLineEdit(RQWidget, QLineEdit):
     _rq_reading = False
     """Flag to indicate that the model changed and the widget is reading the model"""
 
-    @pyqtSlot()
+    @Slot()
     def _update_model(self) -> None:
         """Propagates changes to the model"""
         if not self._rq_reading:

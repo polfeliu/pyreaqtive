@@ -1,6 +1,6 @@
-from .rqmodel import RQModel, RQComputedModel
-
 from typing import Callable
+
+from .rqmodel import RQModel, RQComputedModel
 
 
 class RQBool(RQModel):
