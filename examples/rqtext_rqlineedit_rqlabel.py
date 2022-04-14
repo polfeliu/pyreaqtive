@@ -1,5 +1,7 @@
 import sys
+
 from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+
 from pyreaqtive.models import RQText
 from pyreaqtive.widgets import RQLineEdit, RQLabel
 
@@ -31,4 +33,4 @@ class MainWindow(QMainWindow):
 app = QApplication(sys.argv)
 window = MainWindow()
 window.show()
-app.exec()
+app.exec_()
