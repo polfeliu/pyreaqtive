@@ -17,13 +17,12 @@ jobs:
         env:
           cache-name: cache-pipenv
         with:
-          path: .venv
+          path: /home/runner/.local/share/virtualenvs/
           key: ${{ runner.os }}-${{ hashFiles('Pipfile.lock') }}
 
 
       - name: Install pipenv
         run: |
-          export PIPENV_VENV_IN_PROJECT="enabled"
           python -m pip install --upgrade pipenv wheel
 
       - name: Install Dependencies
