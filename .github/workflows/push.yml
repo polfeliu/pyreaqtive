@@ -12,8 +12,18 @@ jobs:
         with:
           python-version: 3.6
 
+      - name: Cache pipenv
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pipenv
+        with:
+          path: .venv
+          key: ${{ runner.os }}-${{ hashFiles('Pipfile.lock') }}
+
+
       - name: Install pipenv
         run: |
+          export PIPENV_VENV_IN_PROJECT=1
           python -m pip install --upgrade pipenv wheel
 
       - name: Install Dependencies
