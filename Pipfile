@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 qtpy = "==2.0.1"
-onions = "*"
 
 [dev-packages]
 sphinx = "==4.0.2"

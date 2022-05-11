@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "255b314229a52572d7081243cdfa538d56b0832a6d05cb17cbd7c7cb839b8335"
+            "sha256": "ce9a58f1f2413fd81cc22550a18ca7d75661c5e18b0de1365817f0436bcbb7b9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,13 +16,6 @@
         ]
     },
     "default": {
-        "onions": {
-            "hashes": [
-                "sha256:f4a3fe98bbed42a7a7a696171c47da4321a64f492cda8870715655b437411a3b"
-            ],
-            "index": "pypi",
-            "version": "==1.0.0"
-        },
         "packaging": {
             "hashes": [
                 "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb",
