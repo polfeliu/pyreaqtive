@@ -53,6 +53,21 @@ class RQModel(QObject):
     def __delete__(self):
         self._rq_delete.emit()
 
+    def __eq__(self, other):
+        from .rqbool import RQComputedBool
+
+        if issubclass(type(other), RQModel):
+            return RQComputedBool(
+                function=lambda own: own == other,
+                own=self,
+                other=other
+            )
+        else:
+            return RQComputedBool(
+                function=lambda own: own == other,
+                own=self
+            )
+
 
 class RQComputedModel:
     """RQComputedModel Base Class.

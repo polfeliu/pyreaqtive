@@ -61,6 +61,7 @@ class RQBool(RQModel):
         return str(self.get())
 
 
+
 class RQComputedBool(RQComputedModel, RQBool):
     """Reactive Computed Boolean Model"""
 
