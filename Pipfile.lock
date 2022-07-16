@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bd09e967c0033a32138105d22f01addb4463f234b0b841970e4697818742e936"
+            "sha256": "30f5a77c4a0eb280a7cd77324627bb2b28a98dcca1195c7407aa6ed89fadf2b8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -96,6 +96,13 @@
             "markers": "sys_platform == 'win32'",
             "version": "==0.4.5"
         },
+        "decopatch": {
+            "hashes": [
+                "sha256:957f49c93f4150182c23f8fb51d13bb3213e0f17a79e09c8cca7057598b55720",
+                "sha256:e151f7f93de2b1b3fd3f3272dcc7cefd1a69f68ec1c2d8e288ecd9deb36dc5f7"
+            ],
+            "version": "==1.4.10"
+        },
         "docutils": {
             "hashes": [
                 "sha256:0c5b78adfbf7762415433f5515cd5c9e762339e23369dbe8000d84a4bf4ab3af",
@@ -134,6 +141,13 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==3.1.2"
+        },
+        "makefun": {
+            "hashes": [
+                "sha256:7431941c736f33948aa438f1bfb5795957470d7246801d8c06c84b88997502b6",
+                "sha256:770c6e458f1ef47304185334f1d686ee201755d06152a878e2646275340c181d"
+            ],
+            "version": "==1.14.0"
         },
         "markupsafe": {
             "hashes": [
@@ -316,6 +330,14 @@
             "index": "pypi",
             "version": "==7.1.2"
         },
+        "pytest-cases": {
+            "hashes": [
+                "sha256:7b584433231280b16a74f34d9ba1f50abcc6b973d3ba3ada9053c2c41a11fb77",
+                "sha256:d5bdea5a2bf8a9fef594153d2f33c6a5b45328fe26bb7b8e136442ddc67c72cd"
+            ],
+            "index": "pypi",
+            "version": "==3.6.13"
+        },
         "pytest-qt": {
             "hashes": [
                 "sha256:027f3d3f5dd04af0530d846cf50fb858f719f7e87c2e4a1c686abd4e0f72172a",
@@ -423,7 +445,7 @@
                 "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc",
                 "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"
             ],
-            "markers": "python_version < '3.11'",
+            "markers": "python_version >= '3.7'",
             "version": "==2.0.1"
         },
         "typing-extensions": {
