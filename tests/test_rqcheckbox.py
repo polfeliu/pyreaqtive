@@ -1,10 +1,9 @@
-from pyreaqtive.models import RQBool
-from pyreaqtive.widgets import RQCheckBox
+from pyreaqtive import RQBool, RQCheckBox
 import pytest_cases
 
 
 @pytest_cases.parametrize("initial_state", [True, False])
-def test_rqbool(initial_state):
+def test_rqcheckbox(initial_state, qtbot):
     state = RQBool(initial_state)
 
     checkbox_1 = RQCheckBox(state, "checkbox 1")
@@ -32,6 +31,3 @@ def test_rqbool(initial_state):
     assert checkbox_1.isChecked() == (not initial_state)
     assert checkbox_2.isChecked() == (not initial_state)
 
-
-def test_rqcomputedbool():
-    pass  # state_1 = RQBool(False)
