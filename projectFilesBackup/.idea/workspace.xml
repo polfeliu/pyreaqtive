@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="859b4d34-cd16-470f-b138-58392f31970e" name="Changes" comment="changed vevn" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="redone imports with qtpy and added stubs for pyqt5" />
+        <option name="rewordedMessage" value="redone imports with qtpy and added stubs for pyqt5" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="29e12a0f09e5761b3e73759e3b6ff868ab2d700e" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/examples/rqdoublespinbox.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Pipfile.lock" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/examples/rqcomputedlist.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/examples/rqcomputedtext.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/examples/rqcomputedfloat.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/examples/rqlist_rqvboxlayout_advanced.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/examples/rqtext_rqlineedit_rqlabel.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/.virtualenvs/pyreaqtive-udEdABTB/Lib/site-packages/qtpy/__init__.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/examples/rqlist_rqhboxlayout_index.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/examples/rqobject_rqwidgetobject.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/examples/rqint_rqspinbox_rqslider_rqdial_rqprogressbar.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/examples/rqlist_rqvboxlayout.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/.virtualenvs/pyreaqtive-udEdABTB/Lib/site-packages/qtpy/QtWidgets.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/examples/rq_async.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Pipfile" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MajeraCodeReviewSettings">
+    <option name="processedVcsRemotes">
+      <set>
+        <StoredVcsRemote>
+          <option name="vcsRemoteUrl" value="https://github.com/polfeliu/pyreaqtive.git" />
+          <option name="vcsRootUrl" value="file://$PROJECT_DIR$" />
+        </StoredVcsRemote>
+      </set>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="NamedScopeManager">
+    <order>
+      <scope name="pyreaqtive" />
+    </order>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectId" id="1xdX4vR6boKYupXJg5j96S5k53a" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/examples/sequence_matcher_tests.py" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\GIT\pyreaqtive\examples" />
+      <recent name="C:\GIT\pyreaqtive\doc\source\examples" />
+      <recent name="C:\GIT\pyreaqtive\doc\source\_static" />
+      <recent name="C:\GIT\pyreaqtive\doc\source\api" />
+      <recent name="C:\GIT\pyreaqtive\pyreaqtive\widgets" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.rqobject">
+    <configuration name="rq_connect" type="PythonConfigurationType" factoryName="Python">
+      <module name="pyreaqtive" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/rq_connect.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sequence_matcher" type="PythonConfigurationType" factoryName="Python">
+      <module name="pyreaqtive" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/sequence_matcher_tests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.rq_disabled" />
+      <item itemvalue="Python.rq_getlist" />
+      <item itemvalue="Python.rqbool_rqcheckbox" />
+      <item itemvalue="Python.rqchoice_rqcombobox" />
+      <item itemvalue="Python.rqcomputedfloat" />
+      <item itemvalue="Python.rqcomputedlist" />
+      <item itemvalue="Python.rqcomputedtext" />
+      <item itemvalue="Python.rqif" />
+      <item itemvalue="Python.rqif_rqcomputedbool" />
+      <item itemvalue="Python.rqint_rqspinbox_rqslider_rqdial_rqprogressbar" />
+      <item itemvalue="Python.rqlist_rqhboxlayout_index" />
+      <item itemvalue="Python.rqlist_rqvboxlayout" />
+      <item itemvalue="Python.rqlist_rqvboxlayout_advanced" />
+      <item itemvalue="Python.rqobject" />
+      <item itemvalue="Python.rqtext_rqlineedit_rqlabel" />
+      <item itemvalue="Python.rq_getattr" />
+      <item itemvalue="Python.rq_connect" />
+      <item itemvalue="Python.rq_async" />
+      <item itemvalue="Python.sequence_matcher" />
+      <item itemvalue="Python.rqdoublespinbox" />
+      <item itemvalue="Python.test_sequence_matcher" />
+      <item itemvalue="Python docs.docs" />
+      <item itemvalue="Shell Script.uploadPypi" />
+      <item itemvalue="Shell Script.mypy_check" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="859b4d34-cd16-470f-b138-58392f31970e" name="Changes" comment="" />
+      <created>1630685754714</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1630685754714</updated>
+      <workItem from="1642778016779" duration="4306000" />
+      <workItem from="1642861921815" duration="69000" />
+      <workItem from="1642864671163" duration="2533000" />
+      <workItem from="1643739932551" duration="6317000" />
+      <workItem from="1644430068400" duration="269000" />
+      <workItem from="1644430392511" duration="97000" />
+      <workItem from="1644430653182" duration="132000" />
+      <workItem from="1649945421111" duration="11338000" />
+      <workItem from="1651642511170" duration="1298000" />
+      <workItem from="1651903637444" duration="46000" />
+    </task>
+    <task id="LOCAL-00001" summary="experimenting with threads">
+      <created>1631382993021</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631382993021</updated>
+    </task>
+    <task id="LOCAL-00002" summary="development branch will have the dev suffix under version">
+      <created>1631383373421</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1631383373421</updated>
+    </task>
+    <task id="LOCAL-00003" summary="doc">
+      <created>1631384781060</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1631384781060</updated>
+    </task>
+    <task id="LOCAL-00004" summary="logo and doc corrections">
+      <created>1631429694905</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1631429694905</updated>
+    </task>
+    <task id="LOCAL-00005" summary="correction">
+      <created>1631430947531</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1631430947531</updated>
+    </task>
+    <task id="LOCAL-00006" summary="including all packages">
+      <created>1631430966457</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1631430966457</updated>
+    </task>
+    <task id="LOCAL-00007" summary="on the next release include readme image with absolute path for pypi">
+      <created>1631433582314</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1631433582314</updated>
+    </task>
+    <task id="LOCAL-00008" summary="delitem correction">
+      <created>1631597492854</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1631597492854</updated>
+    </task>
+    <task id="LOCAL-00009" summary="first attempt seems to work correctly with pyqt5 pyqt stubs are highlighting some functions">
+      <created>1635625268711</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1635625268711</updated>
+    </task>
+    <task id="LOCAL-00010" summary="using pyqt stubs for type checking">
+      <created>1635794113194</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1635794113194</updated>
+    </task>
+    <task id="LOCAL-00011" summary="refactored to accept both">
+      <created>1636139404996</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1636139404996</updated>
+    </task>
+    <task id="LOCAL-00012" summary="finished corrections and added run configs">
+      <created>1636211222833</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1636211222833</updated>
+    </task>
+    <task id="LOCAL-00013" summary="implemented first rq connection between two models">
+      <created>1642781416746</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1642781416746</updated>
+    </task>
+    <task id="LOCAL-00014" summary="first example waiting for finishing">
+      <created>1642865362964</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1642865362964</updated>
+    </task>
+    <task id="LOCAL-00015" summary="doc">
+      <created>1642866763742</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1642866763742</updated>
+    </task>
+    <task id="LOCAL-00016" summary="improve comment of example">
+      <created>1642866811034</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1642866811034</updated>
+    </task>
+    <task id="LOCAL-00017" summary="loading authors">
+      <created>1643741973921</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1643741973921</updated>
+    </task>
+    <task id="LOCAL-00018" summary="sequence matcher working">
+      <created>1643764332763</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1643764332763</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added qtpy and made pyqt a dev package">
+      <created>1649946083402</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1649946083402</updated>
+    </task>
+    <task id="LOCAL-00020" summary="redone imports with qtpy and added stubs for pyqt5">
+      <created>1649946993753</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1649946993753</updated>
+    </task>
+    <task id="LOCAL-00021" summary="redone imports with qtpy and added stubs for pyqt5">
+      <created>1649947816795</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1649947816795</updated>
+    </task>
+    <task id="LOCAL-00022" summary="redone imports with qtpy and added stubs for pyqt5">
+      <created>1649948240862</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1649948240862</updated>
+    </task>
+    <task id="LOCAL-00023" summary="imports from qtpy">
+      <created>1649949797910</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1649949797910</updated>
+    </task>
+    <task id="LOCAL-00024" summary="pyqt6 install">
+      <created>1649949841407</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1649949841407</updated>
+    </task>
+    <task id="LOCAL-00025" summary="corrected slot of example">
+      <created>1649952727272</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1649952727272</updated>
+    </task>
+    <task id="LOCAL-00026" summary="changed for isChecked as pyqt6 does not have a correct conversion to bool">
+      <created>1649953349443</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1649953349443</updated>
+    </task>
+    <task id="LOCAL-00027" summary="corrected slot import">
+      <created>1649953510305</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1649953510305</updated>
+    </task>
+    <task id="LOCAL-00028" summary="corrected slot import">
+      <created>1649953553324</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1649953553324</updated>
+    </task>
+    <task id="LOCAL-00029" summary="corrected slot import">
+      <created>1649955199312</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1649955199312</updated>
+    </task>
+    <task id="LOCAL-00030" summary="corrected slot import">
+      <created>1649955207509</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1649955207509</updated>
+    </task>
+    <task id="LOCAL-00031" summary="widget needs to be deleted at the end of the event loop. on pyside the widget is kept on display if not">
+      <created>1649956215331</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1649956215331</updated>
+    </task>
+    <task id="LOCAL-00032" summary="widget needs to be deleted at the end of the event loop. on pyside the widget is kept on display if not">
+      <created>1649956436510</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1649956436510</updated>
+    </task>
+    <task id="LOCAL-00033" summary="changed description">
+      <created>1649957667996</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1649957667996</updated>
+    </task>
+    <task id="LOCAL-00034" summary="changed description">
+      <created>1649957680449</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1649957680449</updated>
+    </task>
+    <task id="LOCAL-00035" summary="removed old generated template">
+      <created>1649957706563</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1649957706563</updated>
+    </task>
+    <task id="LOCAL-00036" summary="added comment regarding compatibility">
+      <created>1649957873388</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1649957873388</updated>
+    </task>
+    <task id="LOCAL-00037" summary="push version">
+      <created>1649958011843</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1649958011843</updated>
+    </task>
+    <task id="LOCAL-00038" summary="release">
+      <created>1649958085738</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1649958085738</updated>
+    </task>
+    <task id="LOCAL-00039" summary="release_1.4.0">
+      <created>1649958096153</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1649958096153</updated>
+    </task>
+    <task id="LOCAL-00040" summary="release_1.4.0">
+      <created>1649958136106</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1649958136106</updated>
+    </task>
+    <task id="LOCAL-00041" summary="evaluating cache">
+      <created>1651642850636</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1651642850636</updated>
+    </task>
+    <task id="LOCAL-00042" summary="commit">
+      <created>1651642954112</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1651642954112</updated>
+    </task>
+    <task id="LOCAL-00043" summary="changed attr">
+      <created>1651643100012</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1651643100012</updated>
+    </task>
+    <task id="LOCAL-00044" summary="export not working">
+      <created>1651643460865</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1651643460865</updated>
+    </task>
+    <task id="LOCAL-00045" summary="commit">
+      <created>1651643547373</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1651643547373</updated>
+    </task>
+    <task id="LOCAL-00046" summary="changed vevn">
+      <created>1651643718091</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1651643718091</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="implemented first rq connection between two models" />
+    <MESSAGE value="first example waiting for finishing" />
+    <MESSAGE value="doc" />
+    <MESSAGE value="improve comment of example" />
+    <MESSAGE value="loading authors" />
+    <MESSAGE value="sequence matcher working" />
+    <MESSAGE value="added qtpy and made pyqt a dev package" />
+    <MESSAGE value="redone imports with qtpy and added stubs for pyqt5" />
+    <MESSAGE value="imports from qtpy" />
+    <MESSAGE value="pyqt6 install" />
+    <MESSAGE value="corrected slot of example" />
+    <MESSAGE value="changed for isChecked as pyqt6 does not have a correct conversion to bool" />
+    <MESSAGE value="corrected slot import" />
+    <MESSAGE value="widget needs to be deleted at the end of the event loop. on pyside the widget is kept on display if not" />
+    <MESSAGE value="changed description" />
+    <MESSAGE value="removed old generated template" />
+    <MESSAGE value="added comment regarding compatibility" />
+    <MESSAGE value="push version" />
+    <MESSAGE value="release" />
+    <MESSAGE value="release_1.4.0" />
+    <MESSAGE value="evaluating cache" />
+    <MESSAGE value="changed attr" />
+    <MESSAGE value="export not working" />
+    <MESSAGE value="commit" />
+    <MESSAGE value="changed vevn" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed vevn" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pyreaqtive/layouts/rqboxlayout.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pyreaqtive/models/rqtext.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/pyreaqtive$rqcomputedfloat.coverage" NAME="rqcomputedfloat Coverage Results" MODIFIED="1642864714336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rqlist_rqvboxlayout.coverage" NAME="rqlist_rqvboxlayout Coverage Results" MODIFIED="1649946374021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rq_async.coverage" NAME="rq_async Coverage Results" MODIFIED="1649949759779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rqchoice_rqcombobox.coverage" NAME="rqchoice_rqcombobox Coverage Results" MODIFIED="1649948405971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$docs.coverage" NAME="docs Coverage Results" MODIFIED="1642866594223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rq_connect.coverage" NAME="rq_connect Coverage Results" MODIFIED="1642781294154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rqif.coverage" NAME="rqif Coverage Results" MODIFIED="1649947826376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$sequence_matcher.coverage" NAME="sequence_matcher Coverage Results" MODIFIED="1649947849383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rqbool_rqcheckbox.coverage" NAME="rqbool_rqcheckbox Coverage Results" MODIFIED="1649948400075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rqdoublespinbox.coverage" NAME="rqdoublespinbox Coverage Results" MODIFIED="1649953835067" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rq_disabled.coverage" NAME="rq_disabled Coverage Results" MODIFIED="1649953491312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/pyreaqtive$rqobject.coverage" NAME="rqobject Coverage Results" MODIFIED="1649956216098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+  </component>
+</project>
