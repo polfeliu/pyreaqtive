@@ -29,12 +29,12 @@ class RQWidget:
 
         if isinstance(model, str):
             model = RQText(model)
+        elif isinstance(model, bool):
+            model = RQBool(model)
         elif isinstance(model, int):
             model = RQInt(model)
         elif isinstance(model, float):
             model = RQFloat(model)
-        elif isinstance(model, bool):
-            model = RQBool(model)
 
         self.model = model
 

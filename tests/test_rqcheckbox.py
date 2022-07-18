@@ -33,6 +33,13 @@ def test_rqcheckbox(initial_state, qtbot):
     assert checkbox_2.isChecked() == (not initial_state)
 
 
+@pytest_cases.parametrize("initial_state", [True, False])
+def test_rqcheckbox_non_reactive(initial_state, qtbot):
+    checkbox = RQCheckBox(initial_state)
+    assert isinstance(checkbox.model, RQBool)
+    assert checkbox.isChecked() == initial_state
+
+
 def test_checkbox_readonly():
     m = RQComputedBool(
         lambda: True
