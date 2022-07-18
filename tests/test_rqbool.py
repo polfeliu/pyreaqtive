@@ -1,4 +1,4 @@
-from pyreaqtive import RQBool
+from pyreaqtive import RQBool, RQComputedBool
 import pytest_cases
 
 
@@ -8,9 +8,9 @@ def assert_bool_state(m, state):
     assert bool(m) == state
 
     if state:
-        assert str(state) == "True"
+        assert str(m) == "True"
     else:
-        assert str(state) == "False"
+        assert str(m) == "False"
 
 
 @pytest_cases.parametrize("initial_state", [True, False])
@@ -27,3 +27,29 @@ def test_bool(initial_state):
 
     m.toggle()
     assert_bool_state(m, initial_state)
+
+
+def test_computed_bool():
+    m1 = RQBool(True)
+    m2 = RQBool(True)
+
+    mc = RQComputedBool(
+        lambda m1, m2: m1 and m2,
+        m1=m1,
+        m2=m2
+    )
+
+    assert mc.get() is True
+
+    m1.set(False)
+
+    assert mc.get() is False
+
+    m2.set(False)
+
+    assert mc.get() is False
+
+    m1.set(True)
+    m2.set(True)
+
+    assert mc.get() is True
