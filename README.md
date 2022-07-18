@@ -1,5 +1,8 @@
 # pyreaqtive
 [![Docs](https://readthedocs.org/projects/pyreaqtive/badge/?style=flat)](https://readthedocs.org/projects/pyreaqtive)
+![PyPI](https://img.shields.io/pypi/v/pyreaqtive)
+![Pipline](https://img.shields.io/github/workflow/status/polfeliu/pyreaqtive/Pipeline/master)
+![License](https://img.shields.io/pypi/l/pyreaqtive)
 
 ![Logo](https://raw.githubusercontent.com/polfeliu/pyreaqtive/master/doc/source/_static/logo256.png)
 
