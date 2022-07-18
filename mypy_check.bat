@@ -1,1 +1,1 @@
-pipenv run mypy -m pyreaqtive --config-file mypy.ini
+pipenv run mypy -m pyreaqtive -m tests --config-file mypy.ini
