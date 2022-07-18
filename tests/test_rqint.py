@@ -10,6 +10,7 @@ def test_int(initial):
 
     assert str(m) == str(initial)
     assert int(m) == int(initial)
+    assert float(m) == float(initial)
 
     m.set(90)
 
@@ -24,6 +25,7 @@ def test_int(initial):
     assert m.get() == 100
     m.decrement(5)
     assert m.get() == 95
+
 
 def test_computed_int():
     m1 = RQInt(2)
