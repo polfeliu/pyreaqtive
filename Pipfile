@@ -15,6 +15,7 @@ mypy = "*"
 pytest-qt = "*"
 pytest = "*"
 pytest-cases = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3"
