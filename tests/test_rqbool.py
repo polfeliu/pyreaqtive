@@ -1,5 +1,6 @@
 from pyreaqtive import RQBool, RQComputedBool
 import pytest_cases
+from .signal_checker import *
 
 
 def assert_bool_state(m, state):
@@ -16,16 +17,20 @@ def assert_bool_state(m, state):
 @pytest_cases.parametrize("initial_state", [True, False])
 def test_bool(initial_state):
     m = RQBool(initial_state)
+    connect_signal(m.rq_data_changed)
 
     assert_bool_state(m, initial_state)
 
     m.set(initial_state)
+    assert_signal_emitted(m.rq_data_changed)
     assert_bool_state(m, initial_state)
 
     m.set(not initial_state)
+    assert_signal_emitted(m.rq_data_changed)
     assert_bool_state(m, not initial_state)
 
     m.toggle()
+    assert_signal_emitted(m.rq_data_changed)
     assert_bool_state(m, initial_state)
 
 
