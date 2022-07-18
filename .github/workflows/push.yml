@@ -40,6 +40,6 @@ jobs:
         run: |
           pipenv run mypy -m pyreaqtive --config-file mypy.ini
 
-      - name: Run Tests
+      - name: Run Tests with coverage
         run: |
-          pipenv run pytest
+          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing
