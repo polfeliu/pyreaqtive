@@ -1,5 +1,7 @@
 # pyreaqtive
-![alt text](https://raw.githubusercontent.com/polfeliu/pyreaqtive/master/doc/source/_static/logo256.png)
+[![Docs](https://readthedocs.org/projects/pyreaqtive/badge/?style=flat)](https://readthedocs.org/projects/pyreaqtive)
+
+![Logo](https://raw.githubusercontent.com/polfeliu/pyreaqtive/master/doc/source/_static/logo256.png)
 
 pyreaqtive is a framework for developing applications in pyqt/pyside with reactive programming. It enables to write applications in a declarative form, that is focused on data and functionality and that does not bloat code with gui callbacks.
 
