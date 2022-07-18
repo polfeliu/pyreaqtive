@@ -11,7 +11,7 @@ class RQChoice(RQModel):
     Represents a choice from a list of choices
     """
 
-    def __init__(self, choices: Union[RQList, List, EnumMeta], selected: RQModel = None, allow_none=False):
+    def __init__(self, choices: Union[RQList, List, EnumMeta], selected: Any = None, allow_none=False):
         """Constructor
 
         Args:
