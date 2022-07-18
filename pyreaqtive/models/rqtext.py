@@ -48,7 +48,7 @@ class RQText(RQModel):
 class RQComputedText(RQComputedModel, RQText):
     """Reactive Computed Float Model"""
 
-    def __init__(self, function: Union[str, Callable[..., str]], **kwargs):
+    def __init__(self, function: Union[str, Callable[..., str]], **kwargs: RQModel):
         """Constructor
 
         Args:

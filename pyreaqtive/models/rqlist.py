@@ -218,7 +218,7 @@ class RQList(RQModel):
 class RQComputedList(RQComputedModel, RQList):
     """Reactive Computed List Model"""
 
-    def __init__(self, function: Callable, **kwargs):
+    def __init__(self, function: Callable, **kwargs: RQModel):
         """Constructor
 
         Args:

@@ -67,7 +67,7 @@ class RQFloat(RQModel):
 class RQComputedFloat(RQComputedModel, RQFloat):
     """Reactive Computed Float Model"""
 
-    def __init__(self, function: Callable, **kwargs):
+    def __init__(self, function: Callable, **kwargs: RQModel):
         """Constructor
 
         Args:

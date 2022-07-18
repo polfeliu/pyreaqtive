@@ -82,7 +82,7 @@ class RQInt(RQModel):
 class RQComputedInt(RQComputedModel, RQInt):
     """Reactive Computed Integer Model"""
 
-    def __init__(self, function: Callable, **kwargs):
+    def __init__(self, function: Callable, **kwargs: RQModel):
         """Constructor
 
         Args:

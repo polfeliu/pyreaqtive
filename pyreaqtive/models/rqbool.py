@@ -64,7 +64,7 @@ class RQBool(RQModel):
 class RQComputedBool(RQComputedModel, RQBool):
     """Reactive Computed Boolean Model"""
 
-    def __init__(self, function: Callable, **kwargs):
+    def __init__(self, function: Callable, **kwargs: RQModel):
         """Constructor
 
         Args:
