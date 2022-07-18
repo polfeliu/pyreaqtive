@@ -9,7 +9,7 @@ class RQText(RQModel):
     Represents a string of text
     """
 
-    def __init__(self, text: str):
+    def __init__(self, text: str = ""):
         """Constructor
 
         Args:
