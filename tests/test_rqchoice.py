@@ -2,6 +2,7 @@ import pytest
 import pytest_cases
 from pyreaqtive import RQChoice, RQList
 from enum import Enum, auto
+from .signal_checker import *
 
 
 @pytest_cases.parametrize("allow_none", [True, False])
@@ -23,6 +24,7 @@ def test_choice_list(list_reactive, allow_none):
         selected='lorem',
         allow_none=allow_none  # Correct selection
     )
+    connect_signal(m.rq_data_changed)
 
     assert m[2] == choices[2]
 
@@ -44,6 +46,7 @@ def test_choice_list(list_reactive, allow_none):
 
     if allow_none:
         m.set(None)
+        assert_signal_emitted(m.rq_data_changed)
         assert m.selected == None
     else:
         with pytest.raises(ValueError):
@@ -90,6 +93,7 @@ def test_choice_enum(allow_none):
         selected=Choices.Dolor,
         allow_none=allow_none
     )
+    connect_signal(m.rq_data_changed)
 
     assert m.selected == Choices.Dolor
     assert str(m) == "Choices.Dolor"
@@ -100,6 +104,8 @@ def test_choice_enum(allow_none):
             selected=None,
             allow_none=allow_none
         )
+        connect_signal(m.rq_data_changed)
+
         assert m.selected == None
         assert str(m) == "None"
 
@@ -110,8 +116,10 @@ def test_choice_enum(allow_none):
                 selected=None,
                 allow_none=allow_none
             )
+            connect_signal(m.rq_data_changed)
 
     with pytest.raises(KeyError):
         m.set(IncorrectChoice.Hello)
+        assert_signal_emitted(m.rq_data_changed)
 
     assert m.get_choices() == list(Choices)
