@@ -1,4 +1,5 @@
 import pytest
+from .signal_checker import *
 
 from pyreaqtive import RQObject
 
@@ -21,6 +22,8 @@ def test_object():
     inst2 = DunderSamples()
 
     m = RQObject(instance=inst1)
+    connect_signal(m.rq_data_changed)
+
     assert m.get() == inst1
     assert isinstance(str(Sample), str)
     with pytest.raises(TypeError):
@@ -30,6 +33,7 @@ def test_object():
         float(m)
 
     m.set(inst2)
+    assert_signal_emitted(m.rq_data_changed)
     assert m.get() == inst2
     assert str(m) == "Hello"
     assert int(m) == 8
