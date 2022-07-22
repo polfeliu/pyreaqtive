@@ -1,4 +1,4 @@
-from pyreaqtive import RQList, RQModel
+from pyreaqtive import RQList, RQModel, RQInt, RQComputedList
 from .signal_checker import *
 
 
@@ -105,11 +105,6 @@ def test_index():
     assert m.index(7) == 1
 
 
-def test_reactive_indexes():
-    # TODO
-    pass
-
-
 def test_iteration():
     m = RQList([1, 2, 3])
 
@@ -182,4 +177,20 @@ def test_reactive_indexes():
 
 
 def test_computed():
-    pass
+    numbers = RQList([1, 6, 3, 34, 77, 5, 82])
+    threshold = RQInt(0)
+
+    greater_numbers = RQComputedList(
+        function=lambda numbers, threshold: [number for number in numbers if number > threshold],
+        numbers=numbers,
+        threshold=threshold
+    )
+
+    assert list(greater_numbers) == [1, 6, 3, 34, 77, 5, 82]
+    threshold.set(7)
+    assert list(greater_numbers) == [34, 77, 82]
+    threshold.set(55)
+    assert list(greater_numbers) == [77, 82]
+    numbers.remove(77)
+    assert list(greater_numbers) == [82]
+    assert greater_numbers.get() == [82]
