@@ -1,7 +1,6 @@
 import pytest
 
 from pyreaqtive import RQModel, RQComputedModel, RQInt
-from PyQt5.QtCore import pyqtSignal as Signal
 from .signal_checker import *
 
 
