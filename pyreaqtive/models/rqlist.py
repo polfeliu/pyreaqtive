@@ -41,7 +41,7 @@ class RQList(RQModel):
         Args:
             initial_items: List of items
         """
-        self._list: List[Any] = initial_items if initial_items is not None else []
+        self._list: List[Any] = initial_items if initial_items is not None else []  # TODO Link deletes
         """Model store variable
 
         Stores list of instances
@@ -49,7 +49,7 @@ class RQList(RQModel):
 
         RQModel.__init__(self)
 
-        self._reactive_indexes: Dict[RQModel, RQInt] = weakref.WeakKeyDictionary()  # type: ignore
+        self._reactive_indexes: Dict[object, RQInt] = weakref.WeakKeyDictionary()  # type: ignore
         """
         Weak reference dictionary of reactive indexes requested and that
         have to be updated when list changes
@@ -57,6 +57,12 @@ class RQList(RQModel):
         Key is model
         Value is reactive index
         """
+
+        for item in self._list:
+            if issubclass(type(item), RQModel):
+                item._rq_delete.connect(
+                    lambda: self.remove_all(item)
+                )
 
         self.rq_data_changed.connect(self.update_reactive_indexes)
 
@@ -83,7 +89,7 @@ class RQList(RQModel):
         Returns:
 
         """
-        if isinstance(item, RQModel):
+        if issubclass(type(item), RQModel):
             item._rq_delete.connect(
                 lambda: self.remove_all(item)
             )
@@ -115,7 +121,7 @@ class RQList(RQModel):
 
     def pop(self) -> None:
         """Delete last instance of the list"""
-        RQList.__delitem__(self, len(self._list) - 1)
+        self.__delitem__(len(self._list) - 1)
 
     def remove(self, item: Any) -> None:
         """Remove first occurrence of value
@@ -175,7 +181,7 @@ class RQList(RQModel):
                     self.index(model)
                 )
 
-    def reactive_index(self, model: Any) -> RQInt:
+    def reactive_index(self, model: object) -> RQInt:
         """Returns a reactive index model that indicates where the item is located
 
         Args:
@@ -184,7 +190,7 @@ class RQList(RQModel):
         Returns:
             RQListIndex: reactive index of the item in the list
         """
-        reactive_index = RQInt(0)  # TODO
+        reactive_index = RQInt(self.index(model))
         self._reactive_indexes[model] = reactive_index
         return reactive_index
 
