@@ -36,7 +36,9 @@ def test_rqdoublespinbox(initial_value, reactive, wait_for_finish, qtbot, window
     for i in range(10):
         qtbot.keyClick(widget_1, QtCore.Qt.Key_Delete)
     qtbot.keyClick(widget_1, QtCore.Qt.Key_5)
+    # comma or period as decimal separator depending on the platform, other is ignored
     qtbot.keyClick(widget_1, QtCore.Qt.Key_Comma)
+    qtbot.keyClick(widget_1, QtCore.Qt.Key_Period)
     qtbot.keyClick(widget_1, QtCore.Qt.Key_4)
 
     if not wait_for_finish:
