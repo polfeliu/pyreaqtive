@@ -33,9 +33,8 @@ class RQComboBox(RQWidget, QComboBox):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if isinstance(type(model), RQModel):
-            if model.rq_read_only:  # type: ignore
-                raise IOError("Cannot connect rqcombobox to a read only model")
+        if model.rq_read_only:  # type: ignore
+            raise IOError("Cannot connect rqcombobox to a read only model")
 
         RQWidget.__init__(self, model, rq_if, rq_disabled)
         QComboBox.__init__(self, *args, **kwargs)
@@ -49,7 +48,7 @@ class RQComboBox(RQWidget, QComboBox):
         for index, choice in enumerate(self.model):
             self._rq_choice_insert(index)
 
-        if self.model.allow_none:
+        if self.model._allow_none:
             self.addItem("None")
 
         self.currentIndexChanged.connect(self._current_index_changed)
@@ -117,7 +116,7 @@ class RQComboBox(RQWidget, QComboBox):
         if not self._rq_reading:
             self._rq_writing = True
 
-            if self.model.allow_none and self.currentIndex() == self.count() - 1:
+            if self.model._allow_none and self.currentIndex() == self.count() - 1:
                 choice = None
             else:
                 choice = self.model[index]

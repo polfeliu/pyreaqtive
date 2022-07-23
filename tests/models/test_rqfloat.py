@@ -1,6 +1,6 @@
 from pyreaqtive import RQFloat, RQComputedFloat
 import pytest_cases
-from .signal_checker import *
+from tests.signal_checker import *
 
 
 @pytest_cases.parametrize("initial", [-5.4, 0.0, 3.6, 1000053.4])

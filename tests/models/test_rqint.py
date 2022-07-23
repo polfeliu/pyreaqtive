@@ -1,6 +1,6 @@
 from pyreaqtive import RQInt, RQComputedInt
 import pytest_cases
-from .signal_checker import *
+from tests.signal_checker import *
 
 
 @pytest_cases.parametrize("initial", [-4, 0, 8, 23323])

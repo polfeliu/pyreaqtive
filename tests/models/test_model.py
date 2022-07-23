@@ -1,7 +1,7 @@
 import pytest
 
 from pyreaqtive import RQModel, RQComputedModel, RQInt
-from .signal_checker import *
+from tests.signal_checker import *
 
 
 def test_model():

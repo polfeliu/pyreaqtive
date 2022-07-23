@@ -4,7 +4,7 @@ import pytest
 
 
 @pytest_cases.parametrize("initial_state", [True, False])
-def test_rqcheckbox(initial_state, qtbot):
+def test_rqcheckbox_rqbool(initial_state, qtbot):
     state = RQBool(initial_state)
 
     checkbox_1 = RQCheckBox(state, "checkbox 1")

@@ -1,5 +1,5 @@
 import pytest
-from .signal_checker import *
+from tests.signal_checker import *
 
 from pyreaqtive import RQObject
 

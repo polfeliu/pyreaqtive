@@ -1,6 +1,6 @@
 from pyreaqtive import RQBool, RQComputedBool
 import pytest_cases
-from .signal_checker import *
+from tests.signal_checker import *
 
 
 def assert_bool_state(m, state):

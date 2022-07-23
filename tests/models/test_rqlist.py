@@ -1,5 +1,5 @@
 from pyreaqtive import RQList, RQModel, RQInt, RQComputedList
-from .signal_checker import *
+from tests.signal_checker import *
 
 
 def test_init():
