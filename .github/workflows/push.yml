@@ -38,7 +38,7 @@ jobs:
 
       - name: Run mypy
         run: |
-          pipenv run mypy -m pyreaqtive --config-file mypy.ini
+          pipenv run mypy -m pyreaqtive -m tests --config-file mypy.ini
 
       - name: Run Tests with coverage
         run: |
