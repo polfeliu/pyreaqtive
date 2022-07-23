@@ -1,6 +1,6 @@
 from pyreaqtive import RQText, RQComputedText
 import pytest_cases
-from .signal_checker import *
+from tests.signal_checker import *
 
 
 def test_text():

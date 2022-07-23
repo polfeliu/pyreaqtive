@@ -12,7 +12,7 @@ class RQWidget:
     """Reactive Widget Base class"""
 
     def __init__(self,
-                 model: Union[RQModel, str, bool, int, float, RQObject, None],
+                 model: Union[RQModel, str, bool, int, float, RQObject],
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None
                  ):
@@ -50,12 +50,14 @@ class RQWidget:
             self._rq_disabled_data_changed()
 
     def _rq_if_data_changed(self) -> None:
-        if issubclass(type(self), QWidget):
-            if self._rq_if_model:
-                self.show()  # type: ignore
-            else:
-                self.hide()  # type: ignore
+        if self._rq_if_model:
+            self.show()  # type: ignore
+        else:
+            self.hide()  # type: ignore
 
     def _rq_disabled_data_changed(self) -> None:
-        if issubclass(type(self), QWidget):
-            self.setDisabled(bool(self._rq_disabled_model))  # type: ignore
+        self.setDisabled(bool(self._rq_disabled_model))  # type: ignore
+
+    def showEvent(self, _):
+        if self._rq_if_model is not None:
+            self._rq_if_data_changed()

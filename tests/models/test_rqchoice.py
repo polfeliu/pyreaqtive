@@ -2,7 +2,7 @@ import pytest
 import pytest_cases
 from pyreaqtive import RQChoice, RQList
 from enum import Enum, auto
-from .signal_checker import *
+from tests.signal_checker import *
 
 
 @pytest_cases.parametrize("allow_none", [True, False])
