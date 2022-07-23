@@ -35,7 +35,7 @@ class RQDoubleSpinBox(RQWidget, QDoubleSpinBox):
             wait_for_finish: if true, the model is not updated until Enter is pressed or focus is changed
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if isinstance(type(model), RQModel):
+        if issubclass(type(model), RQModel):
             if model.rq_read_only:  # type: ignore
                 raise IOError("Cannot connect rqdoublespinbox to a read only model")
 
