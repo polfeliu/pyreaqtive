@@ -16,3 +16,4 @@ elif percent > 90:
     color = "orange"
 
 os.environ["COVERAGE_COLOR"] = color
+print(percent)

@@ -46,7 +46,7 @@ jobs:
 
       - name: Extract Coverage values
         run: |
-          python extract_coverage.py >> $GITHUB_ENV
+          export COVERAGE_PERCENT=$('python extract_coverage') >> $GITHUB_ENV
 
       - name: Update Coverage Badge
         uses: schneegans/dynamic-badges-action@v1.4.0
