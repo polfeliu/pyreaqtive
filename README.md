@@ -3,6 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/pyreaqtive)](https://pypi.org/project/pyreaqtive/)
 [![Pipeline](https://img.shields.io/github/workflow/status/polfeliu/pyreaqtive/Pipeline/master)](https://github.com/polfeliu/pyreaqtive/actions/workflows/push.yml)
 [![Mypy](https://img.shields.io/badge/-mypy-brightgreen)](https://github.com/polfeliu/pyreaqtive/actions/workflows/push.yml)
+[![Coverage](https://img.shields.io/badge/-mypy-brightgreen)](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/polfeliu/98565cc8b85efe8ca0533c90f002b952/raw/badge.json)
 [![License](https://img.shields.io/pypi/l/pyreaqtive)](https://raw.githubusercontent.com/polfeliu/pyreaqtive/master/LICENSE)
 ![Logo](https://raw.githubusercontent.com/polfeliu/pyreaqtive/master/doc/source/_static/logo256.png)
 
