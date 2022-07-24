@@ -7,7 +7,7 @@ from qtpy.QtWidgets import QLayout, QWidget  # type: ignore
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtCore import QObject
-    from PyQt5.QtWidgets import QLayout, QWidget
+    from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
 from .rqwidget import RQWidget
 from ..models import RQObject
@@ -25,7 +25,7 @@ class RQWidgetObject(RQWidget, QObject):
 
     def __init__(self,
                  model: RQObject,
-                 layout: QLayout,
+                 layout: Union['QHBoxLayout', 'QVBoxLayout'],
                  widget: Union[Type[QWidget], Callable[[object], QWidget]]):
         """Constructor
 
