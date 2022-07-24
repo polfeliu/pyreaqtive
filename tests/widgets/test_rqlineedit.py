@@ -1,9 +1,9 @@
 from pyreaqtive import RQText, RQComputedText, RQLineEdit
 import pytest_cases
 import pytest
-from time import sleep
-from .qtbot_window import window_fixture
 from PyQt5 import QtCore
+
+from ..qtbot_window import window_fixture
 
 
 @pytest_cases.parametrize("initial_value", ["Hello"])

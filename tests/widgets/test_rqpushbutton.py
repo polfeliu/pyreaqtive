@@ -1,7 +1,7 @@
 from pyreaqtive import RQPushButton, RQText
 import pytest_cases
 
-from .qtbot_window import window_fixture
+from ..qtbot_window import window_fixture
 
 
 @pytest_cases.parametrize("initial_value", ["Hello", "World"])

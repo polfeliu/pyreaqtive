@@ -1,7 +1,7 @@
-from pyreaqtive import RQProgressBar, RQFloat, RQInt, RQObject
+from pyreaqtive import RQProgressBar, RQFloat, RQInt
 import pytest_cases
 
-from .qtbot_window import window_fixture
+from ..qtbot_window import window_fixture
 
 
 @pytest_cases.parametrize("model", [
