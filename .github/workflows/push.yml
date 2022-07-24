@@ -42,4 +42,11 @@ jobs:
 
       - name: Run Tests with coverage
         run: |
-          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing
+          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report html 
+
+      - name: Upload Coverage HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: html_report
+          path: htmlcov
+
