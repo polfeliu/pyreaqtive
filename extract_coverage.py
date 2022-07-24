@@ -4,9 +4,10 @@ import os
 # parse an xml file by name
 file = minidom.parse('coverage.xml')
 
-percent = int(file.getElementsByTagName('coverage')[0].attributes['line-rate'].value * 100)
+percent = file.getElementsByTagName('coverage')[0].attributes['line-rate'].value
+percent = float(percent) * 100
 
-os.environ["COVERAGE_PERCENT"] = percent
+os.environ["COVERAGE_PERCENT"] = str(percent)
 
 color = "red"
 

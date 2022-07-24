@@ -46,7 +46,7 @@ jobs:
 
       - name: Extract Coverage values
         run: |
-          pipenv run extract_coverage.py
+          python extract_coverage.py
 
       - name: Update Coverage Badge
         uses: schneegans/dynamic-badges-action@v1.4.0
