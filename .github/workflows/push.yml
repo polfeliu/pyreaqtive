@@ -46,7 +46,7 @@ jobs:
 
       - name: Extract Coverage values
         run: |
-          python extract_coverage.py
+          python extract_coverage.py >> $COVERAGE_PERCENT
 
       - name: Update Coverage Badge
         uses: schneegans/dynamic-badges-action@v1.4.0
@@ -55,5 +55,5 @@ jobs:
           gistID: 98565cc8b85efe8ca0533c90f002b952
           filename: badge.json
           label: coverage
-          message: ${{ env.COVERAGE_PERCENT }}%
-          color: ${{ env.COVERAGE_COLOR }}
+          message: ${COVERAGE_PERCENT}%
+          color: ${COVERAGE_PERCENT}
