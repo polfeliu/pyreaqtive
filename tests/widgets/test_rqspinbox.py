@@ -1,9 +1,8 @@
-from pyreaqtive import RQFloat, RQInt, RQComputedInt, RQSpinBox
+from pyreaqtive import RQInt, RQComputedInt, RQSpinBox
 import pytest_cases
 import pytest
-from time import sleep
-from .qtbot_window import window_fixture
 from PyQt5 import QtCore
+from ..qtbot_window import window_fixture
 
 
 @pytest_cases.parametrize("initial_value", [

@@ -40,21 +40,17 @@ class RQBoxLayout(QBoxLayout):
         self._rq_widget_callback: Callable[[Any, RQList], QWidget]
         """Widget callback. For a new object that is insert on the list, must return the new and appropriate widget"""
 
-        if issubclass(type(widget), QWidget):
+        if not hasattr(widget, "inherits"):
+            # Not a QWidget
             def callback(item: Any, list_model: RQList):
-                widget(item, list_model)  # type: ignore
+                return widget(item, list_model)  # type: ignore
 
             self._rq_widget_callback = callback
-        elif callable(widget):
+        else:
             self._rq_widget_callback = widget
-        else:
-            raise TypeError
 
-        if not isinstance(model, RQList):
-            raise TypeError
-        else:
-            self.model.rq_list_insert.connect(self._rq_insert_widget)
-            self.model.rq_list_remove.connect(self._rq_remove_widget)
+        self.model.rq_list_insert.connect(self._rq_insert_widget)
+        self.model.rq_list_remove.connect(self._rq_remove_widget)
 
         for index, item in enumerate(self.model):
             self._rq_insert_widget(index)

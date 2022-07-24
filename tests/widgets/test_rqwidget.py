@@ -1,11 +1,7 @@
 from pyreaqtive import RQInt, RQWidget, RQBool, RQFloat, RQText, RQLabel
 import pytest_cases
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-
-from .qtbot_window import window_fixture
-from time import sleep
+from ..qtbot_window import window_fixture
 
 
 @pytest_cases.parametrize("model", [
