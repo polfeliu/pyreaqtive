@@ -48,6 +48,10 @@ jobs:
         run: |
           export COVERAGE_PERCENT=$('python extract_coverage') >> $GITHUB_ENV
 
+      - name: cat env
+        run: |
+          echo "$COVERAGE_PERCENT"
+
       - name: Update Coverage Badge
         uses: schneegans/dynamic-badges-action@v1.4.0
         with:
