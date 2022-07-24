@@ -43,3 +43,13 @@ jobs:
       - name: Run Tests with coverage
         run: |
           pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing
+
+      - name: Update Coverage Badge
+        uses: schneegans/dynamic-badges-action@v1.4.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 98565cc8b85efe8ca0533c90f002b952
+          filename: badge.json
+          label: coverage
+          message: 1%
+          color: orange
