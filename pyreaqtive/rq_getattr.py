@@ -12,10 +12,8 @@ def new__setattr__(self, key, value) -> None:
         value: new value of the attribute
     """
     super(type(self), self).__setattr__(key, value)
-    if hasattr(self, "rq_reactive_attributes"):
-        if self.rq_reactive_attributes is not None:
-            if key in self.rq_reactive_attributes:
-                self.rq_reactive_attributes[key].set(value)
+    if key in self.rq_reactive_attributes:
+        self.rq_reactive_attributes[key].set(value)
 
 
 def reactivize(obj_type: type) -> None:
