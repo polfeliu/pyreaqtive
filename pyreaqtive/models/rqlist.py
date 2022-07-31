@@ -41,7 +41,7 @@ class RQList(RQModel):
         Args:
             initial_items: List of items
         """
-        self._list: List[Any] = initial_items if initial_items is not None else []  # TODO Link deletes
+        self._list: List[Any] = initial_items if initial_items is not None else []
         """Model store variable
 
         Stores list of instances
