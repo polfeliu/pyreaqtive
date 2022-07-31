@@ -1,6 +1,7 @@
 import random
 from pyreaqtive.models.sequence_matching import sequence_matching
 from enum import Enum, auto
+import pytest
 
 
 class Operation(Enum):
@@ -8,7 +9,8 @@ class Operation(Enum):
     delete = auto()
 
 
-def test_sequence_matcher():
+@pytest.mark.parametrize("iteration", range(100))
+def test_sequence_matcher(iteration):
     initial_list = random.sample(
         population=range(0, 100),
         k=random.randint(0, 50)
@@ -42,17 +44,7 @@ def test_sequence_matcher():
             k=random.randint(0, 10)
         )
 
-    print(f"Initial list {initial_list}")
-    print(f"Modified list {modified_list}")
-
     sequence_matching(initial_list, modified_list)
-
-    print(f"Matched list {initial_list}")
 
     if modified_list != initial_list:
         raise AssertionError
-
-
-if __name__ == "__main__":
-    for i in range(100):
-        test_sequence_matcher()

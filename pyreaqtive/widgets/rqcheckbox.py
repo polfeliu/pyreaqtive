@@ -32,7 +32,7 @@ class RQCheckBox(RQWidget, QCheckBox):
             rq_if: RQBool that controls the visibility
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if isinstance(type(model), RQModel):
+        if issubclass(type(model), RQModel):
             if model.rq_read_only:  # type: ignore
                 raise IOError("Cannot connect rqcheckbox to a read only model")
 

@@ -12,6 +12,10 @@ sphinx-rtd-theme = "==0.5.2"
 pyqt5-stubs = "==5.15.2.0"
 pyqt5 = "*"
 mypy = "*"
+pytest-qt = "*"
+pytest = "*"
+pytest-cases = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3"

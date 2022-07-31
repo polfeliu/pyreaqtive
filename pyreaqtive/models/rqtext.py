@@ -9,7 +9,7 @@ class RQText(RQModel):
     Represents a string of text
     """
 
-    def __init__(self, text: str):
+    def __init__(self, text: str = ""):
         """Constructor
 
         Args:
@@ -48,7 +48,7 @@ class RQText(RQModel):
 class RQComputedText(RQComputedModel, RQText):
     """Reactive Computed Float Model"""
 
-    def __init__(self, function: Union[str, Callable[..., str]], **kwargs):
+    def __init__(self, function: Union[str, Callable[..., str]], **kwargs: RQModel):
         """Constructor
 
         Args:

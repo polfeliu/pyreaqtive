@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any, Callable, Dict
 
 from qtpy.QtCore import QObject, Signal, Slot  # type: ignore
 
@@ -62,7 +62,7 @@ class RQComputedModel:
     Changes in the linked models trigger events that updates linked widgets, than in turn calculate the function.
     """
 
-    def __init__(self, function: Callable, **kwargs):
+    def __init__(self, function: Callable, **kwargs: RQModel):
         """Constructor
 
         Args:
@@ -78,8 +78,7 @@ class RQComputedModel:
         self.rq_computed_function: Callable = function
         self.rq_computed_variables: dict = kwargs
         for name, model in self.rq_computed_variables.items():
-            if isinstance(model, RQModel) or issubclass(type(model), RQModel):
-                model.rq_data_changed.connect(self._variable_changed)
+            model.rq_data_changed.connect(self._variable_changed)
 
         # First calculation
         self._variable_changed()

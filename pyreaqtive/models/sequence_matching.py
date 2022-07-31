@@ -51,4 +51,4 @@ def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list)
 
             running_shift += (j2 - j1)
         else:
-            raise NotImplementedError(code)
+            raise NotImplementedError(code)  # pragma: no cover

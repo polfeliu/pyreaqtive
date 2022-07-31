@@ -7,7 +7,7 @@ from qtpy.QtWidgets import QLayout, QWidget  # type: ignore
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtCore import QObject
-    from PyQt5.QtWidgets import QLayout, QWidget
+    from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
 from .rqwidget import RQWidget
 from ..models import RQObject
@@ -25,7 +25,7 @@ class RQWidgetObject(RQWidget, QObject):
 
     def __init__(self,
                  model: RQObject,
-                 layout: QLayout,
+                 layout: Union['QHBoxLayout', 'QVBoxLayout'],
                  widget: Union[Type[QWidget], Callable[[object], QWidget]]):
         """Constructor
 
@@ -40,13 +40,14 @@ class RQWidgetObject(RQWidget, QObject):
         self.rq_init_widget()
 
         self.layout = layout
-        if not hasattr(self.layout, "rq_widget_object"):
+        if not hasattr(self.layout, "rq_widget_objects"):
             self.layout.rq_widget_objects = []  # type: ignore
         self.layout.rq_widget_objects = self  # type: ignore
-        if issubclass(type(widget), QWidget):
-            self.rq_widget_callback = lambda instance: widget(instance)
-        else:
+        if hasattr(widget, "inherits"):
+            # Is a QWidget
             self.rq_widget_callback = widget
+        else:
+            self.rq_widget_callback = lambda instance: widget(instance)
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_new_widget()
         self.layout.addWidget(self.widget)

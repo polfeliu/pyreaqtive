@@ -5,12 +5,28 @@ on: [ push ]
 jobs:
   Pipeline:
     runs-on: ubuntu-latest
+    env:
+      DISPLAY: ':99.0'
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
           python-version: 3.6
+
+      - name: Setup Virtual Screen for Tests
+        run: |
+          sudo apt install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 x11-utils
+          /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX
+
+      - name: Cache pipenv
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pipenv
+        with:
+          path: /home/runner/.local/share/virtualenvs/
+          key: ${{ runner.os }}-${{ hashFiles('Pipfile.lock') }}
+
 
       - name: Install pipenv
         run: |
@@ -22,4 +38,8 @@ jobs:
 
       - name: Run mypy
         run: |
-          pipenv run mypy -m pyreaqtive --config-file mypy.ini
+          pipenv run mypy -m pyreaqtive -m tests --config-file mypy.ini
+
+      - name: Run Tests with coverage
+        run: |
+          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing

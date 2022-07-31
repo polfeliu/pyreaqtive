@@ -24,6 +24,8 @@ class RQAsync(QThread):
             self.start()
         elif isinstance(trigger, RQModel):
             trigger.rq_data_changed.connect(self.start)
+        else:
+            raise TypeError
 
     def run(self) -> None:
         self.working.set(True)

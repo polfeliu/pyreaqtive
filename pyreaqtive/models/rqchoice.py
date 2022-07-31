@@ -11,7 +11,7 @@ class RQChoice(RQModel):
     Represents a choice from a list of choices
     """
 
-    def __init__(self, choices: Union[RQList, List, EnumMeta], selected: RQModel = None, allow_none=False):
+    def __init__(self, choices: Union[RQList, List, EnumMeta], selected: Any = None, allow_none=False):
         """Constructor
 
         Args:
@@ -28,7 +28,7 @@ class RQChoice(RQModel):
         Can be None if allow_none is True
         """
 
-        self.allow_none: bool = allow_none
+        self._allow_none: bool = allow_none
         """Indicates if model accepts choice none apart from the list of choices"""
 
         self.validate_selected()
@@ -63,7 +63,7 @@ class RQChoice(RQModel):
                 if False, raises KeyError Exception
         """
         if self.selected is None:
-            if self.allow_none:
+            if self._allow_none:
                 return
             else:
                 raise ValueError
@@ -89,7 +89,7 @@ class RQChoice(RQModel):
 
         If allow_none is True default is None, else is the first element
         """
-        if self.allow_none:
+        if self._allow_none:
             self.set(None)
         else:
             self.set(self[0])

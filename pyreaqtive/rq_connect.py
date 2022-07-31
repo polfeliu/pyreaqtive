@@ -9,11 +9,11 @@ class AbstractConversion(ABC):
 
     @abstractmethod
     def convert_a_to_b(self, a: Any) -> Any:
-        raise NotImplemented
+        raise NotImplemented  # pragma: no cover
 
     @abstractmethod
     def convert_b_to_a(self, b: Any) -> Any:
-        raise NotImplemented
+        raise NotImplemented  # pragma: no cover
 
 
 class Conversion(AbstractConversion):
@@ -49,6 +49,9 @@ class LinearConversion(AbstractConversion):
 
 class RQConnect:
     """Bidirectional connection between two models"""
+
+    Conversion = Conversion
+    LinearConversion = LinearConversion
 
     def __init__(
             self,

@@ -32,7 +32,7 @@ class RQSlider(RQWidget, QSlider):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if isinstance(type(model), RQModel):
+        if issubclass(type(model), RQModel):
             if model.rq_read_only:  # type: ignore
                 raise IOError("Cannot connect rqslider to a read only model")
 
