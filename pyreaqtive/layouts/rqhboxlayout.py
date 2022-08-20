@@ -12,8 +12,12 @@ from ..models import RQList
 class RQHBoxLayout(RQBoxLayout):
     """Reactive QHBoxLayout"""
 
-    def __init__(self, model: RQList,
-                 widget: Union[Type[QWidget], Callable[[Any, RQList], QWidget]], *args, **kwargs):
+    def __init__(self,
+                 model: RQList,
+                 widget: Union[Type[QWidget], Callable[[Any, RQList], QWidget]],
+                 *args: Any,
+                 **kwargs: Any
+                 ) -> None:
         """Constructor
 
         Args:

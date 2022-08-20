@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QProgressBar  # type: ignore
@@ -19,11 +19,11 @@ class RQProgressBar(RQWidget, QProgressBar):
 
     def __init__(self,
                  model: Union[RQInt, RQFloat, int, float, RQObject],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:

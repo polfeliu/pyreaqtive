@@ -50,7 +50,7 @@ class RQModel(QObject):
         """
         raise NotImplementedError
 
-    def __delete__(self):
+    def __delete__(self) -> None:
         self._rq_delete.emit()
 
 
@@ -94,7 +94,7 @@ class RQComputedModel:
         # RQModels have rq_data_changed, asserted on __init__
         self.rq_data_changed.emit()  # type: ignore
 
-    def set(self, value) -> None:
+    def set(self, value: Any) -> None:
         raise RuntimeError("Computed Models do not allow set()")
 
     def get(self) -> Any:

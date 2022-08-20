@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QComboBox  # type: ignore
@@ -14,16 +14,16 @@ from ..models import RQChoice, RQBool, RQModel, RQList
 class RQComboBox(RQWidget, QComboBox):
     """Reactive ComboBox Widget"""
 
-    model: RQChoice  # type: ignore
+    model: RQChoice
     """Model linked to the widget"""
 
     def __init__(self,
                  model: RQChoice,
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:
@@ -33,7 +33,7 @@ class RQComboBox(RQWidget, QComboBox):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if model.rq_read_only:  # type: ignore
+        if model.rq_read_only:
             raise IOError("Cannot connect rqcombobox to a read only model")
 
         RQWidget.__init__(self, model, rq_if, rq_disabled)

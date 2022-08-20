@@ -1,7 +1,8 @@
+from typing import Any
 from .models.rqobject import RQObject
 
 
-def new__setattr__(self, key, value) -> None:
+def new__setattr__(self: Any, key: str, value: Any) -> None:
     """Set Attribute Replacement
 
     Captures changes in the attributes and reports them to the rq_reactive_attributes RQObject models

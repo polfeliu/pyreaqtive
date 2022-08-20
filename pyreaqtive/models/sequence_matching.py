@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from .rqlist import RQList
 
 
-def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list):
+def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list) -> None:
     """
     Modifies a list so it's the same as an other one, applying insert and delete operations
 
@@ -14,7 +14,7 @@ def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list)
         modifiable_list: list that has to be modified
         target_list: list that must be copied
     """
-    seq_mat = difflib.SequenceMatcher(a=modifiable_list, b=target_list)  # type: ignore
+    seq_mat = difflib.SequenceMatcher(a=modifiable_list, b=target_list)
 
     operations = seq_mat.get_opcodes()
 

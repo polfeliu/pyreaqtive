@@ -1,3 +1,4 @@
+import pytest
 from pyreaqtive import RQList, RQModel, RQInt, RQComputedList
 from tests.signal_checker import *
 
@@ -29,6 +30,29 @@ def test_del():
     assert_signal_emitted(m.rq_data_changed)
     assert_int_signal(m.rq_list_remove, 0)
     assert list(m) == []
+
+
+@pytest.mark.parametrize(
+    "start, stop, step",
+    [
+        (1, 3, None),
+        (1, 6, 2),
+        (-1, 2, None),
+        (-1, 5, 3)
+    ])
+def test_del_slice(start, stop, step):
+    l = [8, 4, 5, 6, 7, 3, 7, 5]
+    m = RQList(l)
+
+    connect_signal(m.rq_data_changed)
+    connect_int_signal(m.rq_list_remove)
+    if step is None:
+        del m[start:stop]
+        del l[start:stop]
+    else:
+        del m[start:stop:step]
+        del l[start:stop:step]
+    assert list(m) == l
 
 
 def test_clear():

@@ -46,7 +46,7 @@ class RQInt(RQModel):
         """
         self.set(self._int + delta)
 
-    def decrement(self, delta: int = 1):
+    def decrement(self, delta: int = 1) -> None:
         """Decrement integer method
 
         Args:

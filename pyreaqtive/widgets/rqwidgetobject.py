@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Union, Callable, Type
 
 from qtpy.QtCore import QObject  # type: ignore
-from qtpy.QtCore import Slot  # type: ignore
+from qtpy.QtCore import Slot
 from qtpy.QtWidgets import QLayout, QWidget  # type: ignore
 
 if TYPE_CHECKING:
@@ -26,7 +26,8 @@ class RQWidgetObject(RQWidget, QObject):
     def __init__(self,
                  model: RQObject,
                  layout: Union['QHBoxLayout', 'QVBoxLayout'],
-                 widget: Union[Type[QWidget], Callable[[object], QWidget]]):
+                 widget: Union[Type[QWidget], Callable[[object], QWidget]]
+                 ) -> None:
         """Constructor
 
         Args:
@@ -69,8 +70,8 @@ class RQWidgetObject(RQWidget, QObject):
         self._rq_new_widget()
         self.layout.insertWidget(index, self.widget)
 
-    def show(self):
+    def show(self) -> None:
         self.widget.show()
 
-    def hide(self):
+    def hide(self) -> None:
         self.widget.hide()

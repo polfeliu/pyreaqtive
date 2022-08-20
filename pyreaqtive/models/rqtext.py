@@ -60,7 +60,7 @@ class RQComputedText(RQComputedModel, RQText):
         if isinstance(function, str):
             format_string = function
 
-            def generator(**kwargs) -> str:
+            def generator(**kwargs: RQModel) -> str:
                 return format_string.format(
                     **{key: str(variable) for key, variable in kwargs.items()}
                 )

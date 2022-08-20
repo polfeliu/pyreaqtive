@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtWidgets import QWidget  # type: ignore
 
@@ -41,7 +41,7 @@ class RQWidget:
         self._rq_if_model = rq_if
         self._rq_disabled_model = rq_disabled
 
-    def rq_init_widget(self):
+    def rq_init_widget(self) -> None:
         if self._rq_if_model is not None:
             self._rq_if_model.rq_data_changed.connect(self._rq_if_data_changed)
             self._rq_if_data_changed()
@@ -58,6 +58,6 @@ class RQWidget:
     def _rq_disabled_data_changed(self) -> None:
         self.setDisabled(bool(self._rq_disabled_model))  # type: ignore
 
-    def showEvent(self, _):
+    def showEvent(self, _: Any) -> None:
         if self._rq_if_model is not None:
             self._rq_if_data_changed()

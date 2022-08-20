@@ -68,7 +68,7 @@ class RQConnect:
         self.model_b.rq_data_changed.connect(self._propagate_b_to_a)
         self._propagate_a_to_b()
 
-    def _propagate_a_to_b(self):
+    def _propagate_a_to_b(self) -> None:
         if not self._propagating:
             self._propagating = True
             self.model_b.set(
@@ -78,7 +78,7 @@ class RQConnect:
             )
             self._propagating = False
 
-    def _propagate_b_to_a(self):
+    def _propagate_b_to_a(self) -> None:
         if not self._propagating:
             self._propagating = True
             self.model_a.set(

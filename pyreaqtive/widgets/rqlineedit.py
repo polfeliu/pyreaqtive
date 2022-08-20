@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QLineEdit  # type: ignore
@@ -19,12 +19,12 @@ class RQLineEdit(RQWidget, QLineEdit):
 
     def __init__(self,
                  model: Union[RQText, str, RQObject],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
                  wait_for_finish: bool = False,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:

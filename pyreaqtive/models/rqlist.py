@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List, Iterator, Callable, Any, Dict
+from typing import TYPE_CHECKING, List, Iterator, Callable, Any, Dict, Union
 
 from qtpy.QtCore import Signal  # type: ignore
 
@@ -109,15 +109,24 @@ class RQList(RQModel):
             item=item
         )
 
-    def __delitem__(self, key) -> None:
+    def __delitem__(self, key: Union[int, slice]) -> None:
         """Delete the item in the list in the specified index
 
         Args:
-            key: positional index on the list
+            key: positional index on the list or slice
         """
-        self._list.__delitem__(key)
-        self.rq_list_remove.emit(key)
-        self.rq_data_changed.emit()
+        if isinstance(key, int):
+            keys = [key]
+        else:
+            if key.step is None:
+                keys = [i for i in range(key.start, key.stop)]
+            else:
+                keys = [i for i in range(key.start, key.stop, key.step)]
+
+        for key in keys:
+            self._list.__delitem__(key)
+            self.rq_list_remove.emit(key)
+            self.rq_data_changed.emit()
 
     def pop(self) -> None:
         """Delete last instance of the list"""
@@ -173,9 +182,8 @@ class RQList(RQModel):
         """
         return self._list.index(item)
 
-    def update_reactive_indexes(self):
+    def update_reactive_indexes(self) -> None:
         for model, reactive_index in self._reactive_indexes.items():
-            reactive_index: RQInt
             if model in self._list:
                 reactive_index.set(
                     self.index(model)
@@ -207,11 +215,11 @@ class RQList(RQModel):
         """Length of the list"""
         return len(self._list)
 
-    def count(self, value) -> int:
+    def count(self, value: Any) -> int:
         """Same as python list method"""
         return self._list.count(value)
 
-    def extend(self, iterable: List[Any]):
+    def extend(self, iterable: List[Any]) -> None:
         """Same as python list method"""
         for item in iterable:
             self.append(item)
