@@ -115,6 +115,7 @@ class RQList(RQModel):
         Args:
             key: positional index on the list or slice
         """
+        self._list.__delitem__(key)
         if isinstance(key, int):
             keys = [key]
         else:
@@ -124,7 +125,6 @@ class RQList(RQModel):
                 keys = [i for i in range(key.start, key.stop, key.step)]
 
         for key in keys:
-            self._list.__delitem__(key)
             self.rq_list_remove.emit(key)
             self.rq_data_changed.emit()
 
