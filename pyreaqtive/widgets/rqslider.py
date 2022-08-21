@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QSlider  # type: ignore
 
+from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
+from .rqwidget import RQWidget
+
 if TYPE_CHECKING:
     from PyQt5.QtWidgets import QSlider
     from PyQt5.QtCore import pyqtSlot as Slot
-
-from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
-from .rqwidget import RQWidget
 
 
 class RQSlider(RQWidget, QSlider):

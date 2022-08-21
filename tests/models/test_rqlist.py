@@ -172,9 +172,9 @@ def test_rq_models_deletion():
     assert len(m) == 1
     m.append(m2)
     assert len(m) == 2
-    m1.__delete__()
+    m1.__del__()
     assert len(m) == 1
-    m2.__delete__()
+    m2.__del__()
     assert len(m) == 0
 
 

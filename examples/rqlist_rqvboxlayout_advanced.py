@@ -66,7 +66,7 @@ class FruitWidget(QWidget):
     @pyqtSlot()
     def delete_model(self) -> None:
         # Delete the model, is removed from all lists
-        self.model.__delete__()
+        self.model.__del__()
 
     @pyqtSlot()
     def remove_from_shopping_list(self) -> None:
@@ -109,7 +109,7 @@ class GrainWidget(QWidget):
 
     @pyqtSlot()
     def delete_model(self) -> None:
-        self.model.__delete__()
+        self.model.__del__()
 
     @pyqtSlot()
     def remove_from_shopping_list(self) -> None:

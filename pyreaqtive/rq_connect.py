@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 from .models import RQModel
 
@@ -8,12 +8,12 @@ class AbstractConversion(ABC):
     """Base model for bidirectional conversion of two models"""
 
     @abstractmethod
-    def convert_a_to_b(self, a: Any) -> Any:
-        raise NotImplemented  # pragma: no cover
+    def convert_a_to_b(self, a: Any) -> Any:  # pylint: disable= invalid-name
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
-    def convert_b_to_a(self, b: Any) -> Any:
-        raise NotImplemented  # pragma: no cover
+    def convert_b_to_a(self, b: Any) -> Any:  # pylint: disable= invalid-name
+        raise NotImplementedError  # pragma: no cover
 
 
 class Conversion(AbstractConversion):

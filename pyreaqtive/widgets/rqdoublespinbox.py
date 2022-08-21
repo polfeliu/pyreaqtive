@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QDoubleSpinBox  # type: ignore
 
+from .rqwidget import RQWidget
+from ..models import RQFloat, RQBool, RQObject, RQModel
+
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QDoubleSpinBox
-
-from .rqwidget import RQWidget
-from ..models import RQFloat, RQBool, RQObject, RQModel
 
 
 class RQDoubleSpinBox(RQWidget, QDoubleSpinBox):

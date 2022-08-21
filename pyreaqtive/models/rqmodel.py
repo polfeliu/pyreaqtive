@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Callable, Dict
+from typing import TYPE_CHECKING, Any, Callable
 
 from qtpy.QtCore import QObject, Signal, Slot  # type: ignore
 
@@ -50,7 +50,7 @@ class RQModel(QObject):
         """
         raise NotImplementedError
 
-    def __delete__(self) -> None:
+    def __del__(self) -> None:
         self._rq_delete.emit()
 
 
@@ -77,7 +77,7 @@ class RQComputedModel:
         self.rq_read_only = True
         self.rq_computed_function: Callable = function
         self.rq_computed_variables: dict = kwargs
-        for name, model in self.rq_computed_variables.items():
+        for _, model in self.rq_computed_variables.items():
             model.rq_data_changed.connect(self._variable_changed)
 
         # First calculation

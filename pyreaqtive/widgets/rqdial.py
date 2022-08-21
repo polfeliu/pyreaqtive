@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QDial  # type: ignore
 
+from .rqwidget import RQWidget
+from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
+
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QDial
-
-from .rqwidget import RQWidget
-from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
 
 
 class RQDial(RQWidget, QDial):

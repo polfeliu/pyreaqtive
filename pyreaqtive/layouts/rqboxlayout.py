@@ -3,11 +3,11 @@ from typing import TYPE_CHECKING, List, Callable, Type, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QBoxLayout, QWidget  # type: ignore
 
+from ..models import RQList
+
 if TYPE_CHECKING:
     from PyQt5.QtWidgets import QBoxLayout, QWidget
     from PyQt5.QtCore import pyqtSlot as Slot
-
-from ..models import RQList
 
 
 class RQBoxLayout(QBoxLayout):
@@ -55,7 +55,7 @@ class RQBoxLayout(QBoxLayout):
         self.model.rq_list_insert.connect(self._rq_insert_widget)
         self.model.rq_list_remove.connect(self._rq_remove_widget)
 
-        for index, item in enumerate(self.model):
+        for index, _ in enumerate(self.model):
             self._rq_insert_widget(index)
 
     @Slot(int)

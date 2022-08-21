@@ -52,7 +52,7 @@ def rq_getattr(obj: object, attribute_name: str) -> RQObject:
         return obj.rq_reactive_attributes[attribute_name]  # type: ignore
     else:
         # Create the RQObject with the initial value from the attribute
-        reactive_attribute = RQObject(obj.__getattribute__(attribute_name))
+        reactive_attribute = RQObject(obj.__getattribute__(attribute_name))  # pylint: disable= unnecessary-dunder-call
 
         # Propagate changes from the rqobject to the attribute.
         # Using the __setattr__ from the super(), to avoid new__setattr__ and re-triggering the update

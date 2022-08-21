@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QPushButton  # type: ignore
 
-if TYPE_CHECKING:
-    from PyQt5.QtWidgets import QPushButton
-
 from ..models import RQBool, RQModel
 
 from .rqwidget import RQWidget
+
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QPushButton
 
 
 class RQPushButton(RQWidget, QPushButton):

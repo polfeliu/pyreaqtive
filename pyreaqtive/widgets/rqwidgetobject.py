@@ -2,15 +2,15 @@ from typing import TYPE_CHECKING, Union, Callable, Type
 
 from qtpy.QtCore import QObject  # type: ignore
 from qtpy.QtCore import Slot
-from qtpy.QtWidgets import QLayout, QWidget  # type: ignore
+from qtpy.QtWidgets import QWidget  # type: ignore
+
+from .rqwidget import RQWidget
+from ..models import RQObject
 
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtCore import QObject
     from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
-
-from .rqwidget import RQWidget
-from ..models import RQObject
 
 
 class RQWidgetObject(RQWidget, QObject):
@@ -44,11 +44,8 @@ class RQWidgetObject(RQWidget, QObject):
         if not hasattr(self.layout, "rq_widget_objects"):
             self.layout.rq_widget_objects = []  # type: ignore
         self.layout.rq_widget_objects = self  # type: ignore
-        if hasattr(widget, "inherits"):
-            # Is a QWidget
-            self.rq_widget_callback = widget
-        else:
-            self.rq_widget_callback = lambda instance: widget(instance)
+        self.rq_widget_callback = widget
+
         self.model.rq_data_changed.connect(self._rq_data_changed)
         self._rq_new_widget()
         self.layout.addWidget(self.widget)

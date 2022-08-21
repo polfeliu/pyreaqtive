@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QLabel  # type: ignore
 
+from .rqwidget import RQWidget
+from ..models import RQModel, RQBool, RQObject
+
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QLabel
-
-from .rqwidget import RQWidget
-from ..models import RQModel, RQBool, RQObject
 
 
 class RQLabel(RQWidget, QLabel):

@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QComboBox  # type: ignore
 
+from .rqwidget import RQWidget
+from ..models import RQChoice, RQBool, RQList
+
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QComboBox
-
-from .rqwidget import RQWidget
-from ..models import RQChoice, RQBool, RQModel, RQList
 
 
 class RQComboBox(RQWidget, QComboBox):
@@ -45,7 +45,7 @@ class RQComboBox(RQWidget, QComboBox):
             self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)
             self.model.rq_choices_list.rq_list_remove.connect(self._rq_choice_remove)
 
-        for index, choice in enumerate(self.model):
+        for index, _ in enumerate(self.model):
             self._rq_choice_insert(index)
 
         if self.model._allow_none:
@@ -116,7 +116,7 @@ class RQComboBox(RQWidget, QComboBox):
         if not self._rq_reading:
             self._rq_writing = True
 
-            if self.model._allow_none and self.currentIndex() == self.count() - 1:
+            if self.model._allow_none and self.currentIndex() == self.count() - 1:  # pylint: disable=protected-access
                 choice = None
             else:
                 choice = self.model[index]

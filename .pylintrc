@@ -7,13 +7,13 @@ disable=
     super-with-arguments,
     missing-class-docstring,
     missing-function-docstring,
-    no-self-use,
     too-many-branches,
     too-many-statements,
     cyclic-import,
     too-many-instance-attributes,
     cyclic-import,
-    unused-wildcard-import
+    unused-wildcard-import,
+    reimported
 
 # A comma-separated list of package or module names from where C extensions may
 # be loaded. Extensions are loading into the active Python interpreter and may

@@ -20,7 +20,7 @@ def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list)
 
     running_shift = 0
 
-    for code, i1, i2, j1, j2 in operations:
+    for code, i1, i2, j1, j2 in operations:  # pylint: disable=invalid-name
 
         if code == 'equal':
             # modifiable_list[i1:i2] == target_list[j1:j2] (the sub-sequences are equal).

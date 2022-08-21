@@ -38,7 +38,7 @@ class ItemWidget(QWidget):
 
         self.delete_button = QPushButton("Delete")
         self.delete_button.clicked.connect(
-            lambda: self.model.__delete__()
+            lambda: self.model.__del__()
         )
         self.main_layout.addWidget(self.delete_button)
 

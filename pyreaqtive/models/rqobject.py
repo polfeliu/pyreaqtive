@@ -24,15 +24,15 @@ class RQObject(RQModel):
         """
         return self._instance
 
-    def set(self, instance: object) -> None:
+    def set(self, value: object) -> None:
         """Set value of model
 
         Will propagate the change to the widgets linked to the model
 
         Args:
-            instance: new value of the model
+            value: new value of the model
         """
-        self._instance = instance
+        self._instance = value
         self.rq_data_changed.emit()
 
     def __str__(self) -> str:

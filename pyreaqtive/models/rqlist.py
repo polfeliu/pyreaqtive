@@ -1,16 +1,15 @@
 from typing import TYPE_CHECKING, List, Iterator, Callable, Any, Dict, Union
+import weakref
 
 from qtpy.QtCore import Signal  # type: ignore
-
-if TYPE_CHECKING:
-    from PyQt5.QtCore import pyqtSignal as Signal
 
 from .rqint import RQInt
 from .rqmodel import RQModel, RQComputedModel
 
 from .sequence_matching import sequence_matching
 
-import weakref
+if TYPE_CHECKING:
+    from PyQt5.QtCore import pyqtSignal as Signal
 
 
 class RQList(RQModel):
@@ -57,18 +56,17 @@ class RQList(RQModel):
         Key is model
         Value is reactive index
         """
-
         for item in self._list:
             if issubclass(type(item), RQModel):
                 item._rq_delete.connect(
-                    lambda: self.remove_all(item)
+                    lambda: self.remove_all(item)  # pylint: disable=cell-var-from-loop
                 )
 
         self.rq_data_changed.connect(self.update_reactive_indexes)
 
-    def set(self, items: List[Any]) -> None:
+    def set(self, value: List[Any]) -> None:
         self.clear()
-        for item in items:
+        for item in value:
             self.append(item)
 
     def get(self) -> list:
@@ -90,7 +88,7 @@ class RQList(RQModel):
 
         """
         if issubclass(type(item), RQModel):
-            item._rq_delete.connect(
+            item._rq_delete.connect(  # pylint: disable=protected-access
                 lambda: self.remove_all(item)
             )
         self._list.insert(index, item)
@@ -120,17 +118,17 @@ class RQList(RQModel):
             keys = [key]
         else:
             if key.step is None:
-                keys = [i for i in range(key.start, key.stop)]
+                keys = list(range(key.start, key.stop))
             else:
-                keys = [i for i in range(key.start, key.stop, key.step)]
+                keys = list(range(key.start, key.stop, key.step))
 
-        for key in keys:
-            self.rq_list_remove.emit(key)
+        for i in keys:
+            self.rq_list_remove.emit(i)
             self.rq_data_changed.emit()
 
     def pop(self) -> None:
         """Delete last instance of the list"""
-        self.__delitem__(len(self._list) - 1)
+        self.__delitem__(len(self._list) - 1)  # pylint: disable =unnecessary-dunder-call
 
     def remove(self, item: Any) -> None:
         """Remove first occurrence of value
@@ -139,7 +137,7 @@ class RQList(RQModel):
             item: item
         """
         index = RQList.index(self, item)
-        self.__delitem__(index)
+        self.__delitem__(index)  # pylint: disable=unnecessary-dunder-call
 
     def remove_all(self, item: Any) -> None:
         """Remove all instances in the list
@@ -193,7 +191,7 @@ class RQList(RQModel):
         """Returns a reactive index model that indicates where the item is located
 
         Args:
-            item: instance that should be in the list
+            model: instance that should be in the list
 
         Returns:
             RQListIndex: reactive index of the item in the list

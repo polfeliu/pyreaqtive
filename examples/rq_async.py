@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
 
         self.get_author_list_task = RQAsync(
             task=lambda: self.author_list.set(get_authors()),
-            trigger=RQAsync.AutoTriggers.Start
+            trigger=RQAsync.AutoTriggers.START
         )
 
         self.author_selection = RQChoice(self.author_list, allow_none=True)

@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QLineEdit  # type: ignore
 
+from ..models import RQText, RQBool, RQObject, RQModel
+from .rqwidget import RQWidget
+
 if TYPE_CHECKING:
     from PyQt5.QtWidgets import QLineEdit
     from PyQt5.QtCore import pyqtSlot as Slot
-
-from ..models import RQText, RQBool, RQObject, RQModel
-from .rqwidget import RQWidget
 
 
 class RQLineEdit(RQWidget, QLineEdit):
