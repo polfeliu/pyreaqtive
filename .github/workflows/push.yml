@@ -56,3 +56,7 @@ jobs:
         run: |
           pipenv run pylint pyreaqtive --rcfile=.pylintrc
 
+      - name: Run Tests with PyQt6
+        run: |
+          pipenv run pip uninstall --yes pyqt5 && pipenv run pip install pyqt6 && pipenv run pytest pyreaqtive
+
