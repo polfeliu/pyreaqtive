@@ -33,7 +33,7 @@ jobs:
           cache-name: cache-pipenv
         with:
           path: /home/runner/.local/share/virtualenvs/
-          key: ${{ runner.os }}-${{ hashFiles('Pipfile.lock') }}
+          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('Pipfile.lock') }}
 
 
       - name: Install pipenv
