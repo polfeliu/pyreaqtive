@@ -44,16 +44,15 @@ jobs:
         run: |
           pipenv install --dev
 
+      - name: Run Tests with coverage
+        run: |
+          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing
+
       - name: Run mypy
-        continue-on-error: true
         run: |
           pipenv run mypy -m pyreaqtive -m tests --config-file mypy.ini
 
       - name: Run pylint
-        continue-on-error: true
         run: |
           pipenv run pylint pyreaqtive --rcfile=.pylintrc
 
-      - name: Run Tests with coverage
-        run: |
-          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing
