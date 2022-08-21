@@ -1,7 +1,7 @@
 from pyreaqtive import RQWidgetObject, RQObject
 import pytest_cases
 
-from PyQt5.QtWidgets import *
+from qtpy.QtWidgets import *
 from ..qtbot_window import window_fixture
 
 

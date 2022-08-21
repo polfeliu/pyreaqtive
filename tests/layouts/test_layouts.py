@@ -2,7 +2,7 @@ import pytest
 
 from pyreaqtive import RQHBoxLayout, RQVBoxLayout, RQList
 import pytest_cases
-from PyQt5.QtWidgets import QWidget
+from qtpy.QtWidgets import QWidget
 
 from ..qtbot_window import window_fixture
 

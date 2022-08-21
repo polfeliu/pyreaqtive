@@ -1,7 +1,7 @@
 from pyreaqtive import RQInt, RQComputedInt, RQSpinBox
 import pytest_cases
 import pytest
-from PyQt5 import QtCore
+from qtpy import QtCore
 from ..qtbot_window import window_fixture
 
 
