@@ -12,10 +12,10 @@ if TYPE_CHECKING:
 
 
 class RQDoubleSpinBox(RQWidget, QDoubleSpinBox):
-    """Reactive DoubleSpinBox Widget"""
+    """Reactive DoubleSpinBox Widget."""
 
     model: Union[RQFloat, RQObject]
-    """Model linked to the widget"""
+    """Model linked to the widget."""
 
     def __init__(self,
                  model: Union[RQFloat, float, RQObject],
@@ -70,7 +70,7 @@ class RQDoubleSpinBox(RQWidget, QDoubleSpinBox):
 
     @Slot()
     def _update_model(self) -> None:
-        """Propagates changes to the model"""
+        """Propagates changes to the model."""
         if not self._rq_reading:
             self._rq_writing = True
             self.model.set(self.value())

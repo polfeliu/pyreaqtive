@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class RQLineEdit(RQWidget, QLineEdit):
-    """Reactive LineEdit Widget"""
+    """Reactive LineEdit Widget."""
 
     model: Union[RQText, RQObject]
     """Model linked to the widget"""
@@ -70,7 +70,7 @@ class RQLineEdit(RQWidget, QLineEdit):
 
     @Slot()
     def _update_model(self) -> None:
-        """Propagates changes to the model"""
+        """Propagates changes to the model."""
         if not self._rq_reading:
             self._rq_writing = True
             self.model.set(self.text())

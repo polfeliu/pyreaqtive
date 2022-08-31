@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class RQVBoxLayout(RQBoxLayout):
-    """Reactive QVBoxLayout"""
+    """Reactive QVBoxLayout."""
 
     def __init__(self,
                  model: RQList,
@@ -18,7 +18,7 @@ class RQVBoxLayout(RQBoxLayout):
                  *args: Any,
                  **kwargs: Any
                  ) -> None:
-        """Constructor
+        """Constructor.
 
         Args:
             model: RQList representing all the items in the layout

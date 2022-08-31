@@ -13,10 +13,15 @@ class RQAsync(QThread):
     class AutoTriggers(Enum):
         START = auto()
 
-    def __init__(self, task: Callable[[], Any], trigger: Union[AutoTriggers, RQModel] = AutoTriggers.START):
+    def __init__(self,
+                 task: Callable[[], Any],
+                 trigger: Union[AutoTriggers, RQModel] = AutoTriggers.START,
+                 exception_callback: Callable[[Exception], Any] = None
+                 ):
         super(RQAsync, self).__init__()
         self.task = task
         self.trigger = trigger
+        self.exception_callback = exception_callback
 
         self.working = RQBool(False)
 
@@ -29,5 +34,9 @@ class RQAsync(QThread):
 
     def run(self) -> None:
         self.working.set(True)
-        self.task()
-        self.working.set(False)
+        try:
+            self.task()
+        except Exception as ex:
+            self.exception_callback(ex)
+        finally:
+            self.working.set(False)

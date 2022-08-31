@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class RQComboBox(RQWidget, QComboBox):
-    """Reactive ComboBox Widget"""
+    """Reactive ComboBox Widget."""
 
     model: RQChoice
     """Model linked to the widget"""
@@ -71,7 +71,7 @@ class RQComboBox(RQWidget, QComboBox):
 
     @Slot(int)
     def _rq_choice_remove(self, index: int) -> None:
-        """Slot triggered when the initial of choices removes a new item
+        """Slot triggered when the initial of choices removes a new item.
 
         Removes the option from the combobox
 
@@ -82,7 +82,7 @@ class RQComboBox(RQWidget, QComboBox):
 
     @Slot()
     def _rq_data_changed(self) -> None:
-        """Slot triggered when the selection of the choice model changed
+        """Slot triggered when the selection of the choice model changed.
 
         Updates the combobox selection
         """
@@ -108,7 +108,7 @@ class RQComboBox(RQWidget, QComboBox):
 
     @Slot(int)
     def _current_index_changed(self, index: int) -> None:
-        """Slot triggered when the user changes the selection in the combobox
+        """Slot triggered when the user changes the selection in the combobox.
 
         Args:
             index: selected item index

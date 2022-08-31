@@ -17,6 +17,7 @@ pytest = "*"
 pytest-cases = "*"
 pytest-cov = "*"
 pylint = "*"
+pydocstyle = "*"
 
 [requires]
 python_version = "3"

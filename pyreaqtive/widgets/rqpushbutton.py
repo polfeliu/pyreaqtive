@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class RQPushButton(RQWidget, QPushButton):
-    """Reactive PushButton Widget"""
+    """Reactive PushButton Widget."""
 
     def __init__(self,
                  model: Union[RQModel, str],

@@ -2,13 +2,13 @@ from .rqmodel import RQModel
 
 
 class RQObject(RQModel):
-    """Reactive Object Model
+    """Reactive Object Model.
 
     Represents any object, without a strict type
     """
 
     def __init__(self, instance: object):
-        """Constructor
+        """Constructor.
 
         Args:
             instance: Initial object
@@ -17,7 +17,7 @@ class RQObject(RQModel):
         self._instance = instance
 
     def get(self) -> object:
-        """Get value of the model
+        """Get value of the model.
 
         Returns:
             object: object of the model
@@ -25,7 +25,7 @@ class RQObject(RQModel):
         return self._instance
 
     def set(self, value: object) -> None:
-        """Set value of model
+        """Set value of model.
 
         Will propagate the change to the widgets linked to the model
 
@@ -36,7 +36,7 @@ class RQObject(RQModel):
         self.rq_data_changed.emit()
 
     def __str__(self) -> str:
-        """Get value of the model in string format
+        """Get value of the model in string format.
 
         Returns:
             str: value of the model converted to string
@@ -44,7 +44,7 @@ class RQObject(RQModel):
         return self._instance.__str__()
 
     def __int__(self) -> int:
-        """Get value of the model in int format
+        """Get value of the model in int format.
 
         Returns:
             str: value of the model converted to int
@@ -58,7 +58,7 @@ class RQObject(RQModel):
             raise TypeError
 
     def __float__(self) -> float:
-        """Get value of the model in float format
+        """Get value of the model in float format.
 
         Returns:
             str: value of the model converted to float

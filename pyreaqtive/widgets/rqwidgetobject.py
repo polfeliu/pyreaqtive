@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 class RQWidgetObject(RQWidget, QObject):
-    """Reactive Widget Object
+    """Reactive Widget Object.
 
     Displays a widget for a RQObject.
     If the instance of the RQObject changes, the widget is destroyed and a new one is created in the same place
@@ -28,7 +28,7 @@ class RQWidgetObject(RQWidget, QObject):
                  layout: Union['QHBoxLayout', 'QVBoxLayout'],
                  widget: Union[Type[QWidget], Callable[[object], QWidget]]
                  ) -> None:
-        """Constructor
+        """Constructor.
 
         Args:
             model: Model to link the widget to
@@ -51,13 +51,13 @@ class RQWidgetObject(RQWidget, QObject):
         self.layout.addWidget(self.widget)
 
     def _rq_new_widget(self) -> QWidget:
-        """Generate a new widget from the model"""
+        """Generate a new widget from the model."""
         self.widget = self.rq_widget_callback(self.model.get())
         return self.widget
 
     @Slot()
     def _rq_data_changed(self) -> None:
-        """Slot triggered when when model has changed
+        """Slot triggered when model has changed.
 
         Deletes widget from the layout and adds the new one in the same place
         """

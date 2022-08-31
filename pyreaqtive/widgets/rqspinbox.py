@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class RQSpinBox(RQWidget, QSpinBox):
-    """Reactive SpinBox Widget"""
+    """Reactive SpinBox Widget."""
 
     model: Union[RQInt, RQObject]
     """Model linked to the widget"""
@@ -70,7 +70,7 @@ class RQSpinBox(RQWidget, QSpinBox):
 
     @Slot()
     def _update_model(self) -> None:
-        """Propagates changes to the model"""
+        """Propagates changes to the model."""
         if not self._rq_reading:
             self._rq_writing = True
             self.model.set(self.value())

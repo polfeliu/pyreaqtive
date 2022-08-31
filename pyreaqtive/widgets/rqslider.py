@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class RQSlider(RQWidget, QSlider):
-    """Reactive Slider Widget"""
+    """Reactive Slider Widget."""
 
     model: Union[RQInt, RQFloat, RQObject]
     """Model linked to the widget"""

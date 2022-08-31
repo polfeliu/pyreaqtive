@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class RQLabel(RQWidget, QLabel):
-    """Reactive Label Widget"""
+    """Reactive Label Widget."""
 
     model: RQModel
     """Model linked to the widget"""

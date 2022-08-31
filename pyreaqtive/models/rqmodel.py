@@ -63,7 +63,7 @@ class RQComputedModel:
     """
 
     def __init__(self, function: Callable, **kwargs: RQModel):
-        """Constructor
+        """Constructor.
 
         Args:
             function: function to calculate the model value from input values
@@ -85,7 +85,7 @@ class RQComputedModel:
 
     @Slot()
     def _variable_changed(self) -> None:
-        """Variable changed slot
+        """Variable changed slot.
 
         Called when some of the models have emitted rq_data_changed.
         Informs connected widgets that the function model has changed.
@@ -98,7 +98,7 @@ class RQComputedModel:
         raise RuntimeError("Computed Models do not allow set()")
 
     def get(self) -> Any:
-        """Get value of the model in the output format of the function
+        """Get value of the model in the output format of the function.
 
         Returns:
             function result with current model values

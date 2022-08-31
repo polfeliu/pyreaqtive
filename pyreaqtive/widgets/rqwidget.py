@@ -4,7 +4,7 @@ from ..models import RQModel, RQText, RQBool, RQInt, RQFloat, RQObject
 
 
 class RQWidget:
-    """Reactive Widget Base class"""
+    """Reactive Widget Base class."""
 
     def __init__(self,
                  model: Union[RQModel, str, bool, int, float, RQObject],
@@ -21,7 +21,6 @@ class RQWidget:
             rq_if: RQBool that controls the visibility
             rq_disabled: RQBool that controls the disabling
         """
-
         if isinstance(model, str):
             model = RQText(model)
         elif isinstance(model, bool):
