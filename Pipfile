@@ -18,6 +18,7 @@ pytest-cases = "*"
 pytest-cov = "*"
 pylint = "*"
 pydocstyle = "*"
+typing_extensions = "*"
 
 [requires]
 python_version = "3"

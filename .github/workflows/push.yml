@@ -56,3 +56,6 @@ jobs:
         run: |
           pipenv run pylint pyreaqtive --rcfile=.pylintrc
 
+      - name: Run pydocstyle
+        run: |
+          pipenv run pydocstyle pyreaqtive --config=.pydocstyle.ini
