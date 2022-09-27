@@ -37,6 +37,7 @@ class RQAsync(QThread):
         try:
             self.task()
         except Exception as ex:
-            self.exception_callback(ex)
+            if self.exception_callback is not None:
+                self.exception_callback(ex)
         finally:
             self.working.set(False)
