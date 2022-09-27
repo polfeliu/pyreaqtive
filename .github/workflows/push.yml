@@ -61,10 +61,12 @@ jobs:
           pipenv run pydocstyle pyreaqtive --config=.pydocstyle.ini
 
       - name: Build lib
+        if: matrix.python-version == '3.10'
         run: |
           pipenv run python setup.py sdist bdist_wheel
 
       - name: Archive build
+        if: matrix.python-version == '3.10'
         uses: actions/upload-artifact@v2
         with:
           name: Release Build
