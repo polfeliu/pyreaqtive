@@ -59,3 +59,13 @@ jobs:
       - name: Run pydocstyle
         run: |
           pipenv run pydocstyle pyreaqtive --config=.pydocstyle.ini
+
+      - name: Build lib
+        run: |
+          pipenv run python setup.py sdist bdist_wheel
+
+      - name: Archive build
+        uses: actions/upload-artifact@v2
+        with:
+          name: Release Build
+          path: dist/*
