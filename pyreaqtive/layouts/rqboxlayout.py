@@ -3,20 +3,23 @@ from typing import TYPE_CHECKING, List, Callable, Type, Union, Any
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QBoxLayout, QWidget  # type: ignore
 
+from ..models import RQList
+
 if TYPE_CHECKING:
     from PyQt5.QtWidgets import QBoxLayout, QWidget
     from PyQt5.QtCore import pyqtSlot as Slot
 
-from ..models import RQList
-
 
 class RQBoxLayout(QBoxLayout):
-    """Reactive QBoxLayout"""
+    """Reactive QBoxLayout."""
 
-    def __init__(self, model: RQList,
-                 widget: Union[Type[QWidget], Callable[[Any, RQList], QWidget]], *args,
-                 **kwargs):
-        """Constructor
+    def __init__(self,
+                 model: RQList,
+                 widget: Union[Type[QWidget], Callable[[Any, RQList], QWidget]],
+                 *args: Any,
+                 **kwargs: Any
+                 ):
+        """Constructor.
 
         Args:
             model: RQList representing all the items in the layout
@@ -42,8 +45,8 @@ class RQBoxLayout(QBoxLayout):
 
         if not hasattr(widget, "inherits"):
             # Not a QWidget
-            def callback(item: Any, list_model: RQList):
-                return widget(item, list_model)  # type: ignore
+            def callback(item: Any, list_model: RQList) -> QWidget:
+                return widget(item, list_model)
 
             self._rq_widget_callback = callback
         else:
@@ -52,12 +55,12 @@ class RQBoxLayout(QBoxLayout):
         self.model.rq_list_insert.connect(self._rq_insert_widget)
         self.model.rq_list_remove.connect(self._rq_remove_widget)
 
-        for index, item in enumerate(self.model):
+        for index, _ in enumerate(self.model):
             self._rq_insert_widget(index)
 
     @Slot(int)
-    def _rq_insert_widget(self, index) -> None:
-        """Slot triggered when the model inserts a new item
+    def _rq_insert_widget(self, index: int) -> None:
+        """Slot triggered when the model inserts a new item.
 
         Args:
             index: index in the initial of the new instance
@@ -67,8 +70,8 @@ class RQBoxLayout(QBoxLayout):
         self.insertWidget(index, self.widgets[index])
 
     @Slot(int)
-    def _rq_remove_widget(self, index) -> None:
-        """Slot triggered when the model removes an item
+    def _rq_remove_widget(self, index: int) -> None:
+        """Slot triggered when the model removes an item.
 
         Args:
             index: index in the list of the item removal

@@ -2,19 +2,23 @@ from typing import TYPE_CHECKING, Callable, Type, Union, Any
 
 from qtpy.QtWidgets import QBoxLayout, QWidget  # type: ignore
 
-if TYPE_CHECKING:
-    from PyQt5.QtWidgets import QBoxLayout, QWidget
-
 from .rqboxlayout import RQBoxLayout
 from ..models import RQList
 
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QBoxLayout, QWidget
+
 
 class RQVBoxLayout(RQBoxLayout):
-    """Reactive QVBoxLayout"""
+    """Reactive QVBoxLayout."""
 
-    def __init__(self, model: RQList,
-                 widget: Union[Type[QWidget], Callable[[Any, RQList], QWidget]], *args, **kwargs):
-        """Constructor
+    def __init__(self,
+                 model: RQList,
+                 widget: Union[Type[QWidget], Callable[[Any, RQList], QWidget]],
+                 *args: Any,
+                 **kwargs: Any
+                 ) -> None:
+        """Constructor.
 
         Args:
             model: RQList representing all the items in the layout

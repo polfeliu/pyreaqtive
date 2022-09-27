@@ -1,30 +1,30 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QSpinBox  # type: ignore
+
+from .rqwidget import RQWidget
+from ..models import RQInt, RQBool, RQObject, RQModel
 
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QSpinBox
 
-from .rqwidget import RQWidget
-from ..models import RQInt, RQBool, RQObject, RQModel
-
 
 class RQSpinBox(RQWidget, QSpinBox):
-    """Reactive SpinBox Widget"""
+    """Reactive SpinBox Widget."""
 
     model: Union[RQInt, RQObject]
     """Model linked to the widget"""
 
     def __init__(self,
                  model: Union[RQInt, int, RQObject],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
                  wait_for_finish: bool = False,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:
@@ -70,7 +70,7 @@ class RQSpinBox(RQWidget, QSpinBox):
 
     @Slot()
     def _update_model(self) -> None:
-        """Propagates changes to the model"""
+        """Propagates changes to the model."""
         if not self._rq_reading:
             self._rq_writing = True
             self.model.set(self.value())

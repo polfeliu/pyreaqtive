@@ -1,8 +1,9 @@
+from typing import Any
 from .models.rqobject import RQObject
 
 
-def new__setattr__(self, key, value) -> None:
-    """Set Attribute Replacement
+def new__setattr__(self: Any, key: str, value: Any) -> None:
+    """Set Attribute Replacement.
 
     Captures changes in the attributes and reports them to the rq_reactive_attributes RQObject models
 
@@ -17,7 +18,7 @@ def new__setattr__(self, key, value) -> None:
 
 
 def reactivize(obj_type: type) -> None:
-    """Reactivize method
+    """Reactivize method.
 
     Injects the set attribute replacement to a object type and creates a placeholder for the reactive attributes
 
@@ -29,7 +30,7 @@ def reactivize(obj_type: type) -> None:
 
 
 def rq_getattr(obj: object, attribute_name: str) -> RQObject:
-    """Reactive Get Attribute
+    """Reactive Get Attribute.
 
     Returns an RQObject that is linked to a object attribute. Changes are two-way propagated
 
@@ -51,7 +52,7 @@ def rq_getattr(obj: object, attribute_name: str) -> RQObject:
         return obj.rq_reactive_attributes[attribute_name]  # type: ignore
     else:
         # Create the RQObject with the initial value from the attribute
-        reactive_attribute = RQObject(obj.__getattribute__(attribute_name))
+        reactive_attribute = RQObject(obj.__getattribute__(attribute_name))  # pylint: disable= unnecessary-dunder-call
 
         # Propagate changes from the rqobject to the attribute.
         # Using the __setattr__ from the super(), to avoid new__setattr__ and re-triggering the update

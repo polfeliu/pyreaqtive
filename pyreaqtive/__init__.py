@@ -1,4 +1,4 @@
-__version__ = "1.4.1"
+__version__ = "1.4.2"
 
 from .models import \
     RQModel, RQComputedModel, \
@@ -24,10 +24,6 @@ from .widgets import \
     RQWidgetObject, \
     RQPushButton
 
-# Backwards compatibility
-RQCheckbox = RQCheckBox
-RQCombobox = RQComboBox
-
 from .layouts import \
     RQBoxLayout, \
     RQVBoxLayout, \
@@ -37,3 +33,7 @@ from .rq_getattr import rq_getattr
 from .rq_getlist import rq_getlist
 from .rq_connect import RQConnect
 from .rq_async import RQAsync
+
+# Backwards compatibility
+RQCheckbox = RQCheckBox
+RQCombobox = RQComboBox

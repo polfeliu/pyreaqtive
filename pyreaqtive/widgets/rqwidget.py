@@ -1,15 +1,10 @@
-from typing import TYPE_CHECKING, Union
-
-from qtpy.QtWidgets import QWidget  # type: ignore
-
-if TYPE_CHECKING:
-    from PyQt5.QtWidgets import QWidget
+from typing import Union, Any
 
 from ..models import RQModel, RQText, RQBool, RQInt, RQFloat, RQObject
 
 
 class RQWidget:
-    """Reactive Widget Base class"""
+    """Reactive Widget Base class."""
 
     def __init__(self,
                  model: Union[RQModel, str, bool, int, float, RQObject],
@@ -26,7 +21,6 @@ class RQWidget:
             rq_if: RQBool that controls the visibility
             rq_disabled: RQBool that controls the disabling
         """
-
         if isinstance(model, str):
             model = RQText(model)
         elif isinstance(model, bool):
@@ -41,7 +35,7 @@ class RQWidget:
         self._rq_if_model = rq_if
         self._rq_disabled_model = rq_disabled
 
-    def rq_init_widget(self):
+    def rq_init_widget(self) -> None:
         if self._rq_if_model is not None:
             self._rq_if_model.rq_data_changed.connect(self._rq_if_data_changed)
             self._rq_if_data_changed()
@@ -58,6 +52,6 @@ class RQWidget:
     def _rq_disabled_data_changed(self) -> None:
         self.setDisabled(bool(self._rq_disabled_model))  # type: ignore
 
-    def showEvent(self, _):
+    def showEvent(self, _: Any) -> None:  # pylint: disable= invalid-name
         if self._rq_if_model is not None:
             self._rq_if_data_changed()

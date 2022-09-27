@@ -1,30 +1,30 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QLineEdit  # type: ignore
+
+from ..models import RQText, RQBool, RQObject, RQModel
+from .rqwidget import RQWidget
 
 if TYPE_CHECKING:
     from PyQt5.QtWidgets import QLineEdit
     from PyQt5.QtCore import pyqtSlot as Slot
 
-from ..models import RQText, RQBool, RQObject, RQModel
-from .rqwidget import RQWidget
-
 
 class RQLineEdit(RQWidget, QLineEdit):
-    """Reactive LineEdit Widget"""
+    """Reactive LineEdit Widget."""
 
     model: Union[RQText, RQObject]
     """Model linked to the widget"""
 
     def __init__(self,
                  model: Union[RQText, str, RQObject],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
                  wait_for_finish: bool = False,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:
@@ -70,7 +70,7 @@ class RQLineEdit(RQWidget, QLineEdit):
 
     @Slot()
     def _update_model(self) -> None:
-        """Propagates changes to the model"""
+        """Propagates changes to the model."""
         if not self._rq_reading:
             self._rq_writing = True
             self.model.set(self.text())

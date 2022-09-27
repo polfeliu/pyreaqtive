@@ -1,28 +1,29 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QSlider  # type: ignore
+
+from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
+from .rqwidget import RQWidget
 
 if TYPE_CHECKING:
     from PyQt5.QtWidgets import QSlider
     from PyQt5.QtCore import pyqtSlot as Slot
 
-from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
-from .rqwidget import RQWidget
-
 
 class RQSlider(RQWidget, QSlider):
-    """Reactive Slider Widget"""
+    """Reactive Slider Widget."""
 
     model: Union[RQInt, RQFloat, RQObject]
     """Model linked to the widget"""
 
     def __init__(self,
                  model: Union[RQInt, RQFloat, int, float, RQObject],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:
@@ -36,7 +37,7 @@ class RQSlider(RQWidget, QSlider):
             if model.rq_read_only:  # type: ignore
                 raise IOError("Cannot connect rqslider to a read only model")
 
-        RQWidget.__init__(self, model, rq_if)
+        RQWidget.__init__(self, model, rq_if, rq_disabled)
         QSlider.__init__(self, *args, **kwargs)
         self.rq_init_widget()
 

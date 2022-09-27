@@ -1,29 +1,29 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QDial  # type: ignore
+
+from .rqwidget import RQWidget
+from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
 
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QDial
 
-from .rqwidget import RQWidget
-from ..models import RQInt, RQFloat, RQBool, RQObject, RQModel
-
 
 class RQDial(RQWidget, QDial):
-    """Reactive Dial Widget"""
+    """Reactive Dial Widget."""
 
     model: Union[RQInt, RQFloat, RQObject]
     """Model linked to the widget"""
 
     def __init__(self,
                  model: Union[RQInt, RQFloat, int, float, RQObject],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:

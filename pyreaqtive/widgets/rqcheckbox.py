@@ -1,35 +1,36 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QCheckBox  # type: ignore
+
+from .rqwidget import RQWidget
+from ..models import RQBool, RQModel
 
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QCheckBox
 
-from .rqwidget import RQWidget
-from ..models import RQBool, RQModel
-
 
 class RQCheckBox(RQWidget, QCheckBox):
-    """Reactive Checkbox Widget"""
+    """Reactive Checkbox Widget."""
 
     model: RQBool
-    """Model linked to the widget"""
+    """Model linked to the widget."""
 
     def __init__(self,
                  model: Union[RQBool, bool],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:
             model: Model to link the widget to
             *args: arguments to pass to the native pyqt widget
             rq_if: RQBool that controls the visibility
+            rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
         if issubclass(type(model), RQModel):

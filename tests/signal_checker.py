@@ -31,6 +31,5 @@ def assert_signal_emitted(signal):
 
 
 def assert_int_signal(signal, value: int):
-    #print(triggered[signal])
     assert triggered[signal] == value
     triggered[signal] = False

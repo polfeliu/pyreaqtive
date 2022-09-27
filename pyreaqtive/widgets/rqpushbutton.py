@@ -1,25 +1,26 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QPushButton  # type: ignore
-
-if TYPE_CHECKING:
-    from PyQt5.QtWidgets import QPushButton
 
 from ..models import RQBool, RQModel
 
 from .rqwidget import RQWidget
 
+if TYPE_CHECKING:
+    from PyQt5.QtWidgets import QPushButton
+
 
 class RQPushButton(RQWidget, QPushButton):
-    """Reactive PushButton Widget"""
+    """Reactive PushButton Widget."""
 
     def __init__(self,
                  model: Union[RQModel, str],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs):
+                 **kwargs: Any
+                 ):
         """Constructor.
 
         Args:

@@ -6,21 +6,22 @@ if TYPE_CHECKING:
     from .rqlist import RQList
 
 
-def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list):
-    """
+def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list) -> None:
+    """List Sequence Matching.
+
     Modifies a list so it's the same as an other one, applying insert and delete operations
 
     Args:
         modifiable_list: list that has to be modified
         target_list: list that must be copied
     """
-    seq_mat = difflib.SequenceMatcher(a=modifiable_list, b=target_list)  # type: ignore
+    seq_mat = difflib.SequenceMatcher(a=modifiable_list, b=target_list)
 
     operations = seq_mat.get_opcodes()
 
     running_shift = 0
 
-    for code, i1, i2, j1, j2 in operations:
+    for code, i1, i2, j1, j2 in operations:  # pylint: disable=invalid-name
 
         if code == 'equal':
             # modifiable_list[i1:i2] == target_list[j1:j2] (the sub-sequences are equal).

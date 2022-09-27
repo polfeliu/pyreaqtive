@@ -1,29 +1,29 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QComboBox  # type: ignore
+
+from .rqwidget import RQWidget
+from ..models import RQChoice, RQBool, RQList
 
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QComboBox
 
-from .rqwidget import RQWidget
-from ..models import RQChoice, RQBool, RQModel, RQList
-
 
 class RQComboBox(RQWidget, QComboBox):
-    """Reactive ComboBox Widget"""
+    """Reactive ComboBox Widget."""
 
-    model: RQChoice  # type: ignore
+    model: RQChoice
     """Model linked to the widget"""
 
     def __init__(self,
                  model: RQChoice,
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:
@@ -33,7 +33,7 @@ class RQComboBox(RQWidget, QComboBox):
             rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
-        if model.rq_read_only:  # type: ignore
+        if model.rq_read_only:
             raise IOError("Cannot connect rqcombobox to a read only model")
 
         RQWidget.__init__(self, model, rq_if, rq_disabled)
@@ -45,7 +45,7 @@ class RQComboBox(RQWidget, QComboBox):
             self.model.rq_choices_list.rq_list_insert.connect(self._rq_choice_insert)
             self.model.rq_choices_list.rq_list_remove.connect(self._rq_choice_remove)
 
-        for index, choice in enumerate(self.model):
+        for index, _ in enumerate(self.model):
             self._rq_choice_insert(index)
 
         if self.model._allow_none:
@@ -71,7 +71,7 @@ class RQComboBox(RQWidget, QComboBox):
 
     @Slot(int)
     def _rq_choice_remove(self, index: int) -> None:
-        """Slot triggered when the initial of choices removes a new item
+        """Slot triggered when the initial of choices removes a new item.
 
         Removes the option from the combobox
 
@@ -82,7 +82,7 @@ class RQComboBox(RQWidget, QComboBox):
 
     @Slot()
     def _rq_data_changed(self) -> None:
-        """Slot triggered when the selection of the choice model changed
+        """Slot triggered when the selection of the choice model changed.
 
         Updates the combobox selection
         """
@@ -108,7 +108,7 @@ class RQComboBox(RQWidget, QComboBox):
 
     @Slot(int)
     def _current_index_changed(self, index: int) -> None:
-        """Slot triggered when the user changes the selection in the combobox
+        """Slot triggered when the user changes the selection in the combobox.
 
         Args:
             index: selected item index
@@ -116,7 +116,7 @@ class RQComboBox(RQWidget, QComboBox):
         if not self._rq_reading:
             self._rq_writing = True
 
-            if self.model._allow_none and self.currentIndex() == self.count() - 1:
+            if self.model._allow_none and self.currentIndex() == self.count() - 1:  # pylint: disable=protected-access
                 choice = None
             else:
                 choice = self.model[index]

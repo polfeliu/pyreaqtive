@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Callable, Dict
+from typing import TYPE_CHECKING, Any, Callable
 
 from qtpy.QtCore import QObject, Signal, Slot  # type: ignore
 
@@ -50,7 +50,7 @@ class RQModel(QObject):
         """
         raise NotImplementedError
 
-    def __delete__(self):
+    def __del__(self) -> None:
         self._rq_delete.emit()
 
 
@@ -63,7 +63,7 @@ class RQComputedModel:
     """
 
     def __init__(self, function: Callable, **kwargs: RQModel):
-        """Constructor
+        """Constructor.
 
         Args:
             function: function to calculate the model value from input values
@@ -77,7 +77,7 @@ class RQComputedModel:
         self.rq_read_only = True
         self.rq_computed_function: Callable = function
         self.rq_computed_variables: dict = kwargs
-        for name, model in self.rq_computed_variables.items():
+        for _, model in self.rq_computed_variables.items():
             model.rq_data_changed.connect(self._variable_changed)
 
         # First calculation
@@ -85,7 +85,7 @@ class RQComputedModel:
 
     @Slot()
     def _variable_changed(self) -> None:
-        """Variable changed slot
+        """Variable changed slot.
 
         Called when some of the models have emitted rq_data_changed.
         Informs connected widgets that the function model has changed.
@@ -94,11 +94,11 @@ class RQComputedModel:
         # RQModels have rq_data_changed, asserted on __init__
         self.rq_data_changed.emit()  # type: ignore
 
-    def set(self, value) -> None:
+    def set(self, value: Any) -> None:
         raise RuntimeError("Computed Models do not allow set()")
 
     def get(self) -> Any:
-        """Get value of the model in the output format of the function
+        """Get value of the model in the output format of the function.
 
         Returns:
             function result with current model values

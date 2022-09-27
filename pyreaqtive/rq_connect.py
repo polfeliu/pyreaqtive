@@ -1,23 +1,23 @@
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 from .models import RQModel
 
 
 class AbstractConversion(ABC):
-    """Base model for bidirectional conversion of two models"""
+    """Base model for bidirectional conversion of two models."""
 
     @abstractmethod
-    def convert_a_to_b(self, a: Any) -> Any:
-        raise NotImplemented  # pragma: no cover
+    def convert_a_to_b(self, a: Any) -> Any:  # pylint: disable= invalid-name
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
-    def convert_b_to_a(self, b: Any) -> Any:
-        raise NotImplemented  # pragma: no cover
+    def convert_b_to_a(self, b: Any) -> Any:  # pylint: disable= invalid-name
+        raise NotImplementedError  # pragma: no cover
 
 
 class Conversion(AbstractConversion):
-    """Conversion Declared with two functions"""
+    """Conversion Declared with two functions."""
 
     def __init__(self,
                  a_to_b: Callable[[Any], Any],
@@ -34,7 +34,7 @@ class Conversion(AbstractConversion):
 
 
 class LinearConversion(AbstractConversion):
-    """Linear Conversion Declared with scale and offset"""
+    """Linear Conversion Declared with scale and offset."""
 
     def __init__(self, scale_a_to_b: float, offset_a_to_b: float = 0):
         self.scale_a_to_b = scale_a_to_b
@@ -48,7 +48,7 @@ class LinearConversion(AbstractConversion):
 
 
 class RQConnect:
-    """Bidirectional connection between two models"""
+    """Bidirectional connection between two models."""
 
     Conversion = Conversion
     LinearConversion = LinearConversion
@@ -68,7 +68,7 @@ class RQConnect:
         self.model_b.rq_data_changed.connect(self._propagate_b_to_a)
         self._propagate_a_to_b()
 
-    def _propagate_a_to_b(self):
+    def _propagate_a_to_b(self) -> None:
         if not self._propagating:
             self._propagating = True
             self.model_b.set(
@@ -78,7 +78,7 @@ class RQConnect:
             )
             self._propagating = False
 
-    def _propagate_b_to_a(self):
+    def _propagate_b_to_a(self) -> None:
         if not self._propagating:
             self._propagating = True
             self.model_a.set(

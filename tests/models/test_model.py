@@ -18,7 +18,7 @@ def test_model():
     m.rq_data_changed.emit()
     assert_signal_emitted(m.rq_data_changed)
 
-    m.__delete__()
+    m.__del__()
     assert_signal_emitted(m._rq_delete)
 
 

@@ -1,29 +1,29 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Any
 
 from qtpy.QtCore import Slot  # type: ignore
 from qtpy.QtWidgets import QLabel  # type: ignore
+
+from .rqwidget import RQWidget
+from ..models import RQModel, RQBool, RQObject
 
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSlot as Slot
     from PyQt5.QtWidgets import QLabel
 
-from .rqwidget import RQWidget
-from ..models import RQModel, RQBool, RQObject
-
 
 class RQLabel(RQWidget, QLabel):
-    """Reactive Label Widget"""
+    """Reactive Label Widget."""
 
     model: RQModel
     """Model linked to the widget"""
 
     def __init__(self,
                  model: Union[RQModel, str, RQObject],
-                 *args,
+                 *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,
-                 **kwargs
-                 ):
+                 **kwargs: Any
+                 ) -> None:
         """Constructor.
 
         Args:

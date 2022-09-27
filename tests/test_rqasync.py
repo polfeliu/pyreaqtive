@@ -18,7 +18,7 @@ def test_rqasync(qtbot, window_fixture):
 
     inst = RQAsync(
         task,
-        trigger=RQAsync.AutoTriggers.Start
+        trigger=RQAsync.AutoTriggers.START
     )
     sleep(0.1)
     assert_task_triggered()
