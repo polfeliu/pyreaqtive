@@ -69,5 +69,5 @@ jobs:
         if: matrix.python-version == '3.10'
         uses: actions/upload-artifact@v2
         with:
-          name: Release Build
-          path: dist/*
+          name: wheel_build
+          path: dist/*.whl
