@@ -44,10 +44,6 @@ jobs:
         run: |
           pipenv install --dev
 
-      - name: Run Tests with coverage
-        run: |
-          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing
-
       - name: Run mypy
         run: |
           pipenv run mypy -m pyreaqtive -m tests --config-file mypy.ini
@@ -59,6 +55,10 @@ jobs:
       - name: Run pydocstyle
         run: |
           pipenv run pydocstyle pyreaqtive --config=.pydocstyle.ini
+
+      - name: Run Tests with coverage
+        run: |
+          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing --cov-fail-under=100
 
       - name: Build lib
         if: matrix.python-version == '3.9'

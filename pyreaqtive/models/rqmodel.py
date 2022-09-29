@@ -53,7 +53,7 @@ class RQModel(QObject):
     def __del__(self) -> None:
         try:
             self._rq_delete.emit()
-        except RuntimeError:
+        except RuntimeError:  # pragma: no cover
             # If object has been deleted ignore this error
             pass
 
