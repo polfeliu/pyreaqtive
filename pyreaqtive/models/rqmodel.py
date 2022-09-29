@@ -51,7 +51,11 @@ class RQModel(QObject):
         raise NotImplementedError
 
     def __del__(self) -> None:
-        self._rq_delete.emit()
+        try:
+            self._rq_delete.emit()
+        except RuntimeError:  # pragma: no cover
+            # If object has been deleted ignore this error
+            pass
 
 
 class RQComputedModel:

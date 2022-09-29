@@ -1,5 +1,5 @@
 from enum import Enum, auto
-from typing import TYPE_CHECKING, Union, Callable, Any
+from typing import TYPE_CHECKING, Union, Callable, Any, Optional
 
 from qtpy.QtCore import QThread  # type: ignore
 
@@ -16,7 +16,7 @@ class RQAsync(QThread):
     def __init__(self,
                  task: Callable[[], Any],
                  trigger: Union[AutoTriggers, RQModel] = AutoTriggers.START,
-                 exception_callback: Callable[[Exception], Any] = None
+                 exception_callback: Optional[Callable[[Exception], Any]] = None
                  ):
         super(RQAsync, self).__init__()
         self.task = task
