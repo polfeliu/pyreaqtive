@@ -33,7 +33,7 @@ class RQAsync(QThread):
         else:
             raise TypeError
 
-    def start(self, priority=QThread.InheritPriority) -> None:
+    def start(self, priority: int = QThread.InheritPriority) -> None:
         self._served_trigger = False
         if not self.working:
             super().start(priority)
