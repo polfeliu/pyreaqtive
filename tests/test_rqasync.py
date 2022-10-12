@@ -7,6 +7,7 @@ from time import sleep
 task_triggered = False
 exception_triggered = False
 trigger_exception = False
+slow_task = False
 
 
 @pytest_cases.parametrize("exception_callback", [True, False])
@@ -14,6 +15,12 @@ def test_rqasync(exception_callback, qtbot, window_fixture):
     global trigger_exception
     global exception_triggered
     global trigger_exception
+    global slow_task
+
+    task_triggered = False
+    exception_triggered = False
+    trigger_exception = False
+    slow_task = False
 
     def task():
         global task_triggered
@@ -24,6 +31,12 @@ def test_rqasync(exception_callback, qtbot, window_fixture):
         if trigger_exception:
             print("Triggering exception")
             raise ValueError
+
+        if slow_task:
+            print("slowing task")
+            sleep(1)
+
+        print("Finished")
 
     def exception(ex: Exception):
         global exception_triggered
@@ -62,13 +75,13 @@ def test_rqasync(exception_callback, qtbot, window_fixture):
     assert_task_triggered()
     assert_exception(False)
 
-    inst.run()
+    inst.start()
     sleep(0.1)
     assert_task_triggered()
     assert_exception(False)
 
     trigger_exception = True
-    inst.run()
+    inst.start()
     sleep(0.1)
     assert_task_triggered()
     assert_exception(exception_callback)
@@ -78,3 +91,18 @@ def test_rqasync(exception_callback, qtbot, window_fixture):
             task,
             trigger=None
         )
+
+    trigger_exception = False
+    slow_task = True
+    inst.start()
+    sleep(0.1)
+    assert inst.working
+    assert inst._served_trigger
+    assert_task_triggered()
+
+    inst.start()
+    sleep(0.1)
+    assert inst.working
+    assert not inst._served_trigger
+
+    sleep(1.5)  # Ensure the slow task has finished

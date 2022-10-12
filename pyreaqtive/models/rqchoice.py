@@ -84,9 +84,10 @@ class RQChoice(RQModel):
         Args:
             value: New selected choice
         """
-        self.selected = value
-        self.validate_selected()
-        self.rq_data_changed.emit()
+        if self.selected is not value:
+            self.selected = value
+            self.validate_selected()
+            self.rq_data_changed.emit()
 
     def reset(self) -> None:
         """Reset selection to default value.
