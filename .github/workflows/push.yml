@@ -87,6 +87,10 @@ jobs:
         if: matrix.python-version == '3.9'
         run: |
           pytest
+          
+      - name: Build Docs
+        run: |
+          pipenv run sphinx-build -W -b html doc/source doc/build
 
   release:
     runs-on: ubuntu-latest
