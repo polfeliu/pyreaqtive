@@ -75,13 +75,13 @@ def test_rqasync(exception_callback, qtbot, window_fixture):
     assert_task_triggered()
     assert_exception(False)
 
-    inst.start()
+    inst.run()
     sleep(0.1)
     assert_task_triggered()
     assert_exception(False)
 
     trigger_exception = True
-    inst.start()
+    inst.run()
     sleep(0.1)
     assert_task_triggered()
     assert_exception(exception_callback)
