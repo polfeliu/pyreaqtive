@@ -22,11 +22,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Setup Virtual Screen for Tests
-        run: |
-          sudo apt install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 x11-utils
-          /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX
-
       - name: Cache pipenv
         uses: actions/cache@v3
         env:
@@ -54,6 +49,11 @@ jobs:
       - name: Run pydocstyle
         run: |
           pipenv run pydocstyle pyreaqtive --config=.pydocstyle.ini
+
+      - name: Setup Virtual Screen for Tests
+        run: |
+          sudo apt install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 x11-utils
+          /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX
 
       - name: Run Tests with coverage
         run: |
