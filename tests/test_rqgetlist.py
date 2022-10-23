@@ -1,8 +1,10 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
+
+import pytest
 
 from pyreaqtive import rq_getlist
-import pytest
-from .qtbot_window import window_fixture
+
+from .qtbot_window import window_fixture  # pylint: disable=unused-import
 
 if TYPE_CHECKING:
     from pytestqt.qtbot import QtBot  # type: ignore
@@ -19,7 +21,10 @@ class SampleObject:
         self.numbers.append(self.numbers[-1] + 1)
 
 
-def test_getlist(qtbot: 'QtBot', window_fixture: 'QMainWindow') -> None:
+def test_getlist(
+        qtbot: 'QtBot',  # pylint: disable=unused-argument
+        window_fixture: 'QMainWindow'  # pylint: disable=redefined-outer-name, unused-argument
+) -> None:
     inst = SampleObject()
 
     reactive_list = rq_getlist(inst, "numbers")

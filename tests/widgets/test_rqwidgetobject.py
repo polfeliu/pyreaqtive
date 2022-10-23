@@ -1,10 +1,11 @@
 from typing import TYPE_CHECKING, Union, Type, Callable
+from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget, QLabel
 
-from pyreaqtive import RQWidgetObject, RQObject
 import pytest_cases
 
-from PyQt5.QtWidgets import *
-from ..qtbot_window import window_fixture
+from pyreaqtive import RQWidgetObject, RQObject
+
+from ..qtbot_window import window_fixture  # pylint: disable=unused-import
 
 if TYPE_CHECKING:
     from pytestqt.qtbot import QtBot  # type: ignore
@@ -39,8 +40,12 @@ class WidgetB(QWidget):
 
 @pytest_cases.parametrize("widget_callback", [True, False])
 @pytest_cases.parametrize("layout_type", [QHBoxLayout, QVBoxLayout])
-def test_rqwidget(widget_callback: bool, layout_type: Union[Type[QHBoxLayout], Type[QVBoxLayout]], qtbot: 'QtBot',
-                  window_fixture: 'QMainWindow') -> None:
+def test_rqwidget(
+        widget_callback: bool,
+        layout_type: Union[Type[QHBoxLayout], Type[QVBoxLayout]],
+        qtbot: 'QtBot',  # pylint: disable=unused-argument
+        window_fixture: 'QMainWindow'  # pylint: disable=redefined-outer-name
+) -> None:
     instance_1 = SampleObject("INST1")
     instance_2 = SampleObject("INST2")
 
@@ -68,7 +73,7 @@ def test_rqwidget(widget_callback: bool, layout_type: Union[Type[QHBoxLayout], T
         layout=layout,
         widget=widget
     )
-    widget_2 = RQWidgetObject(
+    widget_2 = RQWidgetObject(  # pylint: disable=unused-variable
         model=model,
         layout=layout,
         widget=widget

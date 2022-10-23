@@ -1,10 +1,11 @@
 from typing import TYPE_CHECKING, Union
 
-from pyreaqtive import RQFloat, RQInt, RQComputedInt, RQSlider
 import pytest_cases
 import pytest
 
-from ..qtbot_window import window_fixture
+from pyreaqtive import RQFloat, RQInt, RQComputedInt, RQSlider
+
+from ..qtbot_window import window_fixture  # pylint: disable=unused-import
 
 if TYPE_CHECKING:
     from pytestqt.qtbot import QtBot  # type: ignore
@@ -19,11 +20,15 @@ if TYPE_CHECKING:
     1007,
     -6
 ])
-def test_rqslider(model: Union[RQInt, RQFloat, int, float], qtbot: 'QtBot', window_fixture: 'QMainWindow') -> None:
+def test_rqslider(
+        model: Union[RQInt, RQFloat, int, float],
+        qtbot: 'QtBot',  # pylint: disable=unused-argument
+        window_fixture: 'QMainWindow'  # pylint: disable=redefined-outer-name
+) -> None:
     widget_1 = RQSlider(model)
     window_fixture.layout().addWidget(widget_1)
 
-    if isinstance(model, RQInt) or isinstance(model, RQFloat):
+    if isinstance(model, (RQInt, RQFloat)):
         widget_2 = RQSlider(model)
         window_fixture.layout().addWidget(widget_2)
 
@@ -47,17 +52,19 @@ def test_rqslider(model: Union[RQInt, RQFloat, int, float], qtbot: 'QtBot', wind
     widget_1.setValue(70)
     assert widget_1.value() == 70
 
-    if isinstance(model, RQInt) or isinstance(model, RQFloat):
+    if isinstance(model, (RQInt, RQFloat)):
         assert widget_2.value() == 70
         widget_2.setValue(30)
         assert widget_1.value() == 30
         assert widget_2.value() == 30
 
 
-def test_rqslider_readonly(qtbot: 'QtBot') -> None:
-    m = RQComputedInt(
+def test_rqslider_readonly(
+        qtbot: 'QtBot'  # pylint: disable=unused-argument
+) -> None:
+    model = RQComputedInt(
         lambda: 1
     )
 
     with pytest.raises(IOError):
-        m = RQSlider(m)
+        model = RQSlider(model)

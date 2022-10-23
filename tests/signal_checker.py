@@ -1,6 +1,6 @@
 from typing import Dict, Union
 
-from qtpy.QtCore import QObject, Signal, Slot  # type: ignore
+from qtpy.QtCore import Signal  # type: ignore
 
 triggered: Dict[Signal, Union[bool, int]] = {
 
@@ -30,7 +30,7 @@ def disconnect_signal(signal: Signal) -> None:
 
 
 def assert_signal_emitted(signal: Signal) -> None:
-    assert triggered[signal] == True
+    assert triggered[signal] is True
     triggered[signal] = False
 
 

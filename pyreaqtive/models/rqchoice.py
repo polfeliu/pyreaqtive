@@ -125,3 +125,11 @@ class RQChoice(RQModel):
             Any: item in the list indicated by index
         """
         return self.get_choices().__getitem__(index)
+
+    def __len__(self) -> int:
+        """Get number of the choices.
+
+        Returns:
+            number of choices
+        """
+        return self.get_choices().__len__()

@@ -1,8 +1,8 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 from pyreaqtive import rq_getattr
 
-from .qtbot_window import window_fixture
+from .qtbot_window import window_fixture  # pylint: disable=unused-import
 
 if TYPE_CHECKING:
     from pytestqt.qtbot import QtBot  # type: ignore
@@ -18,7 +18,10 @@ class SampleObject:
         self.count += 1
 
 
-def test_getattr(qtbot: 'QtBot', window_fixture: 'QMainWindow') -> None:
+def test_getattr(
+        qtbot: 'QtBot',  # pylint: disable=unused-argument
+        window_fixture: 'QMainWindow'  # pylint: disable=redefined-outer-name, unused-argument
+) -> None:
     inst = SampleObject()
 
     reactive_count = rq_getattr(inst, "count")

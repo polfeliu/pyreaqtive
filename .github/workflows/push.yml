@@ -44,7 +44,7 @@ jobs:
 
       - name: Run pylint
         run: |
-          pipenv run pylint pyreaqtive --rcfile=.pylintrc
+          pipenv run pylint pyreaqtive tests --rcfile=.pylintrc
 
       - name: Run pydocstyle
         run: |
@@ -87,7 +87,7 @@ jobs:
         if: matrix.python-version == '3.9'
         run: |
           pytest
-          
+
       - name: Build Docs
         if: matrix.python-version == '3.8'
         run: |

@@ -8,7 +8,9 @@ if TYPE_CHECKING:
     from pytestqt.qtbot import QtBot  # type: ignore
 
 
-def test_rqcombobox_rqchoice(qtbot: 'QtBot') -> None:
+def test_rqcombobox_rqchoice(
+        qtbot: 'QtBot'  # pylint: disable=unused-argument
+) -> None:
     choices = RQList([1, 2, 4])
     selection = RQChoice(
         choices=choices,
@@ -32,7 +34,7 @@ def test_rqcombobox_rqchoice(qtbot: 'QtBot') -> None:
     with pytest.raises(ValueError):
         selection.set(None)
 
-    selection._allow_none = True
+    selection._allow_none = True  # pylint: disable=protected-access
     combobox = RQCombobox(model=selection)
     selection.set(None)
     assert combobox.currentText() == 'None'

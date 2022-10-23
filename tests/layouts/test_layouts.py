@@ -1,11 +1,11 @@
 from typing import TYPE_CHECKING
-
-import pytest
-from pyreaqtive import RQBoxLayout, RQHBoxLayout, RQVBoxLayout, RQList
-import pytest_cases
 from PyQt5.QtWidgets import QWidget
 
-from ..qtbot_window import window_fixture
+import pytest_cases
+
+from pyreaqtive import RQBoxLayout, RQHBoxLayout, RQVBoxLayout, RQList
+
+from ..qtbot_window import window_fixture  # pylint: disable=unused-import
 
 if TYPE_CHECKING:
     from pytestqt.qtbot import QtBot  # type: ignore
@@ -17,17 +17,23 @@ class ItemWidget(QWidget):
     def __init__(self, item: int, list_model: RQList):
         super().__init__()
         self.item = item
+        self.list_model = list_model
 
 
 @pytest_cases.parametrize("layout_class", [RQHBoxLayout, RQVBoxLayout])
 @pytest_cases.parametrize("widget_callback", [True, False])
 @pytest_cases.parametrize("initial", [True, False])
-def test_layouts(layout_class: RQBoxLayout, widget_callback: bool, initial: bool, qtbot: 'QtBot',
-                 window_fixture: 'QMainWindow') -> None:
+def test_layouts(
+        layout_class: RQBoxLayout,
+        widget_callback: bool,
+        initial: bool,
+        qtbot: 'QtBot',  # pylint: disable=unused-argument
+        window_fixture: 'QMainWindow'  # pylint: disable=redefined-outer-name
+) -> None:
     if initial:
-        list = RQList([1, 7, 3])
+        lst = RQList([1, 7, 3])
     else:
-        list = RQList()
+        lst = RQList()
 
     if widget_callback:
         def widget(item: int, list_model: RQList) -> ItemWidget:
@@ -36,7 +42,7 @@ def test_layouts(layout_class: RQBoxLayout, widget_callback: bool, initial: bool
         widget = ItemWidget
 
     layout = layout_class(
-        model=list,
+        model=lst,
         widget=widget
     )
     main_widget = QWidget()
@@ -52,7 +58,7 @@ def test_layouts(layout_class: RQBoxLayout, widget_callback: bool, initial: bool
         assert layout.itemAt(1).widget().item == 7
         assert layout.itemAt(2).widget().item == 3
 
-    list.insert(0, 2)
+    lst.insert(0, 2)
     if not initial:
         assert layout.count() == 1
         assert layout.itemAt(0).widget().item == 2
@@ -63,7 +69,7 @@ def test_layouts(layout_class: RQBoxLayout, widget_callback: bool, initial: bool
         assert layout.itemAt(2).widget().item == 7
         assert layout.itemAt(3).widget().item == 3
 
-    list.append(95)
+    lst.append(95)
     if not initial:
         assert layout.count() == 2
         assert layout.itemAt(0).widget().item == 2
@@ -76,7 +82,7 @@ def test_layouts(layout_class: RQBoxLayout, widget_callback: bool, initial: bool
         assert layout.itemAt(3).widget().item == 3
         assert layout.itemAt(4).widget().item == 95
 
-    list.remove_all(7)
+    lst.remove_all(7)
     if not initial:
         assert layout.count() == 2
         assert layout.itemAt(0).widget().item == 2
@@ -88,7 +94,7 @@ def test_layouts(layout_class: RQBoxLayout, widget_callback: bool, initial: bool
         assert layout.itemAt(2).widget().item == 3
         assert layout.itemAt(3).widget().item == 95
 
-    list.remove_all(2)
+    lst.remove_all(2)
     if not initial:
         assert layout.count() == 1
         assert layout.itemAt(0).widget().item == 95
@@ -98,5 +104,5 @@ def test_layouts(layout_class: RQBoxLayout, widget_callback: bool, initial: bool
         assert layout.itemAt(1).widget().item == 3
         assert layout.itemAt(2).widget().item == 95
 
-    list.clear()
+    lst.clear()
     assert layout.count() == 0
