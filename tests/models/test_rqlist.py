@@ -3,7 +3,7 @@ from pyreaqtive import RQList, RQModel, RQInt, RQComputedList
 from tests.signal_checker import *
 
 
-def test_init():
+def test_init() -> None:
     initial = [1, 6, 4]
     m = RQList(initial_items=initial)
 
@@ -13,7 +13,7 @@ def test_init():
     assert m._list == []
 
 
-def test_del():
+def test_del() -> None:
     m = RQList([8, 4, 5])
 
     connect_signal(m.rq_data_changed)
@@ -40,7 +40,7 @@ def test_del():
         (-1, 2, None),
         (-1, 5, 3)
     ])
-def test_del_slice(start, stop, step):
+def test_del_slice(start: int, stop: int, step: Union[int, None]) -> None:
     l = [8, 4, 5, 6, 7, 3, 7, 5]
     m = RQList(l)
 
@@ -55,14 +55,14 @@ def test_del_slice(start, stop, step):
     assert list(m) == l
 
 
-def test_clear():
+def test_clear() -> None:
     m = RQList([8, 4, 5])
     m.clear()
 
     assert list(m) == []
 
 
-def test_insert():
+def test_insert() -> None:
     m = RQList([5])
     connect_signal(m.rq_data_changed)
     connect_int_signal(m.rq_list_insert)
@@ -78,7 +78,7 @@ def test_insert():
     assert list(m) == [3, 5, 7]
 
 
-def test_append():
+def test_append() -> None:
     m = RQList([7])
     connect_signal(m.rq_data_changed)
     connect_int_signal(m.rq_list_insert)
@@ -89,78 +89,78 @@ def test_append():
     assert list(m) == [7, 3]
 
 
-def test_set():
+def test_set() -> None:
     m = RQList([7, 4, 6])
     m.set([1, 4, 8])
 
     assert list(m) == [1, 4, 8]
 
 
-def test_get():
+def test_get() -> None:
     m = RQList([7, 4, 6])
     assert m.get() == [7, 4, 6]
 
 
-def test_remove():
+def test_remove() -> None:
     m = RQList([2, 7, 43, 2, 67])
     m.remove(2)
 
     assert list(m) == [7, 43, 2, 67]
 
 
-def test_remove_all():
+def test_remove_all() -> None:
     m = RQList([2, 7, 43, 2, 67])
     m.remove_all(2)
 
     assert list(m) == [7, 43, 67]
 
 
-def test_get_item():
+def test_get_item() -> None:
     m = RQList([2, 7, 43, 2, 67])
 
     assert m[0] == 2
     assert m[2] == 43
 
 
-def test_index():
+def test_index() -> None:
     m = RQList([2, 7, 43, 2, 67])
 
     assert m.index(2) == 0
     assert m.index(7) == 1
 
 
-def test_iteration():
+def test_iteration() -> None:
     m = RQList([1, 2, 3])
 
     for i in m:
         assert i in range(1, 4)
 
 
-def test_length():
+def test_length() -> None:
     m = RQList([2, 7, 43, 2, 67])
 
     assert len(m) == 5
 
 
-def test_count():
+def test_count() -> None:
     m = RQList([2, 7, 43, 2, 67, 2])
 
     assert m.count(2) == 3
 
 
-def test_extend():
+def test_extend() -> None:
     m = RQList([2, 7])
 
     m.extend([6, 34])
     assert list(m) == [2, 7, 6, 34]
 
 
-def test_contains():
+def test_contains() -> None:
     m = RQList([2, 7])
     assert 7 in m
 
 
-def test_rq_models_deletion():
+def test_rq_models_deletion() -> None:
     m1 = RQModel()
 
     class SubModel(RQModel):
@@ -178,7 +178,7 @@ def test_rq_models_deletion():
     assert len(m) == 0
 
 
-def test_reactive_indexes():
+def test_reactive_indexes() -> None:
     class Class:
         pass
 
@@ -200,7 +200,7 @@ def test_reactive_indexes():
     assert ci.get() == 1
 
 
-def test_computed():
+def test_computed() -> None:
     numbers = RQList([1, 6, 3, 34, 77, 5, 82])
     threshold = RQInt(0)
 

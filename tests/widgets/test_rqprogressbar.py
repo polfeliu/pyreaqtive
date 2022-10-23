@@ -1,7 +1,13 @@
+from typing import TYPE_CHECKING, Union
+
 from pyreaqtive import RQProgressBar, RQFloat, RQInt
 import pytest_cases
 
 from ..qtbot_window import window_fixture
+
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
 
 
 @pytest_cases.parametrize("model", [
@@ -11,7 +17,7 @@ from ..qtbot_window import window_fixture
     7.3,
     1007
 ])
-def test_rqprogressbar(model, qtbot, window_fixture):
+def test_rqprogressbar(model: Union[RQInt, RQFloat, int, float], qtbot: 'QtBot', window_fixture: 'QMainWindow') -> None:
     widget = RQProgressBar(model)
 
     window_fixture.layout().addWidget(widget)

@@ -1,10 +1,11 @@
+from typing import Callable
 import pytest
 
 from pyreaqtive import RQModel, RQComputedModel, RQInt
 from tests.signal_checker import *
 
 
-def test_model():
+def test_model() -> None:
     m = RQModel()
     connect_signal(m.rq_data_changed)
     connect_signal(m._rq_delete)
@@ -22,19 +23,19 @@ def test_model():
     assert_signal_emitted(m._rq_delete)
 
 
-def test_reactive_model():
+def test_reactive_model() -> None:
     m1 = RQInt(2)
     m2 = RQInt(5)
     m3 = 10
 
-    def callback(m1, m2):
+    def callback(m1: int, m2: int) -> int:
         return m1 * m2
 
     with pytest.raises(TypeError):
         RQComputedModel(lambda: None)
 
     class TestRQModel(RQComputedModel, RQInt):
-        def __init__(self, function, **kwargs: RQModel):
+        def __init__(self, function: Callable, **kwargs: RQModel) -> None:
             RQInt.__init__(self, 0)
             RQComputedModel.__init__(self, function, **kwargs)
 

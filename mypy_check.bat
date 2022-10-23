@@ -1,1 +1,1 @@
-pipenv run mypy -m pyreaqtive -m tests --config-file mypy.ini
+pipenv run mypy  --sqlite-cache --package pyreaqtive --package tests --config-file mypy.ini

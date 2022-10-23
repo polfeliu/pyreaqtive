@@ -4,7 +4,7 @@ from tests.signal_checker import *
 
 
 @pytest_cases.parametrize("initial", [-4, 0, 8, 23323])
-def test_int(initial):
+def test_int(initial: int) -> None:
     m = RQInt(initial)
     connect_signal(m.rq_data_changed)
 
@@ -35,7 +35,7 @@ def test_int(initial):
     assert m.get() == 95
 
 
-def test_computed_int():
+def test_computed_int() -> None:
     m1 = RQInt(2)
     m2 = RQInt(5)
 

@@ -1,21 +1,27 @@
+from typing import TYPE_CHECKING, Union, Type, Callable
+
 from pyreaqtive import RQWidgetObject, RQObject
 import pytest_cases
 
 from PyQt5.QtWidgets import *
 from ..qtbot_window import window_fixture
 
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
+
 
 class SampleObject:
-    def __init__(self, text):
+    def __init__(self, text: str) -> None:
         self.text = text
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.text
 
 
 class WidgetA(QWidget):
 
-    def __init__(self, obj):
+    def __init__(self, obj: SampleObject) -> None:
         super(WidgetA, self).__init__()
         self.obj = obj
         self.main_layout = QHBoxLayout(self)
@@ -24,7 +30,7 @@ class WidgetA(QWidget):
 
 class WidgetB(QWidget):
 
-    def __init__(self, obj):
+    def __init__(self, obj: SampleObject) -> None:
         super(WidgetB, self).__init__()
         self.obj = obj
         self.main_layout = QHBoxLayout(self)
@@ -32,15 +38,22 @@ class WidgetB(QWidget):
 
 
 @pytest_cases.parametrize("widget_callback", [True, False])
-@pytest_cases.parametrize("layout", [QHBoxLayout, QVBoxLayout])
-def test_rqwidget(widget_callback, layout, qtbot, window_fixture):
+@pytest_cases.parametrize("layout_type", [QHBoxLayout, QVBoxLayout])
+def test_rqwidget(widget_callback: bool, layout_type: Union[Type[QHBoxLayout], Type[QVBoxLayout]], qtbot: 'QtBot',
+                  window_fixture: 'QMainWindow') -> None:
     instance_1 = SampleObject("INST1")
     instance_2 = SampleObject("INST2")
 
     model = RQObject(instance_1)
-    layout = layout()
+    layout = layout_type()
+
+    widget: Union[Type[QWidget], Callable[[object], QWidget]]
+
     if widget_callback:
-        def widget(obj):
+        def widget(obj: object) -> QWidget:
+            if not isinstance(obj, SampleObject):
+                raise TypeError
+
             if obj == instance_1:
                 return WidgetA(obj)
             elif obj == instance_2:

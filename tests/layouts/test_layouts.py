@@ -1,10 +1,15 @@
-import pytest
+from typing import TYPE_CHECKING
 
-from pyreaqtive import RQHBoxLayout, RQVBoxLayout, RQList
+import pytest
+from pyreaqtive import RQBoxLayout, RQHBoxLayout, RQVBoxLayout, RQList
 import pytest_cases
 from PyQt5.QtWidgets import QWidget
 
 from ..qtbot_window import window_fixture
+
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
 
 
 class ItemWidget(QWidget):
@@ -17,14 +22,15 @@ class ItemWidget(QWidget):
 @pytest_cases.parametrize("layout_class", [RQHBoxLayout, RQVBoxLayout])
 @pytest_cases.parametrize("widget_callback", [True, False])
 @pytest_cases.parametrize("initial", [True, False])
-def test_layouts(layout_class, widget_callback, initial, qtbot, window_fixture):
+def test_layouts(layout_class: RQBoxLayout, widget_callback: bool, initial: bool, qtbot: 'QtBot',
+                 window_fixture: 'QMainWindow') -> None:
     if initial:
         list = RQList([1, 7, 3])
     else:
         list = RQList()
 
     if widget_callback:
-        def widget(item: int, list_model: RQList):
+        def widget(item: int, list_model: RQList) -> ItemWidget:
             return ItemWidget(item, list_model)
     else:
         widget = ItemWidget

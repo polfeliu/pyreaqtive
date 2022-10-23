@@ -7,7 +7,7 @@ from tests.signal_checker import *
 
 @pytest_cases.parametrize("allow_none", [True, False])
 @pytest_cases.parametrize("list_reactive", [True, False])
-def test_choice_list(list_reactive, allow_none):
+def test_choice_list(list_reactive: bool, allow_none: bool) -> None:
     choices = [
         'lorem',
         'ipsum',
@@ -79,7 +79,7 @@ def test_choice_list(list_reactive, allow_none):
 
 
 @pytest_cases.parametrize("allow_none", [True, False])
-def test_choice_enum(allow_none):
+def test_choice_enum(allow_none: bool) -> None:
     class Choices(Enum):
         Lorem = auto()
         Ipsum = auto()

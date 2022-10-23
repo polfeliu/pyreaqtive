@@ -1,9 +1,14 @@
+from typing import TYPE_CHECKING
+
 import pytest
 
 from pyreaqtive import RQChoice, RQCombobox, RQList
 
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
 
-def test_rqcombobox_rqchoice(qtbot):
+
+def test_rqcombobox_rqchoice(qtbot: 'QtBot') -> None:
     choices = RQList([1, 2, 4])
     selection = RQChoice(
         choices=choices,

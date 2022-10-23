@@ -1,10 +1,16 @@
+from typing import TYPE_CHECKING
+
 from pyreaqtive import RQBool, RQComputedBool, RQCheckBox
 import pytest_cases
 import pytest
 
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
+
 
 @pytest_cases.parametrize("initial_state", [True, False])
-def test_rqcheckbox_rqbool(initial_state, qtbot):
+def test_rqcheckbox_rqbool(initial_state: bool, qtbot: 'QtBot') -> None:
     state = RQBool(initial_state)
 
     checkbox_1 = RQCheckBox(state, "checkbox 1")
@@ -34,13 +40,13 @@ def test_rqcheckbox_rqbool(initial_state, qtbot):
 
 
 @pytest_cases.parametrize("initial_state", [True, False])
-def test_rqcheckbox_non_reactive(initial_state, qtbot):
+def test_rqcheckbox_non_reactive(initial_state: bool, qtbot: 'QtBot') -> None:
     checkbox = RQCheckBox(initial_state)
     assert isinstance(checkbox.model, RQBool)
     assert checkbox.isChecked() == initial_state
 
 
-def test_checkbox_readonly():
+def test_checkbox_readonly() -> None:
     m = RQComputedBool(
         lambda: True
     )

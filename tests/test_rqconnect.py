@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from pyreaqtive import RQFloat, RQDoubleSpinBox, RQConnect
 import pytest_cases
 from enum import Enum, auto
@@ -9,8 +11,13 @@ class Conversion(Enum):
     LinearConversion = auto()
 
 
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
+
+
 @pytest_cases.parametrize("conversion", [Conversion.Conversion, Conversion.LinearConversion])
-def test_rqconnect(conversion, qtbot, window_fixture):
+def test_rqconnect(conversion: Conversion, qtbot: 'QtBot', window_fixture: 'QMainWindow') -> None:
     celsius = RQFloat(1)
     fahrenheit = RQFloat(1)
 

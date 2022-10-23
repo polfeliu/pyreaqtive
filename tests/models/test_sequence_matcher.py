@@ -10,7 +10,7 @@ class Operation(Enum):
 
 
 @pytest.mark.parametrize("iteration", range(100))
-def test_sequence_matcher(iteration):
+def test_sequence_matcher(iteration: int) -> None:
     initial_list = random.sample(
         population=range(0, 100),
         k=random.randint(0, 50)

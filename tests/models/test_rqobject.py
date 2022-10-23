@@ -4,18 +4,18 @@ from tests.signal_checker import *
 from pyreaqtive import RQObject
 
 
-def test_object():
+def test_object() -> None:
     class Sample:
         pass
 
     class DunderSamples:
-        def __str__(self):
+        def __str__(self) -> str:
             return "Hello"
 
-        def __int__(self):
+        def __int__(self) -> int:
             return 8
 
-        def __float__(self):
+        def __float__(self) -> float:
             return 1.5
 
     inst1 = Sample()

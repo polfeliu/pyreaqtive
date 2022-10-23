@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING, Union
+
 from pyreaqtive import RQText, RQComputedText, RQLineEdit
 import pytest_cases
 import pytest
@@ -5,11 +7,18 @@ from PyQt5 import QtCore
 
 from ..qtbot_window import window_fixture
 
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
+
 
 @pytest_cases.parametrize("initial_value", ["Hello"])
 @pytest_cases.parametrize("reactive", [True, False])
 @pytest_cases.parametrize("wait_for_finish", [True, False])
-def test_rqdial(initial_value, reactive, wait_for_finish, qtbot, window_fixture):
+def test_rqdial(initial_value: str, reactive: bool, wait_for_finish: bool, qtbot: 'QtBot',
+                window_fixture: 'QMainWindow') -> None:
+    model: Union[str, RQText]
+
     if reactive:
         model = RQText(initial_value)
     else:
@@ -51,7 +60,7 @@ def test_rqdial(initial_value, reactive, wait_for_finish, qtbot, window_fixture)
         assert widget_2.text() == "world"
 
 
-def test_rqdial_readonly(qtbot):
+def test_rqdial_readonly(qtbot: 'QtBot') -> None:
     m = RQComputedText(
         lambda: "Lorem"
     )

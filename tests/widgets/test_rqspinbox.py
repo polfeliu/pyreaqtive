@@ -1,8 +1,14 @@
+from typing import TYPE_CHECKING, Union
+
 from pyreaqtive import RQInt, RQComputedInt, RQSpinBox
 import pytest_cases
 import pytest
 from PyQt5 import QtCore
 from ..qtbot_window import window_fixture
+
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
 
 
 @pytest_cases.parametrize("initial_value", [
@@ -12,7 +18,10 @@ from ..qtbot_window import window_fixture
 ])
 @pytest_cases.parametrize("reactive", [True, False])
 @pytest_cases.parametrize("wait_for_finish", [True, False])
-def test_rqdial(initial_value, reactive, wait_for_finish, qtbot, window_fixture):
+def test_rqdial(initial_value: int, reactive: bool, wait_for_finish: bool, qtbot: 'QtBot',
+                window_fixture: 'QMainWindow') -> None:
+    model: Union[RQInt, int]
+
     if reactive:
         model = RQInt(initial_value)
     else:
@@ -50,7 +59,7 @@ def test_rqdial(initial_value, reactive, wait_for_finish, qtbot, window_fixture)
         assert widget_2.value() == 30
 
 
-def test_rqdial_readonly(qtbot):
+def test_rqdial_readonly(qtbot: 'QtBot') -> None:
     m = RQComputedInt(
         lambda: 1
     )

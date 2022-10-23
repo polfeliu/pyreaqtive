@@ -4,7 +4,7 @@ from tests.signal_checker import *
 
 
 @pytest_cases.parametrize("initial", [-5.4, 0.0, 3.6, 1000053.4])
-def test_float(initial):
+def test_float(initial: float) -> None:
     m = RQFloat(initial)
     connect_signal(m.rq_data_changed)
 
@@ -21,7 +21,7 @@ def test_float(initial):
     assert m.get() == 90.5
 
 
-def test_computed_float():
+def test_computed_float() -> None:
     m1 = RQFloat(5.5)
     m2 = RQFloat(2)
 

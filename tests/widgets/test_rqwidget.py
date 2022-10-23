@@ -1,7 +1,13 @@
+from typing import TYPE_CHECKING, Union
+
 from pyreaqtive import RQInt, RQWidget, RQBool, RQFloat, RQText, RQLabel
 import pytest_cases
 
 from ..qtbot_window import window_fixture
+
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
 
 
 @pytest_cases.parametrize("model", [
@@ -13,7 +19,9 @@ from ..qtbot_window import window_fixture
 ])
 @pytest_cases.parametrize('rq_if', [RQBool(False), RQBool(True), None])
 @pytest_cases.parametrize('rq_disabled', [RQBool(False), RQBool(True), None])
-def test_rqwidget(model, rq_if, rq_disabled, qtbot, window_fixture):
+def test_rqwidget(model: Union[RQInt, str, bool, int, float], rq_if: Union[RQBool, None],
+                  rq_disabled: Union[RQBool, None], qtbot: 'QtBot',
+                  window_fixture: 'QMainWindow') -> None:
     w = RQWidget(
         model=model,
         rq_if=rq_if,
@@ -34,8 +42,6 @@ def test_rqwidget(model, rq_if, rq_disabled, qtbot, window_fixture):
     elif model == 6.2:
         assert isinstance(w.model, RQFloat)
         assert w.model.get() == 6.2
-    elif model is None:
-        assert w.model is None
     else:
         raise NotImplementedError
 

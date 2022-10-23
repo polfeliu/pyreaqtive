@@ -1,7 +1,13 @@
+from typing import TYPE_CHECKING, Union
+
 from pyreaqtive import RQFloat, RQInt, RQDial, RQComputedInt
 import pytest_cases
 import pytest
 from ..qtbot_window import window_fixture
+
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
 
 
 @pytest_cases.parametrize("model", [
@@ -12,7 +18,7 @@ from ..qtbot_window import window_fixture
     1007,
     -6
 ])
-def test_rqdial(model, qtbot, window_fixture):
+def test_rqdial(model: Union[RQInt, RQFloat, int, float], qtbot: 'QtBot', window_fixture: 'QMainWindow') -> None:
     widget_1 = RQDial(model)
     window_fixture.layout().addWidget(widget_1)
 
@@ -47,7 +53,7 @@ def test_rqdial(model, qtbot, window_fixture):
         assert widget_2.value() == 30
 
 
-def test_rqdial_readonly(qtbot):
+def test_rqdial_readonly(qtbot: 'QtBot') -> None:
     m = RQComputedInt(
         lambda: 1
     )

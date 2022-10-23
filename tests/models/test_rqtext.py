@@ -3,7 +3,7 @@ import pytest_cases
 from tests.signal_checker import *
 
 
-def test_text():
+def test_text() -> None:
     m = RQText("Hello")
     connect_signal(m.rq_data_changed)
 
@@ -18,7 +18,7 @@ def test_text():
     assert str(m) == "Hello World"
 
 
-def test_computed_text():
+def test_computed_text() -> None:
     m1 = RQText()
     m2 = RQText()
 
@@ -40,7 +40,7 @@ def test_computed_text():
     assert mc.get() == "Hello World"
 
 
-def test_computed_text_format():
+def test_computed_text_format() -> None:
     m1 = RQText("Hello")
     m2 = RQText("World")
 
