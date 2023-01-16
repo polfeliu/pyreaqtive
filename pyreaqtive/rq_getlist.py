@@ -2,7 +2,7 @@ from pyreaqtive import RQList
 
 
 def rq_getlist(obj: object, attribute_name: str) -> RQList:
-    """Reactive Get List
+    """Reactive Get List.
 
     Replaces a list of an object by an RQList and returns it
 

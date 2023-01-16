@@ -5,7 +5,7 @@ from .models import RQModel
 
 
 class AbstractConversion(ABC):
-    """Base model for bidirectional conversion of two models"""
+    """Base model for bidirectional conversion of two models."""
 
     @abstractmethod
     def convert_a_to_b(self, a: Any) -> Any:  # pylint: disable= invalid-name
@@ -17,7 +17,7 @@ class AbstractConversion(ABC):
 
 
 class Conversion(AbstractConversion):
-    """Conversion Declared with two functions"""
+    """Conversion Declared with two functions."""
 
     def __init__(self,
                  a_to_b: Callable[[Any], Any],
@@ -34,7 +34,7 @@ class Conversion(AbstractConversion):
 
 
 class LinearConversion(AbstractConversion):
-    """Linear Conversion Declared with scale and offset"""
+    """Linear Conversion Declared with scale and offset."""
 
     def __init__(self, scale_a_to_b: float, offset_a_to_b: float = 0):
         self.scale_a_to_b = scale_a_to_b
@@ -48,7 +48,7 @@ class LinearConversion(AbstractConversion):
 
 
 class RQConnect:
-    """Bidirectional connection between two models"""
+    """Bidirectional connection between two models."""
 
     Conversion = Conversion
     LinearConversion = LinearConversion

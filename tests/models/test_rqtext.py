@@ -1,58 +1,58 @@
+from tests.signal_checker import connect_signal, assert_signal_emitted
+
 from pyreaqtive import RQText, RQComputedText
-import pytest_cases
-from tests.signal_checker import *
 
 
-def test_text():
-    m = RQText("Hello")
-    connect_signal(m.rq_data_changed)
+def test_text() -> None:
+    model = RQText("Hello")
+    connect_signal(model.rq_data_changed)
 
-    assert m._text == "Hello"
-    assert m.get() == "Hello"
-    assert str(m) == "Hello"
+    assert model._text == "Hello"  # pylint: disable=protected-access
+    assert model.get() == "Hello"
+    assert str(model) == "Hello"
 
-    m.set("Hello World")
-    assert_signal_emitted(m.rq_data_changed)
-    assert m._text == "Hello World"
-    assert m.get() == "Hello World"
-    assert str(m) == "Hello World"
+    model.set("Hello World")
+    assert_signal_emitted(model.rq_data_changed)
+    assert model._text == "Hello World"  # pylint: disable=protected-access
+    assert model.get() == "Hello World"
+    assert str(model) == "Hello World"
 
 
-def test_computed_text():
-    m1 = RQText()
-    m2 = RQText()
+def test_computed_text() -> None:
+    model1 = RQText()
+    model2 = RQText()
 
-    mc = RQComputedText(
+    model_computed = RQComputedText(
         lambda m1, m2: m1 + m2,
-        m1=m1,
-        m2=m2
+        m1=model1,
+        m2=model2
     )
-    connect_signal(mc.rq_data_changed)
+    connect_signal(model_computed.rq_data_changed)
 
-    assert mc.get() == ""
+    assert model_computed.get() == ""
 
-    m1.set("Hello")
-    assert_signal_emitted(mc.rq_data_changed)
-    assert mc.get() == "Hello"
+    model1.set("Hello")
+    assert_signal_emitted(model_computed.rq_data_changed)
+    assert model_computed.get() == "Hello"
 
-    m2.set(" World")
-    assert_signal_emitted(mc.rq_data_changed)
-    assert mc.get() == "Hello World"
+    model2.set(" World")
+    assert_signal_emitted(model_computed.rq_data_changed)
+    assert model_computed.get() == "Hello World"
 
 
-def test_computed_text_format():
-    m1 = RQText("Hello")
-    m2 = RQText("World")
+def test_computed_text_format() -> None:
+    model1 = RQText("Hello")
+    model2 = RQText("World")
 
-    mc = RQComputedText(
+    model_computed = RQComputedText(
         "{m1} {m2}!",
-        m1=m1,
-        m2=m2
+        m1=model1,
+        m2=model2
     )
-    connect_signal(mc.rq_data_changed)
+    connect_signal(model_computed.rq_data_changed)
 
-    assert mc.get() == "Hello World!"
+    assert model_computed.get() == "Hello World!"
 
-    m2.set("Mars")
-    assert_signal_emitted(mc.rq_data_changed)
-    assert mc.get() == "Hello Mars!"
+    model2.set("Mars")
+    assert_signal_emitted(model_computed.rq_data_changed)
+    assert model_computed.get() == "Hello Mars!"

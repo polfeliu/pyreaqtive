@@ -12,10 +12,10 @@ if TYPE_CHECKING:
 
 
 class RQProgressBar(RQWidget, QProgressBar):
-    """Reactive ProgressBar Widget"""
+    """Reactive ProgressBar Widget."""
 
     model: Union[RQInt, RQFloat, RQObject]
-    """Model linked to the widget"""
+    """Model linked to the widget."""
 
     def __init__(self,
                  model: Union[RQInt, RQFloat, int, float, RQObject],

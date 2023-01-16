@@ -1,60 +1,61 @@
-from pyreaqtive import RQBool, RQComputedBool
 import pytest_cases
-from tests.signal_checker import *
+from tests.signal_checker import connect_signal, assert_signal_emitted
+
+from pyreaqtive import RQBool, RQComputedBool
 
 
-def assert_bool_state(m, state):
-    assert m._bool == state
-    assert m.get() == state
-    assert bool(m) == state
+def assert_bool_state(model: RQBool, state: bool) -> None:
+    assert model._bool == state  # pylint: disable=protected-access
+    assert model.get() == state
+    assert bool(model) == state
 
     if state:
-        assert str(m) == "True"
+        assert str(model) == "True"
     else:
-        assert str(m) == "False"
+        assert str(model) == "False"
 
 
 @pytest_cases.parametrize("initial_state", [True, False])
-def test_bool(initial_state):
-    m = RQBool(initial_state)
-    connect_signal(m.rq_data_changed)
+def test_bool(initial_state: bool) -> None:
+    model = RQBool(initial_state)
+    connect_signal(model.rq_data_changed)
 
-    assert_bool_state(m, initial_state)
+    assert_bool_state(model, initial_state)
 
-    m.set(initial_state)
-    assert_signal_emitted(m.rq_data_changed)
-    assert_bool_state(m, initial_state)
+    model.set(initial_state)
+    assert_signal_emitted(model.rq_data_changed)
+    assert_bool_state(model, initial_state)
 
-    m.set(not initial_state)
-    assert_signal_emitted(m.rq_data_changed)
-    assert_bool_state(m, not initial_state)
+    model.set(not initial_state)
+    assert_signal_emitted(model.rq_data_changed)
+    assert_bool_state(model, not initial_state)
 
-    m.toggle()
-    assert_signal_emitted(m.rq_data_changed)
-    assert_bool_state(m, initial_state)
+    model.toggle()
+    assert_signal_emitted(model.rq_data_changed)
+    assert_bool_state(model, initial_state)
 
 
-def test_computed_bool():
-    m1 = RQBool(True)
-    m2 = RQBool(True)
+def test_computed_bool() -> None:
+    model1 = RQBool(True)
+    model2 = RQBool(True)
 
-    mc = RQComputedBool(
+    model_computed = RQComputedBool(
         lambda m1, m2: m1 and m2,
-        m1=m1,
-        m2=m2
+        m1=model1,
+        m2=model2
     )
 
-    assert mc.get() is True
+    assert model_computed.get() is True
 
-    m1.set(False)
+    model1.set(False)
 
-    assert mc.get() is False
+    assert model_computed.get() is False
 
-    m2.set(False)
+    model2.set(False)
 
-    assert mc.get() is False
+    assert model_computed.get() is False
 
-    m1.set(True)
-    m2.set(True)
+    model1.set(True)
+    model2.set(True)
 
-    assert mc.get() is True
+    assert model_computed.get() is True

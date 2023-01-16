@@ -1,62 +1,63 @@
+from typing import Callable
+
 import pytest
+from tests.signal_checker import connect_signal, assert_signal_emitted
 
 from pyreaqtive import RQModel, RQComputedModel, RQInt
-from tests.signal_checker import *
 
 
-def test_model():
-    m = RQModel()
-    connect_signal(m.rq_data_changed)
-    connect_signal(m._rq_delete)
-
-    with pytest.raises(NotImplementedError):
-        m.get()
+def test_model() -> None:
+    model = RQModel()
+    connect_signal(model.rq_data_changed)
+    connect_signal(model._rq_delete)  # pylint: disable=protected-access
 
     with pytest.raises(NotImplementedError):
-        m.set(1)
+        model.get()
 
-    m.rq_data_changed.emit()
-    assert_signal_emitted(m.rq_data_changed)
+    with pytest.raises(NotImplementedError):
+        model.set(1)
 
-    m.__del__()
-    assert_signal_emitted(m._rq_delete)
+    model.rq_data_changed.emit()
+    assert_signal_emitted(model.rq_data_changed)
+
+    model.__del__()  # pylint: disable=unnecessary-dunder-call
+    assert_signal_emitted(model._rq_delete)  # pylint: disable=protected-access
 
 
-def test_reactive_model():
-    m1 = RQInt(2)
-    m2 = RQInt(5)
-    m3 = 10
+def test_reactive_model() -> None:
+    model1 = RQInt(2)
+    model2 = RQInt(5)
 
-    def callback(m1, m2):
-        return m1 * m2
+    def callback(model1: int, model2: int) -> int:
+        return model1 * model2
 
     with pytest.raises(TypeError):
         RQComputedModel(lambda: None)
 
     class TestRQModel(RQComputedModel, RQInt):
-        def __init__(self, function, **kwargs: RQModel):
+        def __init__(self, function: Callable, **kwargs: RQModel) -> None:
             RQInt.__init__(self, 0)
             RQComputedModel.__init__(self, function, **kwargs)
 
-    mc = TestRQModel(
+    model_computed = TestRQModel(
         callback,
-        m1=m1,
-        m2=m2
+        model1=model1,
+        model2=model2
     )
 
-    assert mc.rq_read_only == True
-    assert mc.rq_computed_function == callback
-    assert mc.rq_computed_variables['m1'] == m1
-    assert mc.rq_computed_variables['m2'] == m2
+    assert model_computed.rq_read_only is True
+    assert model_computed.rq_computed_function == callback
+    assert model_computed.rq_computed_variables['model1'] == model1
+    assert model_computed.rq_computed_variables['model2'] == model2
 
-    assert mc.get() == 10
+    assert model_computed.get() == 10
 
     with pytest.raises(RuntimeError):
-        mc.set(1)
+        model_computed.set(1)
 
-    m1.set(1)
-    assert mc.get() == 5
+    model1.set(1)
+    assert model_computed.get() == 5
 
-    m1.set(10)
-    m2.set(10)
-    assert mc.get() == 100
+    model1.set(10)
+    model2.set(10)
+    assert model_computed.get() == 100

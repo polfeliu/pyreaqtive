@@ -1,35 +1,38 @@
+from typing import Any, Union
+
 import pytest
+from tests.signal_checker import connect_signal, assert_signal_emitted, assert_int_signal, connect_int_signal
+
 from pyreaqtive import RQList, RQModel, RQInt, RQComputedList
-from tests.signal_checker import *
 
 
-def test_init():
+def test_init() -> None:
     initial = [1, 6, 4]
-    m = RQList(initial_items=initial)
+    model = RQList(initial_items=initial)
 
-    assert m._list == initial
+    assert model._list == initial  # pylint: disable=protected-access
 
-    m = RQList()
-    assert m._list == []
+    model = RQList()
+    assert model._list == []  # pylint: disable=protected-access
 
 
-def test_del():
-    m = RQList([8, 4, 5])
+def test_del() -> None:
+    model = RQList([8, 4, 5])
 
-    connect_signal(m.rq_data_changed)
-    connect_int_signal(m.rq_list_remove)
-    del m[1]
-    assert_int_signal(m.rq_list_remove, 1)
-    assert list(m) == [8, 5]
+    connect_signal(model.rq_data_changed)
+    connect_int_signal(model.rq_list_remove)
+    del model[1]
+    assert_int_signal(model.rq_list_remove, 1)
+    assert list(model) == [8, 5]
 
-    m.pop()
-    assert_signal_emitted(m.rq_data_changed)
-    assert_int_signal(m.rq_list_remove, 1)
-    assert list(m) == [8]
-    m.pop()
-    assert_signal_emitted(m.rq_data_changed)
-    assert_int_signal(m.rq_list_remove, 0)
-    assert list(m) == []
+    model.pop()
+    assert_signal_emitted(model.rq_data_changed)
+    assert_int_signal(model.rq_list_remove, 1)
+    assert list(model) == [8]
+    model.pop()
+    assert_signal_emitted(model.rq_data_changed)
+    assert_int_signal(model.rq_list_remove, 0)
+    assert len(list(model)) == 0
 
 
 @pytest.mark.parametrize(
@@ -40,167 +43,172 @@ def test_del():
         (-1, 2, None),
         (-1, 5, 3)
     ])
-def test_del_slice(start, stop, step):
-    l = [8, 4, 5, 6, 7, 3, 7, 5]
-    m = RQList(l)
+def test_del_slice(start: int, stop: int, step: Union[int, None]) -> None:
+    lst = [8, 4, 5, 6, 7, 3, 7, 5]
+    model = RQList(lst)
 
-    connect_signal(m.rq_data_changed)
-    connect_int_signal(m.rq_list_remove)
+    connect_signal(model.rq_data_changed)
+    connect_int_signal(model.rq_list_remove)
     if step is None:
-        del m[start:stop]
-        del l[start:stop]
+        del model[start:stop]
+        del lst[start:stop]
     else:
-        del m[start:stop:step]
-        del l[start:stop:step]
-    assert list(m) == l
+        del model[start:stop:step]
+        del lst[start:stop:step]
+    assert list(model) == lst
 
 
-def test_clear():
-    m = RQList([8, 4, 5])
-    m.clear()
+def test_clear() -> None:
+    model = RQList([8, 4, 5])
+    model.clear()
 
-    assert list(m) == []
-
-
-def test_insert():
-    m = RQList([5])
-    connect_signal(m.rq_data_changed)
-    connect_int_signal(m.rq_list_insert)
-
-    m.insert(index=1, item=7)
-    assert_signal_emitted(m.rq_data_changed)
-    assert_int_signal(m.rq_list_insert, 1)
-    assert list(m) == [5, 7]
-
-    m.insert(index=0, item=3)
-    assert_signal_emitted(m.rq_data_changed)
-    assert_int_signal(m.rq_list_insert, 0)
-    assert list(m) == [3, 5, 7]
+    assert len(list(model)) == 0
 
 
-def test_append():
-    m = RQList([7])
-    connect_signal(m.rq_data_changed)
-    connect_int_signal(m.rq_list_insert)
+def test_insert() -> None:
+    model = RQList([5])
+    connect_signal(model.rq_data_changed)
+    connect_int_signal(model.rq_list_insert)
 
-    m.append(3)
-    assert_signal_emitted(m.rq_data_changed)
-    assert_int_signal(m.rq_list_insert, 1)
-    assert list(m) == [7, 3]
+    model.insert(index=1, item=7)
+    assert_signal_emitted(model.rq_data_changed)
+    assert_int_signal(model.rq_list_insert, 1)
+    assert list(model) == [5, 7]
 
-
-def test_set():
-    m = RQList([7, 4, 6])
-    m.set([1, 4, 8])
-
-    assert list(m) == [1, 4, 8]
+    model.insert(index=0, item=3)
+    assert_signal_emitted(model.rq_data_changed)
+    assert_int_signal(model.rq_list_insert, 0)
+    assert list(model) == [3, 5, 7]
 
 
-def test_get():
-    m = RQList([7, 4, 6])
-    assert m.get() == [7, 4, 6]
+def test_append() -> None:
+    model = RQList([7])
+    connect_signal(model.rq_data_changed)
+    connect_int_signal(model.rq_list_insert)
+
+    model.append(3)
+    assert_signal_emitted(model.rq_data_changed)
+    assert_int_signal(model.rq_list_insert, 1)
+    assert list(model) == [7, 3]
 
 
-def test_remove():
-    m = RQList([2, 7, 43, 2, 67])
-    m.remove(2)
+def test_set() -> None:
+    model = RQList([7, 4, 6])
+    model.set([1, 4, 8])
 
-    assert list(m) == [7, 43, 2, 67]
-
-
-def test_remove_all():
-    m = RQList([2, 7, 43, 2, 67])
-    m.remove_all(2)
-
-    assert list(m) == [7, 43, 67]
+    assert list(model) == [1, 4, 8]
 
 
-def test_get_item():
-    m = RQList([2, 7, 43, 2, 67])
-
-    assert m[0] == 2
-    assert m[2] == 43
+def test_get() -> None:
+    model = RQList([7, 4, 6])
+    assert model.get() == [7, 4, 6]
 
 
-def test_index():
-    m = RQList([2, 7, 43, 2, 67])
+def test_remove() -> None:
+    model = RQList([2, 7, 43, 2, 67])
+    model.remove(2)
 
-    assert m.index(2) == 0
-    assert m.index(7) == 1
+    assert list(model) == [7, 43, 2, 67]
 
 
-def test_iteration():
-    m = RQList([1, 2, 3])
+def test_remove_all() -> None:
+    model = RQList([2, 7, 43, 2, 67])
+    model.remove_all(2)
 
-    for i in m:
+    assert list(model) == [7, 43, 67]
+
+
+def test_get_item() -> None:
+    model = RQList([2, 7, 43, 2, 67])
+
+    assert model[0] == 2
+    assert model[2] == 43
+
+
+def test_index() -> None:
+    model = RQList([2, 7, 43, 2, 67])
+
+    assert model.index(2) == 0
+    assert model.index(7) == 1
+
+
+def test_iteration() -> None:
+    model = RQList([1, 2, 3])
+
+    for i in model:
         assert i in range(1, 4)
 
 
-def test_length():
-    m = RQList([2, 7, 43, 2, 67])
+def test_length() -> None:
+    model = RQList([2, 7, 43, 2, 67])
 
-    assert len(m) == 5
-
-
-def test_count():
-    m = RQList([2, 7, 43, 2, 67, 2])
-
-    assert m.count(2) == 3
+    assert len(model) == 5
 
 
-def test_extend():
-    m = RQList([2, 7])
+def test_count() -> None:
+    model = RQList([2, 7, 43, 2, 67, 2])
 
-    m.extend([6, 34])
-    assert list(m) == [2, 7, 6, 34]
-
-
-def test_contains():
-    m = RQList([2, 7])
-    assert 7 in m
+    assert model.count(2) == 3
 
 
-def test_rq_models_deletion():
-    m1 = RQModel()
+def test_extend() -> None:
+    model = RQList([2, 7])
+
+    model.extend([6, 34])
+    assert list(model) == [2, 7, 6, 34]
+
+
+def test_contains() -> None:
+    model = RQList([2, 7])
+    assert 7 in model
+
+
+def test_rq_models_deletion() -> None:
+    model1 = RQModel()
 
     class SubModel(RQModel):
-        pass
 
-    m2 = SubModel()
+        def set(self, value: Any) -> None:
+            raise NotImplementedError
 
-    m = RQList([m1])
-    assert len(m) == 1
-    m.append(m2)
-    assert len(m) == 2
-    m1.__del__()
-    assert len(m) == 1
-    m2.__del__()
-    assert len(m) == 0
+        def get(self) -> Any:
+            raise NotImplementedError
+
+    model2 = SubModel()
+
+    model = RQList([model1])
+    assert len(model) == 1
+    model.append(model2)
+    assert len(model) == 2
+    model1.__del__()  # pylint: disable=unnecessary-dunder-call
+    assert len(model) == 1
+    model2.__del__()  # pylint: disable=unnecessary-dunder-call
+    assert len(model) == 0
 
 
-def test_reactive_indexes():
+def test_reactive_indexes() -> None:
     class Class:
         pass
 
-    a = Class()
-    b = Class()
-    c = Class()
-    m = RQList([a, b])
-    ai = m.reactive_index(a)
-    bi = m.reactive_index(b)
-    assert ai.get() == 0
-    assert bi.get() == 1
-    m.append(c)
-    ci = m.reactive_index(c)
+    class_a = Class()
+    class_b = Class()
+    class_c = Class()
+    model = RQList([class_a, class_b])
+    a_index = model.reactive_index(class_a)
+    b_index = model.reactive_index(class_b)
+    assert a_index.get() == 0
+    assert b_index.get() == 1
+    model.append(class_c)
+    c_index = model.reactive_index(class_c)
 
-    assert ci.get() == 2
+    assert c_index.get() == 2
 
-    m.remove(a)
-    assert bi.get() == 0
-    assert ci.get() == 1
+    model.remove(class_a)
+    assert b_index.get() == 0
+    assert c_index.get() == 1
 
 
-def test_computed():
+def test_computed() -> None:
     numbers = RQList([1, 6, 3, 34, 77, 5, 82])
     threshold = RQInt(0)
 

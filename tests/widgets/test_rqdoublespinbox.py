@@ -1,9 +1,17 @@
-from pyreaqtive import RQFloat, RQComputedFloat, RQDoubleSpinBox
+from typing import TYPE_CHECKING, Union
+
 import pytest_cases
 import pytest
+
 from PyQt5 import QtCore
 
-from ..qtbot_window import window_fixture
+from pyreaqtive import RQFloat, RQComputedFloat, RQDoubleSpinBox
+
+from ..qtbot_window import window_fixture  # pylint: disable=unused-import
+
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
 
 
 @pytest_cases.parametrize("initial_value", [
@@ -14,7 +22,15 @@ from ..qtbot_window import window_fixture
 ])
 @pytest_cases.parametrize("reactive", [True, False])
 @pytest_cases.parametrize("wait_for_finish", [True, False])
-def test_rqdoublespinbox(initial_value, reactive, wait_for_finish, qtbot, window_fixture):
+def test_rqdoublespinbox(
+        initial_value: float,
+        reactive: bool,
+        wait_for_finish: bool,
+        qtbot: 'QtBot',  # pylint: disable=unused-argument
+        window_fixture: 'QMainWindow'  # pylint: disable=redefined-outer-name
+) -> None:
+    model: Union[float, RQFloat]
+
     if reactive:
         model = RQFloat(initial_value)
     else:
@@ -33,7 +49,7 @@ def test_rqdoublespinbox(initial_value, reactive, wait_for_finish, qtbot, window
 
     assert widget_1.value() == saturated_initial_value
 
-    for i in range(10):
+    for _ in range(10):
         qtbot.keyClick(widget_1, QtCore.Qt.Key_Delete)
     qtbot.keyClick(widget_1, QtCore.Qt.Key_5)
     # comma or period as decimal separator depending on the platform, other is ignored
@@ -56,10 +72,12 @@ def test_rqdoublespinbox(initial_value, reactive, wait_for_finish, qtbot, window
         assert widget_2.value() == 30
 
 
-def test_rqdial_readonly(qtbot):
-    m = RQComputedFloat(
+def test_rqdial_readonly(
+        qtbot: 'QtBot'  # pylint: disable=unused-argument
+) -> None:
+    model = RQComputedFloat(
         lambda: 1
     )
 
     with pytest.raises(IOError):
-        m = RQDoubleSpinBox(m)
+        model = RQDoubleSpinBox(model)

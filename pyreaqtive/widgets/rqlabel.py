@@ -12,13 +12,13 @@ if TYPE_CHECKING:
 
 
 class RQLabel(RQWidget, QLabel):
-    """Reactive Label Widget"""
+    """Reactive Label Widget."""
 
     model: RQModel
     """Model linked to the widget"""
 
     def __init__(self,
-                 model: Union[RQModel, str, RQObject],
+                 model: Union[RQModel, str, bool, int, float, RQObject],
                  *args: Any,
                  rq_if: Union[RQBool, None] = None,
                  rq_disabled: Union[RQBool, None] = None,

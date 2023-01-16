@@ -3,7 +3,7 @@ name: Pipeline
 on: [ push ]
 
 jobs:
-  Pipeline:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -18,23 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Setup Virtual Screen for Tests
-        run: |
-          sudo apt install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 x11-utils freeglut3 freeglut3-dev
-          /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX
-
-      - name: Cache pipenv
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-pipenv
-        with:
-          path: /home/runner/.local/share/virtualenvs/
-          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('Pipfile.lock') }}
-
+          cache: 'pipenv'
 
       - name: Install pipenv
         run: |
@@ -44,19 +31,91 @@ jobs:
         run: |
           pipenv install --dev
 
-      - name: Run Tests with coverage
-        run: |
-          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing
-
       - name: Run mypy
         run: |
-          pipenv run mypy -m pyreaqtive -m tests --config-file mypy.ini
+          pipenv run mypy --package pyreaqtive --package tests --config-file mypy.ini
 
       - name: Run pylint
         run: |
-          pipenv run pylint pyreaqtive --rcfile=.pylintrc
+          pipenv run pylint pyreaqtive tests --rcfile=.pylintrc
+
+      - name: Run pydocstyle
+        run: |
+          pipenv run pydocstyle pyreaqtive --config=.pydocstyle.ini
+
+      - name: Setup Virtual Screen for Tests
+        run: |
+          sudo apt install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 x11-utils freeglut3 freeglut3-dev
+          /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX
+
+      - name: Run Tests with coverage
+        run: |
+          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing --cov-fail-under=100
+
+      - name: Build lib
+        if: matrix.python-version == '3.9'
+        run: |
+          pipenv run python setup.py sdist bdist_wheel
+
+      - name: Archive build
+        if: matrix.python-version == '3.9'
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheel_build
+          path: dist/*.whl
+
+      - name: Find package
+        if: matrix.python-version == '3.9'
+        run: |
+          cp dist/pyreaqtive-*-py3-none-any.whl pyreaqtive-0.0.0-py3-none-any.whl  
+
+      - name: Install lib
+        if: matrix.python-version == '3.9'
+        run: |
+          pip install pyreaqtive-0.0.0-py3-none-any.whl
+          pip install pyqt5==5.15.7 pytest-cases==3.6.13 pytest-qt==4.1.0
+          rm -R pyreaqtive
+
+      - name: Run Tests
+        if: matrix.python-version == '3.9'
+        run: |
+          pytest
+
+      - name: Build Docs
+        if: matrix.python-version == '3.8'
+        run: |
+          pipenv run sphinx-build -W -b html doc/source doc/build
+
 
       - name: Run Tests with PyQt6
         run: |
           pipenv run pip uninstall --yes pyqt5 && pipenv run pip install pyqt6 && pipenv run pytest pyreaqtive
 
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.9'
+
+      - name: Install pipenv
+        run: |
+          python -m pip install --upgrade pipenv wheel
+
+      - name: Install Dependencies
+        run: |
+          pipenv install --dev
+
+      - name: Build lib
+        run: |
+          pipenv run python setup.py sdist bdist_wheel
+
+      - name: Publish to PyPi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}

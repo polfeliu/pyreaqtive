@@ -3,3 +3,4 @@
 /build
 /pyreaqtive.egg-info
 /.coverage
+/.mypy_cache

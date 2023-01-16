@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 
 class RQList(RQModel):
-    """Reactive List Model
+    """Reactive List Model.
 
     Represents a list of model instances
 
@@ -35,7 +35,7 @@ class RQList(RQModel):
     """
 
     def __init__(self, initial_items: List[Any] = None):
-        """Constructor
+        """Constructor.
 
         Args:
             initial_items: List of items
@@ -70,7 +70,7 @@ class RQList(RQModel):
             self.append(item)
 
     def get(self) -> list:
-        """Get value of the model
+        """Get value of the model.
 
         Returns:
             list: value of the model
@@ -78,14 +78,11 @@ class RQList(RQModel):
         return self._list
 
     def insert(self, index: int, item: Any) -> None:
-        """Insert a item to the specified index on the list
+        """Insert a item to the specified index on the list.
 
         Args:
             index: positional index on the list
             item: item to be inserted
-
-        Returns:
-
         """
         if issubclass(type(item), RQModel):
             item._rq_delete.connect(  # pylint: disable=protected-access
@@ -96,7 +93,7 @@ class RQList(RQModel):
         self.rq_data_changed.emit()
 
     def append(self, item: Any) -> None:
-        """Append a item to the end of the list
+        """Append an item to the end of the list.
 
         Args:
             item: Item to be appended
@@ -108,7 +105,7 @@ class RQList(RQModel):
         )
 
     def __delitem__(self, key: Union[int, slice]) -> None:
-        """Delete the item in the list in the specified index
+        """Delete the item in the list in the specified index.
 
         Args:
             key: positional index on the list or slice
@@ -127,11 +124,11 @@ class RQList(RQModel):
             self.rq_data_changed.emit()
 
     def pop(self) -> None:
-        """Delete last instance of the list"""
+        """Delete last instance of the list."""
         self.__delitem__(len(self._list) - 1)  # pylint: disable =unnecessary-dunder-call
 
     def remove(self, item: Any) -> None:
-        """Remove first occurrence of value
+        """Remove first occurrence of value.
 
         Args:
             item: item
@@ -140,7 +137,7 @@ class RQList(RQModel):
         self.__delitem__(index)  # pylint: disable=unnecessary-dunder-call
 
     def remove_all(self, item: Any) -> None:
-        """Remove all instances in the list
+        """Remove all instances in the list.
 
         Args:
             item: item
@@ -152,12 +149,12 @@ class RQList(RQModel):
                 break
 
     def clear(self) -> None:
-        """Clear all items of the list"""
+        """Clear all items of the list."""
         while len(self) > 0:
             self.pop()
 
     def __getitem__(self, index: int) -> Any:
-        """Returns the indicated item of the list
+        """Returns the indicated item of the list.
 
         Args:
             index: element of the list
@@ -168,7 +165,7 @@ class RQList(RQModel):
         return self._list[index]
 
     def index(self, item: Any) -> int:
-        """Returns the index where a item is located
+        """Returns the index where a item is located.
 
         Raises an ValueError if is not in the list
 
@@ -188,7 +185,7 @@ class RQList(RQModel):
                 )
 
     def reactive_index(self, model: object) -> RQInt:
-        """Returns a reactive index model that indicates where the item is located
+        """Returns a reactive index model that indicates where the item is located.
 
         Args:
             model: instance that should be in the list
@@ -201,7 +198,7 @@ class RQList(RQModel):
         return reactive_index
 
     def __iter__(self) -> Iterator[Any]:
-        """Iterator of the elements of the list
+        """Iterator of the elements of the list.
 
         Returns:
             Iterator of RQModels
@@ -210,28 +207,28 @@ class RQList(RQModel):
             yield item
 
     def __len__(self) -> int:
-        """Length of the list"""
+        """Length of the list."""
         return len(self._list)
 
     def count(self, value: Any) -> int:
-        """Same as python list method"""
+        """Same as python list method."""
         return self._list.count(value)
 
     def extend(self, iterable: List[Any]) -> None:
-        """Same as python list method"""
+        """Same as python list method."""
         for item in iterable:
             self.append(item)
 
     def __contains__(self, item: Any) -> bool:
-        """Same as python list method"""
+        """Same as python list method."""
         return self._list.__contains__(item)
 
 
 class RQComputedList(RQComputedModel, RQList):
-    """Reactive Computed List Model"""
+    """Reactive Computed List Model."""
 
     def __init__(self, function: Callable, **kwargs: RQModel):
-        """Constructor
+        """Constructor.
 
         Args:
             function: function to calculate the model value from input values
@@ -243,7 +240,7 @@ class RQComputedList(RQComputedModel, RQList):
         RQComputedModel.__init__(self, function, **kwargs)
 
     def _variable_changed(self) -> None:
-        """Variable changed slot
+        """Variable changed slot.
 
         Called when some of the models have emitted rq_data_changed.
 
@@ -260,7 +257,7 @@ class RQComputedList(RQComputedModel, RQList):
         )
 
     def get(self) -> list:
-        """See overridden method
+        """See overridden method.
 
         ComputedLists are recalculated on change, not on request,
         so this just redirects to the actual list.

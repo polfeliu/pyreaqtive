@@ -7,7 +7,8 @@ if TYPE_CHECKING:
 
 
 def sequence_matching(modifiable_list: Union[list, 'RQList'], target_list: list) -> None:
-    """
+    """List Sequence Matching.
+
     Modifies a list so it's the same as an other one, applying insert and delete operations
 
     Args:

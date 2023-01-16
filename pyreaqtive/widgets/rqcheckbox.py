@@ -12,10 +12,10 @@ if TYPE_CHECKING:
 
 
 class RQCheckBox(RQWidget, QCheckBox):
-    """Reactive Checkbox Widget"""
+    """Reactive Checkbox Widget."""
 
     model: RQBool
-    """Model linked to the widget"""
+    """Model linked to the widget."""
 
     def __init__(self,
                  model: Union[RQBool, bool],
@@ -30,6 +30,7 @@ class RQCheckBox(RQWidget, QCheckBox):
             model: Model to link the widget to
             *args: arguments to pass to the native pyqt widget
             rq_if: RQBool that controls the visibility
+            rq_disabled: RQBool that controls the disabling
             **kwargs: arguments to pass to the native pyqt widget
         """
         if issubclass(type(model), RQModel):

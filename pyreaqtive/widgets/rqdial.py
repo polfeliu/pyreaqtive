@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class RQDial(RQWidget, QDial):
-    """Reactive Dial Widget"""
+    """Reactive Dial Widget."""
 
     model: Union[RQInt, RQFloat, RQObject]
     """Model linked to the widget"""

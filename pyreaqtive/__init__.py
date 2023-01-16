@@ -1,4 +1,4 @@
-__version__ = "1.4.1dev"
+__version__ = "1.4.3dev"
 
 from .models import \
     RQModel, RQComputedModel, \

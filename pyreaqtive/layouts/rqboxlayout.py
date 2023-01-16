@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 class RQBoxLayout(QBoxLayout):
-    """Reactive QBoxLayout"""
+    """Reactive QBoxLayout."""
 
     def __init__(self,
                  model: RQList,
@@ -19,7 +19,7 @@ class RQBoxLayout(QBoxLayout):
                  *args: Any,
                  **kwargs: Any
                  ):
-        """Constructor
+        """Constructor.
 
         Args:
             model: RQList representing all the items in the layout
@@ -60,7 +60,7 @@ class RQBoxLayout(QBoxLayout):
 
     @Slot(int)
     def _rq_insert_widget(self, index: int) -> None:
-        """Slot triggered when the model inserts a new item
+        """Slot triggered when the model inserts a new item.
 
         Args:
             index: index in the initial of the new instance
@@ -71,7 +71,7 @@ class RQBoxLayout(QBoxLayout):
 
     @Slot(int)
     def _rq_remove_widget(self, index: int) -> None:
-        """Slot triggered when the model removes an item
+        """Slot triggered when the model removes an item.
 
         Args:
             index: index in the list of the item removal
