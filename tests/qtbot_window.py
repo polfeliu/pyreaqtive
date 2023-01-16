@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from qtpy.QtWidgets import QMainWindow
+from qtpy.QtWidgets import QMainWindow  # type: ignore
 
 if TYPE_CHECKING:
     from PyQt5.QtWidgets import QMainWindow
