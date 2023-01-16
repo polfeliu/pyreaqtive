@@ -28,6 +28,7 @@ author = 'Pol Feliu Cuberes'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'autoapi.extension',
     'sphinx.ext.napoleon'
 ]
 
@@ -39,6 +40,11 @@ autodoc_default_options = {
     'show-inheritance': True
 }
 autodoc_typehints = 'description'
+
+# Autoapi
+autoapi_dirs = ['../../pyreaqtive']
+
+suppress_warnings = ["autoapi.python_import_resolution", "autoapi.not_readable"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

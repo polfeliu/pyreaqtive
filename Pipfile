@@ -9,6 +9,7 @@ qtpy = "==2.0.1"
 [dev-packages]
 sphinx = "==4.0.2"
 sphinx-rtd-theme = "==0.5.2"
+sphinx-autoapi = "*"
 pyqt5-stubs = "==5.15.2.0"
 pyqt5 = "*"
 mypy = "*"
