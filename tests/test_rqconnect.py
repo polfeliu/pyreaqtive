@@ -1,24 +1,34 @@
-from pyreaqtive import RQFloat, RQDoubleSpinBox, RQConnect
-import pytest_cases
+from typing import TYPE_CHECKING
 from enum import Enum, auto
-from .qtbot_window import window_fixture
+
+import pytest_cases
+
+from pyreaqtive import RQFloat, RQConnect
+
+from .qtbot_window import window_fixture  # pylint: disable=unused-import
 
 
 class Conversion(Enum):
-    Conversion = auto()
-    LinearConversion = auto()
+    CONVERSION = auto()
+    LINEAR_CONVERSION = auto()
 
 
-@pytest_cases.parametrize("conversion", [Conversion.Conversion, Conversion.LinearConversion])
-def test_rqconnect(conversion, qtbot, window_fixture):
+if TYPE_CHECKING:
+    from pytestqt.qtbot import QtBot  # type: ignore
+    from PyQt5.QtWidgets import QMainWindow
+
+
+@pytest_cases.parametrize("conversion", [Conversion.CONVERSION, Conversion.LINEAR_CONVERSION])
+def test_rqconnect(
+        conversion: Conversion,
+        qtbot: 'QtBot',  # pylint: disable=unused-argument
+        window_fixture: 'QMainWindow'  # pylint: disable=redefined-outer-name, unused-argument)
+) -> None:
     celsius = RQFloat(1)
     fahrenheit = RQFloat(1)
 
-    celsius_spinbox = RQDoubleSpinBox(celsius)
-    fahrenheit_spinbox = RQDoubleSpinBox(fahrenheit)
-
-    if conversion == Conversion.Conversion:
-        connect = RQConnect(
+    if conversion == Conversion.CONVERSION:
+        connect = RQConnect(  # pylint: disable=unused-variable
             model_a=celsius,  # Connect to model A
             model_b=fahrenheit,  # Connect to Model B
             conversion=RQConnect.Conversion(  # Declare conversion formulas to convert reciprocally
@@ -26,8 +36,8 @@ def test_rqconnect(conversion, qtbot, window_fixture):
                 b_to_a=lambda f: (f - 32) / (9 / 5)
             )
         )
-    elif conversion == Conversion.LinearConversion:
-        connect = RQConnect(
+    elif conversion == Conversion.LINEAR_CONVERSION:
+        connect = RQConnect(  # pylint: disable=unused-variable
             model_a=celsius,
             model_b=fahrenheit,
             conversion=RQConnect.LinearConversion(
@@ -36,7 +46,7 @@ def test_rqconnect(conversion, qtbot, window_fixture):
             )
         )
     else:
-        raise NotImplemented
+        raise NotImplementedError
 
     celsius.set(2)
     assert int(fahrenheit.get()) == 35

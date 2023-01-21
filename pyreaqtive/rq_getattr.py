@@ -13,6 +13,9 @@ def new__setattr__(self: Any, key: str, value: Any) -> None:
         value: new value of the attribute
     """
     super(type(self), self).__setattr__(key, value)
+    if self.rq_reactive_attributes is None:
+        return  # pragma: no cover
+
     if key in self.rq_reactive_attributes:
         self.rq_reactive_attributes[key].set(value)
 
@@ -25,8 +28,8 @@ def reactivize(obj_type: type) -> None:
     Args:
         obj_type: object type to reactivize
     """
-    obj_type.__setattr__ = new__setattr__  # type: ignore
     obj_type.rq_reactive_attributes = None  # type: ignore
+    obj_type.__setattr__ = new__setattr__  # type: ignore
 
 
 def rq_getattr(obj: object, attribute_name: str) -> RQObject:

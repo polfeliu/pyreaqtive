@@ -84,9 +84,10 @@ class RQChoice(RQModel):
         Args:
             value: New selected choice
         """
-        self.selected = value
-        self.validate_selected()
-        self.rq_data_changed.emit()
+        if self.selected is not value:
+            self.selected = value
+            self.validate_selected()
+            self.rq_data_changed.emit()
 
     def reset(self) -> None:
         """Reset selection to default value.
@@ -124,3 +125,11 @@ class RQChoice(RQModel):
             Any: item in the list indicated by index
         """
         return self.get_choices().__getitem__(index)
+
+    def __len__(self) -> int:
+        """Get number of the choices.
+
+        Returns:
+            number of choices
+        """
+        return self.get_choices().__len__()

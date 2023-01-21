@@ -86,7 +86,7 @@ class RQComboBox(RQWidget, QComboBox):
 
         Updates the combobox selection
         """
-        if not self._rq_writing:
+        if not self._rq_writing:  # pragma: no cover
             self._rq_reading = True
             if self.model.selected is not None:
                 self.setCurrentIndex(

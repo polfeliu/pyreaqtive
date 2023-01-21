@@ -24,6 +24,7 @@ class RQAsync(QThread):
         self.exception_callback = exception_callback
 
         self.working = RQBool(False)
+        self._served_trigger = False
 
         if self.trigger == self.AutoTriggers.START:
             self.start()
@@ -32,12 +33,20 @@ class RQAsync(QThread):
         else:
             raise TypeError
 
+    def start(self, priority: int = QThread.InheritPriority) -> None:
+        self._served_trigger = False
+        if not self.working:
+            super().start(priority)
+
     def run(self) -> None:
         self.working.set(True)
-        try:
-            self.task()
-        except Exception as ex:
-            if self.exception_callback is not None:
-                self.exception_callback(ex)
-        finally:
-            self.working.set(False)
+        self._served_trigger = False
+        while not self._served_trigger:
+            self._served_trigger = True
+            try:
+                self.task()
+            except Exception as ex:
+                if self.exception_callback is not None:
+                    self.exception_callback(ex)
+
+        self.working.set(False)
