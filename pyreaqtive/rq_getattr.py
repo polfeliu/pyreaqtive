@@ -13,7 +13,7 @@ def new__setattr__(self: Any, key: str, value: Any) -> None:
         value: new value of the attribute
     """
     super(type(self), self).__setattr__(key, value)
-    if self.rq_reactive_attributes is None:  # type: ignore
+    if self.rq_reactive_attributes is None:
         return
 
     if key in self.rq_reactive_attributes:

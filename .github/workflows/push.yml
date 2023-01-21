@@ -30,15 +30,15 @@ jobs:
 
       - name: Run mypy
         run: |
-          pipenv run mypy --package pyreaqtive --package tests --config-file mypy.ini
+          ${{env.pipenv}} run mypy --package pyreaqtive --package tests --config-file mypy.ini
 
       - name: Run pylint
         run: |
-          pipenv run pylint pyreaqtive tests --rcfile=.pylintrc
+          ${{env.pipenv}} run pylint pyreaqtive tests --rcfile=.pylintrc
 
       - name: Run pydocstyle
         run: |
-          pipenv run pydocstyle pyreaqtive --config=.pydocstyle.ini
+          ${{env.pipenv}} run pydocstyle pyreaqtive --config=.pydocstyle.ini
 
       - name: Setup Virtual Screen for Tests
         run: |
@@ -48,12 +48,12 @@ jobs:
 
       - name: Run Tests with coverage
         run: |
-          pipenv run pytest --cov pyreaqtive --cov-branch --cov-report term-missing --cov-fail-under=100
+          ${{env.pipenv}} run pytest --cov pyreaqtive --cov-branch --cov-report term-missing --cov-fail-under=100
 
       - name: Build lib
         if: matrix.python-version == '3.9'
         run: |
-          pipenv run python setup.py sdist bdist_wheel
+          ${{env.pipenv}} run python setup.py sdist bdist_wheel
 
       - name: Archive build
         if: matrix.python-version == '3.9'
