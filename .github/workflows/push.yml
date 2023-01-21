@@ -16,6 +16,8 @@ jobs:
           - '3.9'
           - '3.10'
 
+    env:
+      pipenv: python${{matrix.python-version}} -m pipenv
     steps:
       - name: Checkout
         uses: actions/checkout@v3
