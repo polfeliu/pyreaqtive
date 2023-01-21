@@ -72,7 +72,7 @@ jobs:
         if: matrix.python-version == '3.9'
         run: |
           pip install pyreaqtive-0.0.0-py3-none-any.whl
-          pip install pyqt5==5.15.7 pytest-cases==3.6.13 pytest-qt==4.1.0
+          pip install pyqt5==5.15.7 pytest-cases==3.6.13 pytest-qt==4.2.0
           rm -R pyreaqtive
 
       - name: Run Tests
