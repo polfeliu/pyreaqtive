@@ -26,7 +26,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          {{pipenv}} install --dev
+          ${{pipenv}} install --dev
 
       - name: Run mypy
         run: |
