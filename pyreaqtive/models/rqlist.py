@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List, Iterator, Callable, Any, Dict, Union
+from typing import TYPE_CHECKING, List, Iterator, Callable, Union, Generic, TypeVar, Optional
 import weakref
 
 from qtpy.QtCore import Signal  # type: ignore
@@ -11,8 +11,10 @@ from .sequence_matching import sequence_matching
 if TYPE_CHECKING:
     from PyQt5.QtCore import pyqtSignal as Signal
 
+T = TypeVar('T')
 
-class RQList(RQModel):
+
+class RQList(RQModel, Generic[T]):
     """Reactive List Model.
 
     Represents a list of model instances
@@ -34,13 +36,13 @@ class RQList(RQModel):
     Indicates that there's been an deletion in the position indicated by the int
     """
 
-    def __init__(self, initial_items: List[Any] = None):
+    def __init__(self, initial_items: Optional[List[T]] = None):
         """Constructor.
 
         Args:
             initial_items: List of items
         """
-        self._list: List[Any] = initial_items if initial_items is not None else []
+        self._list: List[T] = initial_items if initial_items is not None else []
         """Model store variable
 
         Stores list of instances
@@ -48,7 +50,8 @@ class RQList(RQModel):
 
         RQModel.__init__(self)
 
-        self._reactive_indexes: Dict[object, RQInt] = weakref.WeakKeyDictionary()  # type: ignore
+        self._reactive_indexes = weakref.WeakKeyDictionary[T, RQInt]()
+
         """
         Weak reference dictionary of reactive indexes requested and that
         have to be updated when list changes
@@ -57,14 +60,14 @@ class RQList(RQModel):
         Value is reactive index
         """
         for item in self._list:
-            if issubclass(type(item), RQModel):
+            if isinstance(item, RQModel):
                 item._rq_delete.connect(
                     lambda: self.remove_all(item)  # pylint: disable=cell-var-from-loop
                 )
 
         self.rq_data_changed.connect(self.update_reactive_indexes)
 
-    def set(self, value: List[Any]) -> None:
+    def set(self, value: List[T]) -> None:
         self.clear()
         for item in value:
             self.append(item)
@@ -77,14 +80,14 @@ class RQList(RQModel):
         """
         return self._list
 
-    def insert(self, index: int, item: Any) -> None:
+    def insert(self, index: int, item: T) -> None:
         """Insert a item to the specified index on the list.
 
         Args:
             index: positional index on the list
             item: item to be inserted
         """
-        if issubclass(type(item), RQModel):
+        if isinstance(item, RQModel):
             item._rq_delete.connect(  # pylint: disable=protected-access
                 lambda: self.remove_all(item)
             )
@@ -92,7 +95,7 @@ class RQList(RQModel):
         self.rq_list_insert.emit(index)
         self.rq_data_changed.emit()
 
-    def append(self, item: Any) -> None:
+    def append(self, item: T) -> None:
         """Append an item to the end of the list.
 
         Args:
@@ -127,7 +130,7 @@ class RQList(RQModel):
         """Delete last instance of the list."""
         self.__delitem__(len(self._list) - 1)  # pylint: disable =unnecessary-dunder-call
 
-    def remove(self, item: Any) -> None:
+    def remove(self, item: T) -> None:
         """Remove first occurrence of value.
 
         Args:
@@ -136,7 +139,7 @@ class RQList(RQModel):
         index = RQList.index(self, item)
         self.__delitem__(index)  # pylint: disable=unnecessary-dunder-call
 
-    def remove_all(self, item: Any) -> None:
+    def remove_all(self, item: T) -> None:
         """Remove all instances in the list.
 
         Args:
@@ -153,18 +156,18 @@ class RQList(RQModel):
         while len(self) > 0:
             self.pop()
 
-    def __getitem__(self, index: int) -> Any:
+    def __getitem__(self, index: int) -> T:
         """Returns the indicated item of the list.
 
         Args:
             index: element of the list
 
         Returns:
-            Any: item in the list indicated by index
+            item in the list indicated by index
         """
         return self._list[index]
 
-    def index(self, item: Any) -> int:
+    def index(self, item: T) -> int:
         """Returns the index where a item is located.
 
         Raises an ValueError if is not in the list
@@ -184,7 +187,7 @@ class RQList(RQModel):
                     self.index(model)
                 )
 
-    def reactive_index(self, model: object) -> RQInt:
+    def reactive_index(self, model: T) -> RQInt:
         """Returns a reactive index model that indicates where the item is located.
 
         Args:
@@ -197,7 +200,7 @@ class RQList(RQModel):
         self._reactive_indexes[model] = reactive_index
         return reactive_index
 
-    def __iter__(self) -> Iterator[Any]:
+    def __iter__(self) -> Iterator[T]:
         """Iterator of the elements of the list.
 
         Returns:
@@ -210,16 +213,16 @@ class RQList(RQModel):
         """Length of the list."""
         return len(self._list)
 
-    def count(self, value: Any) -> int:
+    def count(self, value: T) -> int:
         """Same as python list method."""
         return self._list.count(value)
 
-    def extend(self, iterable: List[Any]) -> None:
+    def extend(self, iterable: List[T]) -> None:
         """Same as python list method."""
         for item in iterable:
             self.append(item)
 
-    def __contains__(self, item: Any) -> bool:
+    def __contains__(self, item: T) -> bool:
         """Same as python list method."""
         return self._list.__contains__(item)
 
