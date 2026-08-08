@@ -1,0 +1,15 @@
+qtpy==2.4.3
+sphinx==8.2.3
+sphinx-rtd-theme==3.0.2
+pyqt5-stubs==5.15.6.0
+pyqt5==5.15.11
+mypy==1.20.2
+pytest-qt==4.5.0
+pytest==8.4.2
+pytest-cases==3.10.1
+pytest-cov==7.1.0
+pylint==3.3.9
+pydocstyle==6.3.0
+typing_extensions==4.16.0
+setuptools==81.0.0
+wheel==0.47.0

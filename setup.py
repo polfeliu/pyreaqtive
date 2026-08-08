@@ -21,6 +21,7 @@ setup(
     author_email='feliupol@gmail.com',
     keywords='pyqt5 framework reactive gui',
     description='PyQt Reactive Framework',
+    python_requires='>=3.7',
     install_requires=[
         "qtpy>2.0.0"
     ]

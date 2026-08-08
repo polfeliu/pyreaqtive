@@ -10,13 +10,26 @@ jobs:
 
     strategy:
       matrix:
-        python-version:
-          - '3.7'
-          - '3.8'
-          - '3.9'
-          - '3.10'
+        include:
+          - python-version: '3.7'
+            requirements: requirements-dev.txt
+          - python-version: '3.8'
+            requirements: requirements-dev.txt
+          - python-version: '3.9'
+            requirements: requirements-dev.txt
+          - python-version: '3.10'
+            requirements: requirements-dev.txt
+          - python-version: '3.11'
+            requirements: requirements-dev-modern.txt
+          - python-version: '3.12'
+            requirements: requirements-dev-modern.txt
+          - python-version: '3.13'
+            requirements: requirements-dev-modern.txt
+          - python-version: '3.14'
+            requirements: requirements-dev-modern.txt
     env:
-      python: python${{ matrix.python-version }}
+      python-version: ${{ matrix.python-version }}
+      requirements: ${{ matrix.requirements }}
       venv: .venv
     steps:
       - name: Checkout
@@ -29,8 +42,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          uv venv --python ${{ env.python }} ${{ env.venv }}
-          uv pip install --python ${{ env.venv }}/bin/python -r requirements-dev.txt
+          uv venv --python ${{ env.python-version }} ${{ env.venv }}
+          uv pip install --python ${{ env.venv }}/bin/python -r ${{ env.requirements }}
           uv pip install --python ${{ env.venv }}/bin/python -e .
 
       - name: Run mypy
@@ -69,7 +82,7 @@ jobs:
       - name: Install lib
         if: matrix.python-version == '3.9'
         run: |
-          uv venv --python ${{ env.python }} wheel-test
+          uv venv --python ${{ env.python-version }} wheel-test
           uv pip install --python wheel-test/bin/python pyreaqtive-0.0.0-py3-none-any.whl PyQt5==5.15.7 pytest==7.2.1 pytest-cases==3.6.13 pytest-qt==4.2.0
           rm -rf pyreaqtive
 
