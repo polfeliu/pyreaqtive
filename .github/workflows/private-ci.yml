@@ -2,6 +2,7 @@ name: Private Pipeline
 
 on:
   push:
+    branches: [master]
   pull_request:
 
 permissions:
@@ -17,6 +18,7 @@ jobs:
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
     env:
       python-version: ${{ matrix.python-version }}
+      QT_QPA_PLATFORM: offscreen
     steps:
       - name: Checkout
         uses: actions/checkout@v4
