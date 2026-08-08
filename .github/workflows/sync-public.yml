@@ -1,0 +1,31 @@
+name: Sync public source
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout mirror
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync public branches and tags
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config --global user.name 'pyreaqtive sync'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git remote add public https://github.com/feliupol/pyreaqtive.git
+          git fetch public master develop --tags
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push origin public/master:master public/develop:develop
+          git push origin --tags
