@@ -1,4 +1,4 @@
-name: Private Pipeline
+name: Pipeline
 
 on:
   push:
@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   build:
+    if: github.repository != 'polfeliu/pyreaqtive'
     runs-on: [self-hosted, linux]
     container:
       image: localhost:5000/python-ci:latest
