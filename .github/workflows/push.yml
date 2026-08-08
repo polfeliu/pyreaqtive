@@ -4,9 +4,9 @@ on: [ push ]
 
 jobs:
   build:
-    runs-on: [self-hosted, feguitv]
+    runs-on: [self-hosted, linux]
     container:
-      image: feliupol/python:latest
+      image: localhost:5000/python-ci:latest
 
     strategy:
       matrix:
