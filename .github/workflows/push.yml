@@ -106,13 +106,17 @@ jobs:
         run: |
           uv sync --python 3.9 --extra dev --locked
 
-      - name: Build lib
+      - name: Build distributions
         run: |
-          uv run --python 3.9 python -m build
+          uv run --python 3.9 python -m build --sdist --wheel
+          test -n "$(find dist -maxdepth 1 -type f -name '*.tar.gz' -print -quit)"
+          test -n "$(find dist -maxdepth 1 -type f -name '*.whl' -print -quit)"
+          ls -lh dist
 
       - name: Publish to PyPi
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
+          packages-dir: dist/
           password: ${{ secrets.PYPI_API_TOKEN }}
 
   private-build:
