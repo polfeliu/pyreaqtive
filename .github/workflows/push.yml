@@ -66,16 +66,11 @@ jobs:
           name: wheel_build
           path: dist/*.whl
 
-      - name: Find package
-        if: matrix.python-version == '3.9'
-        run: |
-          cp dist/pyreaqtive-*-py3-none-any.whl pyreaqtive-0.0.0-py3-none-any.whl  
-
       - name: Install lib
         if: matrix.python-version == '3.9'
         run: |
           uv venv --python ${{ env.python-version }} wheel-test
-          uv pip install --python wheel-test/bin/python pyreaqtive-0.0.0-py3-none-any.whl
+          uv pip install --python wheel-test/bin/python dist/pyreaqtive-*.whl
           uv pip install --python wheel-test/bin/python PyQt5==5.15.7 pytest==7.2.1 pytest-cases==3.6.13 pytest-qt==4.2.0
           rm -rf pyreaqtive
 
