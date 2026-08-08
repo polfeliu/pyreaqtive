@@ -20,6 +20,7 @@ jobs:
     env:
       python-version: ${{ matrix.python-version }}
       venv: .venv
+      QT_QPA_PLATFORM: offscreen
     steps:
       - name: Checkout
         uses: actions/checkout@v4
