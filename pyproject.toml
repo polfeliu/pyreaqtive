@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=80", "setuptools-scm>=8", "wheel>=0.38"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyreaqtive"
+dynamic = ["version"]
+description = "PyQt Reactive Framework"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)"}
+authors = [{name = "Pol Feliu Cuberes", email = "feliupol@gmail.com"}]
+keywords = ["pyqt5", "framework", "reactive", "gui"]
+dependencies = ["qtpy>2.0.0"]
+
+[project.optional-dependencies]
+dev = [
+    "qtpy==2.0.1; python_version < '3.11'",
+    "qtpy==2.4.3; python_version >= '3.11'",
+    "sphinx==5.3.0; python_version < '3.11'",
+    "sphinx==8.2.3; python_version >= '3.11'",
+    "sphinx-rtd-theme==0.5.2; python_version < '3.11'",
+    "sphinx-rtd-theme==3.0.2; python_version >= '3.11'",
+    "pyqt5-stubs==5.15.2.0; python_version < '3.11'",
+    "pyqt5-stubs==5.15.6.0; python_version >= '3.11'",
+    "pyqt5==5.15.7; python_version < '3.11'",
+    "pyqt5==5.15.11; python_version >= '3.11'",
+    "mypy==0.981; python_version < '3.11'",
+    "mypy==1.20.2; python_version >= '3.11'",
+    "pytest-qt==4.2.0; python_version < '3.11'",
+    "pytest-qt==4.5.0; python_version >= '3.11'",
+    "pytest==7.2.1; python_version < '3.11'",
+    "pytest==8.4.2; python_version >= '3.11'",
+    "pytest-cases==3.6.13; python_version < '3.11'",
+    "pytest-cases==3.10.1; python_version >= '3.11'",
+    "pytest-cov==3.0.0; python_version < '3.11'",
+    "pytest-cov==7.1.0; python_version >= '3.11'",
+    "pylint==2.15.3; python_version < '3.11'",
+    "pylint==3.3.9; python_version >= '3.11'",
+    "pydocstyle==6.1.1; python_version < '3.11'",
+    "pydocstyle==6.3.0; python_version >= '3.11'",
+    "typing_extensions==4.3.0; python_version < '3.11'",
+    "typing_extensions==4.16.0; python_version >= '3.11'",
+    "setuptools==65.7.0; python_version < '3.11'",
+    "setuptools==81.0.0; python_version >= '3.11'",
+    "wheel==0.38.4; python_version < '3.11'",
+    "wheel==0.47.0; python_version >= '3.11'",
+    "build==1.2.2.post1",
+]
+
+[tool.setuptools.packages.find]
+include = ["pyreaqtive", "pyreaqtive.*"]
+
+[tool.setuptools.package-data]
+pyreaqtive = ["py.typed"]
+
+[tool.setuptools_scm]
