@@ -22,10 +22,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          git config --global user.name 'pyreaqtive sync'
-          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git remote add public https://github.com/feliupol/pyreaqtive.git
-          git fetch public master develop --tags
+          git config --global user.name 'Pol Feliu Cuberes'
+          git config --global user.email ''
+          git remote add public https://github.com/polfeliu/pyreaqtive.git
+          git fetch public master --tags
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git push origin public/master:master public/develop:develop
+          git push origin public/master:master
           git push origin --tags

@@ -1,36 +1,26 @@
 name: Pipeline
 
-on: [ push ]
+on: [push]
 
 jobs:
   build:
-    runs-on: [self-hosted, linux]
-    container:
-      image: localhost:5000/python-ci:latest
+    if: github.repository == 'polfeliu/pyreaqtive'
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
         include:
-          - python-version: '3.7'
-            requirements: requirements-dev.txt
           - python-version: '3.8'
-            requirements: requirements-dev.txt
           - python-version: '3.9'
-            requirements: requirements-dev.txt
           - python-version: '3.10'
-            requirements: requirements-dev.txt
           - python-version: '3.11'
-            requirements: requirements-dev-modern.txt
           - python-version: '3.12'
-            requirements: requirements-dev-modern.txt
           - python-version: '3.13'
-            requirements: requirements-dev-modern.txt
           - python-version: '3.14'
-            requirements: requirements-dev-modern.txt
     env:
       python-version: ${{ matrix.python-version }}
-      requirements: ${{ matrix.requirements }}
       venv: .venv
+      QT_QPA_PLATFORM: offscreen
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,30 +32,32 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          uv venv --python ${{ env.python-version }} ${{ env.venv }}
-          uv pip install --python ${{ env.venv }}/bin/python -r ${{ env.requirements }}
-          uv pip install --python ${{ env.venv }}/bin/python -e .
+          uv python install ${{ env.python-version }}
+          uv sync --python ${{ env.python-version }} --extra dev --locked
 
       - name: Run mypy
+        if: matrix.python-version == '3.10'
         run: |
-          ${{ env.venv }}/bin/python -m mypy --package pyreaqtive --package tests --config-file mypy.ini
+          uv run --python ${{ env.python-version }} mypy --package pyreaqtive --package tests --config-file mypy.ini
 
       - name: Run pylint
+        if: matrix.python-version == '3.10'
         run: |
-          ${{ env.venv }}/bin/python -m pylint pyreaqtive tests --rcfile=.pylintrc
+          uv run --python ${{ env.python-version }} pylint pyreaqtive tests --rcfile=.pylintrc
 
       - name: Run pydocstyle
+        if: matrix.python-version == '3.10'
         run: |
-          ${{ env.venv }}/bin/python -m pydocstyle pyreaqtive --config=.pydocstyle.ini
+          uv run --python ${{ env.python-version }} pydocstyle pyreaqtive --config=.pydocstyle.ini
 
       - name: Run Tests with coverage
         run: |
-          ${{ env.venv }}/bin/python -m pytest --cov pyreaqtive --cov-branch --cov-report term-missing --cov-fail-under=100
+          uv run --python ${{ env.python-version }} pytest --cov pyreaqtive --cov-branch --cov-report term-missing --cov-fail-under=100
 
       - name: Build lib
         if: matrix.python-version == '3.9'
         run: |
-          ${{ env.venv }}/bin/python setup.py sdist bdist_wheel
+          uv run --python ${{ env.python-version }} python -m build
 
       - name: Archive build
         if: matrix.python-version == '3.9'
@@ -74,16 +66,12 @@ jobs:
           name: wheel_build
           path: dist/*.whl
 
-      - name: Find package
-        if: matrix.python-version == '3.9'
-        run: |
-          cp dist/pyreaqtive-*-py3-none-any.whl pyreaqtive-0.0.0-py3-none-any.whl  
-
       - name: Install lib
         if: matrix.python-version == '3.9'
         run: |
           uv venv --python ${{ env.python-version }} wheel-test
-          uv pip install --python wheel-test/bin/python pyreaqtive-0.0.0-py3-none-any.whl PyQt5==5.15.7 pytest==7.2.1 pytest-cases==3.6.13 pytest-qt==4.2.0
+          uv pip install --python wheel-test/bin/python dist/pyreaqtive-*.whl
+          uv pip install --python wheel-test/bin/python PyQt5==5.15.7 pytest==7.2.1 pytest-cases==3.6.13 pytest-qt==4.2.0
           rm -rf pyreaqtive
 
       - name: Run Tests
@@ -94,12 +82,12 @@ jobs:
       - name: Build Docs
         if: matrix.python-version == '3.8'
         run: |
-          ${{ env.venv }}/bin/python -m sphinx -W -b html doc/source doc/build
+          uv run --python ${{ env.python-version }} sphinx-build -W -b html doc/source doc/build
 
   release:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/master'
+    if: github.repository == 'polfeliu/pyreaqtive' && github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -112,18 +100,69 @@ jobs:
 
       - name: Create virtual environment
         run: |
-          uv venv --python python3.9 .venv
+          uv python install 3.9
 
       - name: Install Dependencies
         run: |
-          uv pip install --python .venv/bin/python -r requirements-dev.txt
-          uv pip install --python .venv/bin/python -e .
+          uv sync --python 3.9 --extra dev --locked
 
-      - name: Build lib
+      - name: Build distributions
         run: |
-          .venv/bin/python setup.py sdist bdist_wheel
+          uv run --python 3.9 python -m build --sdist --wheel
+          test -n "$(find dist -maxdepth 1 -type f -name '*.tar.gz' -print -quit)"
+          test -n "$(find dist -maxdepth 1 -type f -name '*.whl' -print -quit)"
+          ls -lh dist
 
       - name: Publish to PyPi
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
+          packages-dir: dist/
           password: ${{ secrets.PYPI_API_TOKEN }}
+
+  private-build:
+    if: github.repository != 'polfeliu/pyreaqtive'
+    runs-on: [self-hosted, linux]
+    container:
+      image: localhost:5000/python-ci:latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
+    env:
+      python-version: ${{ matrix.python-version }}
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: |
+          uv python install ${{ env.python-version }}
+          uv sync --python ${{ env.python-version }} --extra dev --locked
+
+      - name: Run mypy
+        if: matrix.python-version == '3.10'
+        run: uv run --python ${{ env.python-version }} mypy --package pyreaqtive --package tests --config-file mypy.ini
+
+      - name: Run pylint
+        if: matrix.python-version == '3.10'
+        run: uv run --python ${{ env.python-version }} pylint pyreaqtive tests --rcfile=.pylintrc
+
+      - name: Run pydocstyle
+        if: matrix.python-version == '3.10'
+        run: uv run --python ${{ env.python-version }} pydocstyle pyreaqtive --config=.pydocstyle.ini
+
+      - name: Run tests with coverage
+        run: uv run --python ${{ env.python-version }} pytest --cov pyreaqtive --cov-branch --cov-report term-missing --cov-fail-under=100
+
+      - name: Build package
+        if: matrix.python-version == '3.9'
+        run: uv run --python ${{ env.python-version }} python -m build
+
+      - name: Build documentation
+        if: matrix.python-version == '3.8'
+        run: uv run --python ${{ env.python-version }} sphinx-build -W -b html doc/source doc/build

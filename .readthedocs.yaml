@@ -2,11 +2,15 @@
 
 version: 2
 
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "latest"
+
 sphinx:
   configuration: doc/source/conf.py
   fail_on_warning: true
 
 python:
-  version: "3.8"
   install:
     - requirements: doc/source/rtd_requirements.txt
