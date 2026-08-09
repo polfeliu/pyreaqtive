@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=65.7", "wheel>=0.38"]
+requires = ["setuptools>=65.7,<80", "setuptools-scm>=8,<9", "wheel>=0.38"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyreaqtive"
-version = "1.4.4dev"
+dynamic = ["version"]
 description = "PyQt Reactive Framework"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -53,3 +53,5 @@ include = ["pyreaqtive", "pyreaqtive.*"]
 
 [tool.setuptools.package-data]
 pyreaqtive = ["py.typed"]
+
+[tool.setuptools_scm]

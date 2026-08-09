@@ -1778,7 +1778,6 @@ wheels = [
 
 [[package]]
 name = "pyreaqtive"
-version = "1.4.4.dev0"
 source = { editable = "." }
 dependencies = [
     { name = "qtpy", version = "2.0.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
