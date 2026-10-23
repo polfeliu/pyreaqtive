@@ -23,10 +23,11 @@ jobs:
       QT_QPA_PLATFORM: offscreen
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: true
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
@@ -35,21 +36,6 @@ jobs:
         run: |
           uv python install ${{ env.python-version }}
           uv sync --python ${{ env.python-version }} --extra dev --locked
-
-      - name: Run mypy
-        if: matrix.python-version == '3.10'
-        run: |
-          uv run --python ${{ env.python-version }} mypy --package pyreaqtive --package tests --config-file mypy.ini
-
-      - name: Run pylint
-        if: matrix.python-version == '3.10'
-        run: |
-          uv run --python ${{ env.python-version }} pylint pyreaqtive tests --rcfile=.pylintrc
-
-      - name: Run pydocstyle
-        if: matrix.python-version == '3.10'
-        run: |
-          uv run --python ${{ env.python-version }} pydocstyle pyreaqtive --config=.pydocstyle.ini
 
       - name: Run Tests with coverage
         run: |
@@ -85,9 +71,37 @@ jobs:
         run: |
           uv run --python ${{ env.python-version }} sphinx-build -W -b html doc/source doc/build
 
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      python-version: '3.10'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: true
+          persist-credentials: false
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install Dependencies
+        run: |
+          uv python install ${{ env.python-version }}
+          uv sync --python ${{ env.python-version }} --extra dev --locked
+
+      - name: Run mypy
+        run: uv run --python ${{ env.python-version }} mypy --package pyreaqtive --package tests --config-file mypy.ini
+
+      - name: Run pylint
+        run: uv run --python ${{ env.python-version }} pylint pyreaqtive tests --rcfile=.pylintrc
+
+      - name: Run pydocstyle
+        run: uv run --python ${{ env.python-version }} pydocstyle pyreaqtive --config=.pydocstyle.ini
+
   release:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, lint]
     if: github.repository == 'polfeliu/pyreaqtive' && github.ref_type == 'tag'
     steps:
       - uses: actions/checkout@v4
@@ -131,7 +145,7 @@ jobs:
     if: github.repository != 'polfeliu/pyreaqtive'
     runs-on: [self-hosted, linux]
     container:
-      image: localhost:5000/python-ci:latest
+      image: localhost:5000/node-ci:latest
     strategy:
       matrix:
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
@@ -140,9 +154,10 @@ jobs:
       QT_QPA_PLATFORM: offscreen
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: true
+          persist-credentials: false
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
@@ -151,18 +166,6 @@ jobs:
         run: |
           uv python install ${{ env.python-version }}
           uv sync --python ${{ env.python-version }} --extra dev --locked
-
-      - name: Run mypy
-        if: matrix.python-version == '3.10'
-        run: uv run --python ${{ env.python-version }} mypy --package pyreaqtive --package tests --config-file mypy.ini
-
-      - name: Run pylint
-        if: matrix.python-version == '3.10'
-        run: uv run --python ${{ env.python-version }} pylint pyreaqtive tests --rcfile=.pylintrc
-
-      - name: Run pydocstyle
-        if: matrix.python-version == '3.10'
-        run: uv run --python ${{ env.python-version }} pydocstyle pyreaqtive --config=.pydocstyle.ini
 
       - name: Run tests with coverage
         run: uv run --python ${{ env.python-version }} pytest --cov pyreaqtive --cov-branch --cov-report term-missing --cov-fail-under=100
@@ -174,3 +177,34 @@ jobs:
       - name: Build documentation
         if: matrix.python-version == '3.8'
         run: uv run --python ${{ env.python-version }} sphinx-build -W -b html doc/source doc/build
+
+  private-lint:
+    if: github.repository != 'polfeliu/pyreaqtive'
+    runs-on: [self-hosted, linux]
+    container:
+      image: localhost:5000/node-ci:latest
+    env:
+      python-version: '3.10'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: true
+          persist-credentials: false
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: |
+          uv python install ${{ env.python-version }}
+          uv sync --python ${{ env.python-version }} --extra dev --locked
+
+      - name: Run mypy
+        run: uv run --python ${{ env.python-version }} mypy --package pyreaqtive --package tests --config-file mypy.ini
+
+      - name: Run pylint
+        run: uv run --python ${{ env.python-version }} pylint pyreaqtive tests --rcfile=.pylintrc
+
+      - name: Run pydocstyle
+        run: uv run --python ${{ env.python-version }} pydocstyle pyreaqtive --config=.pydocstyle.ini
